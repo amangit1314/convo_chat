@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Onboard2Screen extends StatelessWidget {
-  const Onboard2Screen({ Key? key }) : super(key: key);
+class GroupChatScreen extends StatelessWidget {
+  const GroupChatScreen({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

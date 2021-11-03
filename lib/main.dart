@@ -17,11 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Onboard1Screen(),
       initialRoute: 'O1Screen',
       routes: {
         'O1Screen': (context) => Onboard1Screen(),
-        'O2Screen': (context) => Onboard2Screen(),
+        // 'O2Screen': (context) => Onboard2Screen(),
       },
     );
   }

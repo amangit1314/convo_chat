@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Onboard2Screen extends StatelessWidget {
-  const Onboard2Screen({ Key? key }) : super(key: key);
+class Profile extends StatelessWidget {
+  const Profile({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
