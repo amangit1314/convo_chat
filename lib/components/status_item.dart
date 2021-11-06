@@ -1,11 +1,12 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class StatusItem extends StatelessWidget {
-  late final String avatarImg;
-  late final String text;
+  final String avatarImg;
+  final String text;
 
-  // ignore: non_constant_identifier_names
-  StatusItem({Key? key, required this.avatarImg, required this.text});
+  const StatusItem({Key? key, required this.avatarImg, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +14,11 @@ class StatusItem extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
       child: Column(
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage
-              avatarImg,
-            ),
+          const CircleAvatar(
+            backgroundImage: AssetImage(""),
+            radius: 50,
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(text),
         ],
       ),

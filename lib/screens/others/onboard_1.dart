@@ -32,16 +32,18 @@ class Onboard1Screen extends StatelessWidget {
                     children: [
                       Image.asset('assets/convo_logo.png'),
                       Column(
-                        children: [
+                        children: const [
                           SizedBox(
                             height: 130,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 64.0),
+                            padding: EdgeInsets.only(left: 64.0),
                             child: Text(
                               'Convo',
-                              style:
-                                  TextStyle(fontSize: 30, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontFamily: 'PT Sans'),
                             ),
                           ),
                         ],
@@ -50,52 +52,52 @@ class Onboard1Screen extends StatelessWidget {
                   ),
                   heightFactor: 2.45,
                 ),
-                Text(
+                const Text(
                   'Freely chat with anyone!',
                   style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey,
-                  ),
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                      fontFamily: 'PT Sans'),
                 ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 35.0, right: 35.0),
+                const SizedBox(height: 15),
+                const Padding(
+                  padding: EdgeInsets.only(left: 35.0, right: 35.0),
                   child: Text(
                     'A secured and beautiful app to experience chat with friends,family and contacts.',
                     style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontFamily: 'PT Sans'),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 GestureDetector(
                   child: Container(
                     height: 51,
                     width: MediaQuery.of(context).size.width * .8,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color(0xffffffff),
-                      boxShadow: [
+                      color: const Color(0xffffffff),
+                      boxShadow: const [
                         BoxShadow(color: Color(0x8C83BDFF), blurRadius: 4)
                       ],
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "Get Started",
                         style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            fontFamily: 'PT Sans'),
                       ),
                     ),
                   ),
                   onTap: () {
-                    Get.to(Home());
+                    Get.to(const Home());
                   },
                 )
               ],
