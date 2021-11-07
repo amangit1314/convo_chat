@@ -5,24 +5,23 @@ import 'package:get/get.dart';
 
 class Onboard1Screen extends StatelessWidget {
   const Onboard1Screen({Key? key}) : super(key: key);
-  final String assetName = 'assets/download.png';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff22211f),
+      // backgroundColor: Color(0xff22211f),
       body: Stack(
         children: [
           Image.asset(
-            assetName,
+            'assets/images/download.png',
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.cover,
           ),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xff22211f),
             ),
             child: Column(
@@ -30,50 +29,50 @@ class Onboard1Screen extends StatelessWidget {
                 Center(
                   child: Stack(
                     children: [
-                      Image.asset('assets/convo_logo.png'),
+                      Image.asset('assets/images/convo_logo.png'),
                       Column(
                         children: const [
                           SizedBox(
                             height: 130,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 64.0),
+                            padding: EdgeInsets.only(left: 53.0),
                             child: Text(
                               'Convo',
                               style: TextStyle(
                                   fontSize: 30,
                                   color: Colors.white,
-                                  fontFamily: 'PT Sans'),
+                                  fontFamily: 'Poppins'),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  heightFactor: 2.45,
+                  heightFactor: 2.4,
                 ),
                 const Text(
                   'Freely chat with anyone!',
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey,
-                      fontFamily: 'PT Sans'),
+                      fontFamily: 'Poppins'),
                 ),
                 const SizedBox(height: 15),
                 const Padding(
-                  padding: EdgeInsets.only(left: 35.0, right: 35.0),
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Text(
-                    'A secured and beautiful app to experience chat with friends,family and contacts.',
+                    'A secured and beautiful app to chat with friends, family and contacts.',
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
-                        fontFamily: 'PT Sans'),
+                        fontFamily: 'Poppins'),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
                 GestureDetector(
                   child: Container(
                     height: 51,
@@ -81,23 +80,27 @@ class Onboard1Screen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: const Color(0xffffffff),
-                      boxShadow: const [
-                        BoxShadow(color: Color(0x8C83BDFF), blurRadius: 4)
-                      ],
+                      // boxShadow: const [
+                      //   BoxShadow(color: Color(0x8C83BDFF), blurRadius: 4)
+                      // ],
                     ),
                     child: const Center(
                       child: Text(
                         "Get Started",
                         style: TextStyle(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            fontFamily: 'PT Sans'),
+                            fontFamily: 'Poppins'),
                       ),
                     ),
                   ),
                   onTap: () {
-                    Get.to(const Home());
+                    Get.to(
+                      const Home(
+                        child: MyDrawer(),
+                      ),
+                    );
                   },
                 )
               ],

@@ -9,11 +9,11 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  cloud_firestore: ^2.4.0
+  # cloud_firestore: ^2.4.0
   cupertino_icons: ^1.0.2
-  firebase_auth: ^3.0.1
-  firebase_core: ^1.4.0
-  firebase_messaging: ^10.0.4
+  # firebase_auth: ^3.0.1
+  # firebase_core: ^1.4.0
+  # firebase_messaging: ^10.0.4
   flutter:
     sdk: flutter
   flutter_svg: ^0.23.0+1
@@ -33,9 +33,19 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/images/
+    - assets/others/
+    - assets/svg/
+    - assets/fonts/
   fonts:
     - family: PT Sans
       fonts:
         - asset: assets/fonts/PTSans-Regular.ttf
         - asset: assets/fonts/PTSans-Bold.ttf
           weight: 700
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf

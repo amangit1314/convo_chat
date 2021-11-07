@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class StatusItem extends StatelessWidget {
-  final String avatarImg;
+  final AssetImage avatarImg;
   final String text;
 
   const StatusItem({Key? key, required this.avatarImg, required this.text});
@@ -14,9 +14,9 @@ class StatusItem extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
       child: Column(
         children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage(""),
-            radius: 50,
+          CircleAvatar(
+            backgroundImage: avatarImg,
+            radius: 30,
           ),
           const SizedBox(height: 5),
           Text(text),
