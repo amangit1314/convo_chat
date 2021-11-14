@@ -1,6 +1,11 @@
+import 'package:convo_chat/components/chat_item.dart';
 import 'package:convo_chat/components/status_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'my_drawer.dart';
 
 class Home extends StatefulWidget {
   final Widget child;
@@ -14,8 +19,7 @@ class Home extends StatefulWidget {
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<Home>
-    with SingleTickerProviderStateMixin {
+class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   static const Duration toggleDuration = Duration(milliseconds: 250);
   static const double maxSlide = 225;
   static const double minDragStartEdge = 60;
@@ -61,6 +65,7 @@ class HomeState extends State<Home>
         child: AnimatedBuilder(
           animation: _animationController,
           child: Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
               leading: Builder(
                 builder: (context) => IconButton(
@@ -81,68 +86,159 @@ class HomeState extends State<Home>
               ],
               title: const Text(
                 "Messages",
-                style: TextStyle(color: Colors.black, fontSize: 25),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600),
               ),
               centerTitle: true,
             ),
-            body: Column(
-              children: [
-                SingleChildScrollView(
-                  clipBehavior: Clip.hardEdge,
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: const [
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/1.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/2.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/3.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/4.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/5.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/6.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/7.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/8.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/1.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/2.jpg')),
-                      StatusItem(
-                          text: "Add New",
-                          avatarImg: AssetImage('assets/images/3.jpg')),
-                    ],
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                    clipBehavior: Clip.hardEdge,
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: Row(
+                        children: const [
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/1.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/2.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/3.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/4.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/5.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/6.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/7.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/8.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/9.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/10.jpg')),
+                          StatusItem(
+                              text: "Add New",
+                              avatarImg: AssetImage('assets/images/11.jpg')),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  "Chats",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Chats",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  clipBehavior: Clip.hardEdge,
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 15.0, right: 15.0, bottom: 10.0),
+                      child: Column(
+                        children: const [
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/7.jpg'),
+                            personName: "Rohit Saini",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/8.jpg'),
+                            personName: "Andrew Sing",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/4.jpg'),
+                            personName: "Mohit Soni",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/2.jpg'),
+                            personName: "Harsh Garg",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/6.jpg'),
+                            personName: "Ben Stokes",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/1.jpg'),
+                            personName: "Virat Kohli",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/3.jpg'),
+                            personName: "Sania Mirza",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/11.jpg'),
+                            personName: "Mahesh Bhat",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/12.jpg'),
+                            personName: "Rony Kapoor",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/13.jpg'),
+                            personName: "Amit Tandon",
+                            personTime: "10:45 am",
+                          ),
+                          SizedBox(height: 10),
+                          ChatItem(
+                            lastMessage: "Hi Myself Rohit!",
+                            personDpImg: AssetImage('assets/images/5.jpg'),
+                            personName: "Radhe Radhe",
+                            personTime: "10:45 am",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           builder: (context, child) {
@@ -203,51 +299,5 @@ class HomeState extends State<Home>
     } else {
       open();
     }
-  }
-}
-
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.blueAccent,
-      child: SafeArea(
-        child: Theme(
-          data: ThemeData(brightness: Brightness.dark),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Image.asset(
-                'assets/images/download.png',
-                width: 200,
-              ),
-              const ListTile(
-                leading: Icon(Icons.new_releases),
-                title: Text('News'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.star),
-                title: Text('Favourites'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.map),
-                title: Text('Map'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Profile'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

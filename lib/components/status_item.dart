@@ -19,7 +19,10 @@ class StatusItem extends StatelessWidget {
             radius: 30,
           ),
           const SizedBox(height: 5),
-          Text(text),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 10, fontFamily: 'Poppins'),
+          ),
         ],
       ),
     );
