@@ -103,9 +103,10 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       padding: const EdgeInsets.only(right: 20.0),
                       child: Row(
                         children: const [
+                          // AddStatusItem(),
                           StatusItem(
                               text: "Add New",
-                              avatarImg: AssetImage('assets/images/1.jpg')),
+                              avatarImg: AssetImage('assets/images/13.jpg')),
                           StatusItem(
                               text: "Add New",
                               avatarImg: AssetImage('assets/images/2.jpg')),

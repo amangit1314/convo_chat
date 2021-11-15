@@ -1,12 +1,14 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 
 class StatusItem extends StatelessWidget {
   final AssetImage avatarImg;
   final String text;
 
-  const StatusItem({Key? key, required this.avatarImg, required this.text});
+  const StatusItem({
+    Key? key,
+    required this.avatarImg,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
