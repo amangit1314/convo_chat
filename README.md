@@ -1,8 +1,4 @@
-# convo_chat
-
-A new Flutter project.
-
-## Getting Started.
+## Convo Chat Application
 
 This project is a starting point for a Flutter application.
 
