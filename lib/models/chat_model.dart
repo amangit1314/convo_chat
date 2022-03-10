@@ -1,8 +1,8 @@
 class Chat {
-  late final String sender;
-  late final String message;
-  late final String receiver;
-  late final double time;
+  final String sender;
+  final String message;
+  final String receiver;
+  final double time;
   final bool isRead;
 
   Chat({
@@ -12,4 +12,11 @@ class Chat {
     required this.time,
     required this.isRead,
   });
+  Map<String, dynamic> toJson() => {
+        'sender': sender,
+        'receiver': receiver,
+        'message': message,
+        'time': time,
+        'isRead': isRead,
+      };
 }

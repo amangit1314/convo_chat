@@ -7,14 +7,22 @@ class User {
   late final String location;
   late final String number;
 
-  User({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.avatarUrl,
-    required this.bio,
-    required this.location,
-    required this.number
+  User(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.avatarUrl,
+      required this.bio,
+      required this.location,
+      required this.number});
 
-  });
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'email': email,
+        'avatarUrl': avatarUrl,
+        'bio': bio,
+        'location': location,
+        'number': number,
+      };
 }
