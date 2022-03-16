@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "982105301472",
+    "project_id": "convo-chat-fe48f",
+    "storage_bucket": "convo-chat-fe48f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982105301472:android:86414b90da525b4fc08b85",
+        "android_client_info": {
+          "package_name": "com.hulk.convo_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

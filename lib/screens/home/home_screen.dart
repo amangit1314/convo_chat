@@ -1,8 +1,6 @@
-import 'package:convo_chat/components/chat_item.dart';
-import 'package:convo_chat/components/status_item.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:convo_chat/screens/home/components/another_scroll_view.dart';
+import 'package:convo_chat/screens/home/components/scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'my_drawer.dart';
@@ -95,54 +93,10 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
             ),
             body: SingleChildScrollView(
               child: Column(
-                children: [
-                  SingleChildScrollView(
-                    clipBehavior: Clip.hardEdge,
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: Row(
-                        children: const [
-                          // AddStatusItem(),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/13.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/2.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/3.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/4.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/5.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/6.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/7.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/8.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/9.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/10.jpg')),
-                          StatusItem(
-                              text: "Add New",
-                              avatarImg: AssetImage('assets/images/11.jpg')),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
+                children: const [
+                  ScroolView(),
+                  SizedBox(height: 10),
+                  Text(
                     "Chats",
                     style: TextStyle(
                       fontSize: 30,
@@ -150,94 +104,8 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15.0, right: 15.0, bottom: 10.0),
-                      child: Column(
-                        children: const [
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/7.jpg'),
-                            personName: "Rohit Saini",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/8.jpg'),
-                            personName: "Andrew Sing",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/4.jpg'),
-                            personName: "Mohit Soni",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/2.jpg'),
-                            personName: "Harsh Garg",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/6.jpg'),
-                            personName: "Ben Stokes",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/1.jpg'),
-                            personName: "Virat Kohli",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/3.jpg'),
-                            personName: "Sania Mirza",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/11.jpg'),
-                            personName: "Mahesh Bhat",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/12.jpg'),
-                            personName: "Rony Kapoor",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/13.jpg'),
-                            personName: "Amit Tandon",
-                            personTime: "10:45 am",
-                          ),
-                          SizedBox(height: 10),
-                          ChatItem(
-                            lastMessage: "Hi Myself Rohit!",
-                            personDpImg: AssetImage('assets/images/5.jpg'),
-                            personName: "Radhe Radhe",
-                            personTime: "10:45 am",
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  SizedBox(height: 20),
+                  AnotherScrollView(),
                 ],
               ),
             ),
