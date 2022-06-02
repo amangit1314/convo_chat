@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">982105301472</string>
+    <string name="google_api_key" translatable="false">AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU</string>
+    <string name="google_app_id" translatable="false">1:982105301472:android:86414b90da525b4fc08b85</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU</string>
+    <string name="google_storage_bucket" translatable="false">convo-chat-fe48f.appspot.com</string>
+    <string name="project_id" translatable="false">convo-chat-fe48f</string>
+</resources>

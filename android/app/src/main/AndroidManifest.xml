@@ -1,6 +1,6 @@
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.hulk.convo_chat"
+  package="com.example.convo_chat"
 >
    <application android:label="convo_chat" android:icon="@mipmap/ic_launcher">
         <activity
