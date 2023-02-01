@@ -1,4 +1,4 @@
-import 'package:convo_chat/features/auth/data/services/auth_methods.dart';
+import 'package:convo_chat/data/services/auth_methods.dart';
 import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

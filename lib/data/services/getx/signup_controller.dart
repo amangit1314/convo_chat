@@ -2,9 +2,9 @@ import 'package:convo_chat/features/auth/presentation/login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../domain/models/user_model.dart';
-import '../repository/authentication_repository.dart';
-import '../repository/user_repository.dart';
+import '../../../features/auth/domain/models/user_model.dart';
+import 'authentication_repository.dart';
+import 'user_repository.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();

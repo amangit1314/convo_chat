@@ -1,16 +1,14 @@
 // import 'package:convo_chat/domain/models/user_model.dart';
-import 'package:convo_chat/features/auth/data/services/auth_methods.dart';
+import 'package:convo_chat/data/services/auth_methods.dart';
 import 'package:convo_chat/features/auth/presentation/login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 
 import '../../../../../core/components/custom_btn.dart';
 import '../../../../../core/components/custom_text.dart';
 import '../../../../../core/components/text_field_input.dart';
-import '../../../data/controller/signup_controller.dart';
-import '../../../domain/models/user_model.dart';
 
 // import '../../../domain/reposittory/auth_repository.dart';
 // ConsumerStatefulWidget
@@ -31,7 +29,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
       RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final List<String> errors = [];
 
-  final controller = Get.put(SignUpController());
+  // final controller = Get.put(SignUpController());
 
   @override
   void initState() {
@@ -63,24 +61,24 @@ class _RegisterationFormState extends State<RegisterationForm> {
   }
 
   void registerUser() async {
-    final user = UserModel(
-      email: controller.email.text.trim(),
-      name: controller.userName.text.trim(),
-      number: controller.phoneNo.text.trim(),
-      password: controller.password.text.trim(),
-    );
+    // final user = UserModel(
+    //   // email: controller.email.text.trim(),
+    //   // name: controller.userName.text.trim(),
+    //   // number: controller.phoneNo.text.trim(),
+    //   // password: controller.password.text.trim(),
+    // );
 
     if (formKey.currentState!.validate()) {
-      SignUpController.instance.createUser(user);
+      // SignUpController.instance.createUser(user);
 
       String res = await AuthMethods().registerUser(
-        // email: _emailController.text.trim(),
-        // password: _passwordController.text.trim(),
-        // fullName: _emailController.text.trim(),
-        email: controller.email.text.trim(),
-        fullName: controller.userName.text.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+        fullName: _emailController.text.trim(),
+        // email: controller.email.text.trim(),
+        // fullName: controller.userName.text.trim(),
         //number: controller.phoneNo.text.trim(),
-        password: controller.password.text.trim(),
+        // password: controller.password.text.trim(),
       );
 
       if (res == 'success') {
@@ -162,7 +160,8 @@ class _RegisterationFormState extends State<RegisterationForm> {
 
   TextFieldInput buildPasswordFormField() {
     return TextFieldInput(
-      textEditingController: controller.password,
+      // textEditingController: controller.password,
+      textEditingController: _passwordController,
       hintText: 'Password',
       preIcon: const Icon(CupertinoIcons.lock),
       suffixicon: IconButton(
@@ -202,7 +201,8 @@ class _RegisterationFormState extends State<RegisterationForm> {
 
   TextFieldInput buildEmailFormField() {
     return TextFieldInput(
-      textEditingController: controller.email,
+      // textEditingController: controller.email,
+      textEditingController: _emailController,
       preIcon: const Icon(CupertinoIcons.mail),
       hintText: 'Email',
       textInputType: TextInputType.emailAddress,
