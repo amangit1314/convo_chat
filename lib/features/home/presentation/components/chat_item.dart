@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'profile_pic_section.dart';
+import '../../../../core/components/profile_pic_section.dart';
 
 class ChatItem extends StatefulWidget {
   final AssetImage personDpImg;
@@ -29,7 +29,7 @@ class _ChatItemState extends State<ChatItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.only(right: 8),
         height: 100,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(color: Colors.white),

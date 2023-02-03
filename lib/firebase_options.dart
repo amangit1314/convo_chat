@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,40 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB6LkpxFhpvfrpEbOYOq1yAHeJpT9xi88s',
-    appId: '1:982105301472:web:9c66bd338f0d2d3cc08b85',
-    messagingSenderId: '982105301472',
-    projectId: 'convo-chat-fe48f',
-    authDomain: 'convo-chat-fe48f.firebaseapp.com',
-    storageBucket: 'convo-chat-fe48f.appspot.com',
-    measurementId: 'G-X6GH85VVVT',
+    apiKey: 'AIzaSyCi5VKmhp8OLu7-qFdLdTEZlGeXl0_mj1I',
+    appId: '1:261739528222:web:41c978e26aadb7d2d1ae0f',
+    messagingSenderId: '261739528222',
+    projectId: 'convo-chat-2023',
+    authDomain: 'convo-chat-2023.firebaseapp.com',
+    storageBucket: 'convo-chat-2023.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU',
-    appId: '1:982105301472:android:c383c080a9af5569c08b85',
-    messagingSenderId: '982105301472',
-    projectId: 'convo-chat-fe48f',
-    storageBucket: 'convo-chat-fe48f.appspot.com',
+    apiKey: 'AIzaSyC0g-fCHFlV5gT9tO5u2q40cRmckGFVXo0',
+    appId: '1:261739528222:android:991bebaaa5a9289bd1ae0f',
+    messagingSenderId: '261739528222',
+    projectId: 'convo-chat-2023',
+    storageBucket: 'convo-chat-2023.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBGXKYtJoOMGVS4NCX3rw6O6fIzd2caWro',
-    appId: '1:982105301472:ios:63b3e868baf3f3cdc08b85',
-    messagingSenderId: '982105301472',
-    projectId: 'convo-chat-fe48f',
-    storageBucket: 'convo-chat-fe48f.appspot.com',
-    iosClientId: '982105301472-n82h2ipf0d1giklojkldhf8q9ro1i16i.apps.googleusercontent.com',
-    iosBundleId: 'com.example.convoChat',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBGXKYtJoOMGVS4NCX3rw6O6fIzd2caWro',
-    appId: '1:982105301472:ios:63b3e868baf3f3cdc08b85',
-    messagingSenderId: '982105301472',
-    projectId: 'convo-chat-fe48f',
-    storageBucket: 'convo-chat-fe48f.appspot.com',
-    iosClientId: '982105301472-n82h2ipf0d1giklojkldhf8q9ro1i16i.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDWXipYov4Cizap66mavYAcV8LpdqYA-NQ',
+    appId: '1:261739528222:ios:6a6315f46129afd8d1ae0f',
+    messagingSenderId: '261739528222',
+    projectId: 'convo-chat-2023',
+    storageBucket: 'convo-chat-2023.appspot.com',
+    iosClientId: '261739528222-b45t1n4a3gbtgp361ppeuhje55oh4f4q.apps.googleusercontent.com',
     iosBundleId: 'com.example.convoChat',
   );
 }

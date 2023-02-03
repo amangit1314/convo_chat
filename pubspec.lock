@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      sha256: "0b0036e8cccbfbe0555fd83c1d31a6f30b77a96b598b35a5d36dd41f718695e9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3+4"
   crypto:
     dependency: transitive
     description:
@@ -89,6 +97,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  cupertino_list_tile:
+    dependency: transitive
+    description:
+      name: cupertino_list_tile
+      sha256: "081745577503a526b46feba753a53d7b0ba51196192c30097685f3f30297052f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1+1"
+  cupertino_progress_bar:
+    dependency: transitive
+    description:
+      name: cupertino_progress_bar
+      sha256: "4962a7c6db9b94d1c19462ad6036fdf20db43defa4114c908a3c4cbef1b3a2e0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  cupertino_stepper:
+    dependency: transitive
+    description:
+      name: cupertino_stepper
+      sha256: "124690b8b23db7b43fc6d547688e42a9f3d73c8f46d0b210568e98a04b5645b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
+  enough_giphy:
+    dependency: transitive
+    description:
+      name: enough_giphy
+      sha256: e6dc82bc2cf9acb2ccb5202060bec809c6bf900a8281186f183874c5c97528c1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  enough_giphy_flutter:
+    dependency: "direct main"
+    description:
+      name: enough_giphy_flutter
+      sha256: e041096e3d740834ce0588bd1ee59baa0597c7dda98c9f85ebb5fbaca1e9c911
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
+  enough_platform_widgets:
+    dependency: transitive
+    description:
+      name: enough_platform_widgets
+      sha256: "0678a2332f253b78a92fbebb291370a8fd8fce7350663da4ef294cf96cceab3f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   fake_async:
     dependency: transitive
     description:
@@ -198,6 +254,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_platform_widgets:
+    dependency: transitive
+    description:
+      name: flutter_platform_widgets
+      sha256: "81c7d0510532db7616927e75a1733d63c5f7791ca1908c83361165b18b191f5f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.20.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: "60fc7b78455b94e6de2333d2f95196d32cf5c22f4b0b0520a628804cb463503b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -320,6 +392,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      sha256: f98d76672d309c8b7030c323b3394669e122d52b307d2bbd8d06bd70f5b2aabe
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.6+1"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      sha256: b1cbfec0f5aef427a18eb573f5445af8c9c568626bf3388553e40c263d3f7368
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.5+5"
+  image_picker_for_web:
+    dependency: transitive
+    description:
+      name: image_picker_for_web
+      sha256: "7d319fb74955ca46d9bf7011497860e3923bb67feebcf068f489311065863899"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.10"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      sha256: "39c013200046d14c58b71dc4fa3d00e425fc9c699d589136cd3ca018727c0493"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.6+6"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      sha256: "7cef2f28f4f2fef99180f636c3d446b4ccbafd6ba0fad2adc9a80c4040f656b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.2"
   intl:
     dependency: transitive
     description:

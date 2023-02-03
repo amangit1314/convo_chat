@@ -1,5 +1,5 @@
 //import 'package:convo_chat/features/nav/presentation/nav_page.dart';
-import 'package:convo_chat/features/home/home_screen.dart';
+import 'package:convo_chat/features/home/presentation/home_screen.dart';
 import 'package:convo_chat/features/onboard/presentation/onboard_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

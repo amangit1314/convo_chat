@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/components/loading_widget.dart';
+
 class GroupMembersList extends StatefulWidget {
   final Stream? members;
   const GroupMembersList({super.key, this.members});
@@ -75,11 +77,8 @@ class _GroupMembersListState extends State<GroupMembersList> {
             return const Center(child: Text("NO MEMBERS"));
           }
         } else {
-          return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).primaryColor,
-            ),
-          );
+          return LoadingWidget(
+              color: Theme.of(context).primaryColor, isCenter: true);
         }
       },
     );

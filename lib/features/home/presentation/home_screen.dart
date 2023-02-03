@@ -1,4 +1,4 @@
-import 'package:convo_chat/features/home/components/body.dart';
+import 'package:convo_chat/features/home/presentation/components/body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
