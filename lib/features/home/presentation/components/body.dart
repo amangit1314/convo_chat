@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'conversations_list_view.dart';
 
 class Body extends StatelessWidget {
+  // final VoidCallback? onTap;, this.onTap
   const Body({Key? key}) : super(key: key);
 
   @override

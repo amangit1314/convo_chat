@@ -1,11 +1,6 @@
-import 'package:convo_chat/data/services/auth_methods.dart';
-import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../core/components/custom_btn.dart';
 import '../../../../../core/components/custom_text.dart';
 import '../../../../../core/components/text_field_input.dart';
 
@@ -67,52 +62,85 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 20),
           buildPasswordFormField(),
           const SizedBox(height: 15),
-          Row(
-            children: const [
-              Spacer(),
-              Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: MyText(text: 'forgot password?', fontSize: 13),
+
+          // CustomBtn(
+          //   text: 'Login',
+          //   press: () {
+          //     AuthMethods()
+          //         .loginUser(
+          //           email: _emailController.text,
+          //           password: _passwordController.text,
+          //         )
+          //         .then(
+          //           (value) => Navigator.of(context).pushReplacement(
+          //             MaterialPageRoute(
+          //               builder: (context) => const BottomNav(),
+          //             ),
+          //           ),
+          //         )
+          //         .catchError((e) => Get.snackbar(
+          //               "error",
+          //               e.toString(),
+          //               snackPosition: SnackPosition.BOTTOM,
+          //               backgroundColor: Colors.red,
+          //               colorText: Colors.white,
+          //             ));
+          //   },
+          //   // press: () => ref.read(authRepositoryProvider).loginUser(
+          //   //       context: context,
+          //   //       email: _emailController.text,
+          //   //       password: _passwordController.text,
+          //   //     ),
+          //   color: const Color(0xff2D2B2B),
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 55,
+          //   textColor: Colors.white,
+          //   fontSize: 17,
+          //   fontWeight: FontWeight.normal,
+          //   borderRadius: 10,
+          // ),
+          Container(
+            width: double.maxFinite,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color(0xff2D2B2B),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: MaterialButton(
+              child: const Text(
+                "Login",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ],
+              onPressed: () {
+                // AuthMethods()
+                //     .loginUser(
+                //       context: context,
+                //       email: _emailController.text,
+                //       password: _passwordController.text,
+                //     )
+                //     .then(
+                //       (value) => Navigator.of(context).pushReplacement(
+                //         MaterialPageRoute(
+                //           builder: (context) => const BottomNav(),
+                //         ),
+                //       ),
+                //     )
+                //     .catchError(
+                //       (e) => showErrorSnackBar(
+                //         context,
+                //         e.toString(),
+                //       ),
+                //     );
+              },
+            ),
           ),
+
           const SizedBox(height: 15),
-          CustomBtn(
-            text: 'Login',
-            press: () {
-              AuthMethods()
-                  .loginUser(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  )
-                  .then(
-                    (value) => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const BottomNav(),
-                      ),
-                    ),
-                  )
-                  .catchError((e) => Get.snackbar(
-                        "error",
-                        e.toString(),
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
-                      ));
-            },
-            // press: () => ref.read(authRepositoryProvider).loginUser(
-            //       context: context,
-            //       email: _emailController.text,
-            //       password: _passwordController.text,
-            //     ),
-            color: const Color(0xff2D2B2B),
-            width: MediaQuery.of(context).size.width,
-            height: 55,
-            textColor: Colors.white,
-            fontSize: 17,
-            fontWeight: FontWeight.normal,
-            borderRadius: 10,
-          ),
+          const MyText(text: 'forgot password?', fontSize: 13),
         ],
       ),
     );
@@ -122,7 +150,8 @@ class _LoginFormState extends State<LoginForm> {
     return TextFieldInput(
       textEditingController: _passwordController,
       hintText: 'Password',
-      preIcon: const Icon(CupertinoIcons.lock),
+      labelText: 'Password',
+      preIcon: const Icon(Icons.fingerprint),
       suffixicon: IconButton(
         icon: Icon(
           _passwordVisible ? Icons.visibility : Icons.visibility_off,
@@ -135,6 +164,7 @@ class _LoginFormState extends State<LoginForm> {
         },
       ),
       textInputType: TextInputType.text,
+      contentPadding: 22,
       isPass: true,
       onSaved: (newValue) => _passwordController.text = newValue!,
       onChanged: (value) {
@@ -162,7 +192,9 @@ class _LoginFormState extends State<LoginForm> {
     return TextFieldInput(
       textEditingController: _emailController,
       preIcon: const Icon(Icons.mail),
+      labelText: 'Email',
       hintText: 'Email',
+      contentPadding: 22,
       textInputType: TextInputType.emailAddress,
       onSaved: (newValue) => _emailController.text = newValue!,
       onChanged: (value) {

@@ -1,8 +1,7 @@
+import 'package:convo_chat/features/onboard/presentation/onboard_1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'features/nav/presentation/bottom_nav.dart';
 
 class ConvoApp extends StatelessWidget {
   const ConvoApp({Key? key}) : super(key: key);
@@ -19,10 +18,10 @@ class ConvoApp extends StatelessWidget {
       title: 'Convo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.deepPurple,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const BottomNav(),
+      home: const Onboard1Screen(),
       // home: StreamBuilder(
       //   stream: FirebaseAuth.instance.authStateChanges(),
       //   builder: ((context, snapshot) {
@@ -34,9 +33,10 @@ class ConvoApp extends StatelessWidget {
       //     } else if (snapshot.hasError) {
       //       showErrorSnackBar(context, snapshot.error.toString());
       //     }
-      //     return const LoginScreen();
+      //     return const Onboard1Screen();
       //   }),
       // ),
+
       // ),
     );
   }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../chat/one_to_one_chat_screen.dart';
 import '../../data/data.dart';
 import 'chat_item.dart';
 
 class ConversationsListView extends StatelessWidget {
-  const ConversationsListView({
-    Key? key,
-  }) : super(key: key);
+  const ConversationsListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,9 @@ class ConversationsListView extends StatelessWidget {
           // scrollDirection: Axis.vertical,
           itemCount: conversationsDummyData.length,
           itemBuilder: (context, index) {
-            return LocalChatItem(index: index);
+            return LocalChatItem(
+              index: index,
+            );
           },
         ),
       ),
@@ -29,11 +30,19 @@ class ConversationsListView extends StatelessWidget {
 
 class LocalChatItem extends StatelessWidget {
   final int index;
+
   const LocalChatItem({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ChatItem(
+      onTap: () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const OneToOneChatScreen(),
+          ),
+        );
+      },
       personDpImg: AssetImage(conversationsDummyData[index][0]),
       personName: conversationsDummyData[index][1],
       lastMessage: conversationsDummyData[index][2],

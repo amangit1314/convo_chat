@@ -1,10 +1,10 @@
-import 'package:convo_chat/core/utils/rive_utils.dart';
-import 'package:convo_chat/features/nav/models/rive_asset.dart';
-import 'package:convo_chat/features/nav/presentation/components/side_menu_tile.dart';
+import 'package:convo_chat/features/groups/presentation/groups_screen.dart';
+import 'package:convo_chat/features/home/presentation/home_screen.dart';
+import 'package:convo_chat/features/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rive/rive.dart';
 
+import '../../../auth/presentation/login/login_screen.dart';
 import 'info_card.dart';
 
 class SideMenuDrawer extends StatefulWidget {
@@ -15,7 +15,8 @@ class SideMenuDrawer extends StatefulWidget {
 }
 
 class _SideMenuDrawerState extends State<SideMenuDrawer> {
-  RiveAsset selectedMenu = sideMenus.first;
+  // RiveAsset selectedMenu = sideMenus.first;
+  // var selectedMenu = true;
 
   @override
   Widget build(BuildContext context) {
@@ -49,90 +50,185 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
                           .copyWith(color: Colors.white70),
                     ),
                   ),
-                  ...sideMenus.map(
-                    (menu) => SideMenuTile(
-                      menu: menu,
+
+                  SideBarMenuTile(
+                      title: 'Chats',
+                      icon: FontAwesomeIcons.message,
+                      // isActive: false,
                       press: () {
-                        menu.input!.change(true);
-                        Future.delayed(const Duration(seconds: 1), () {
-                          menu.input!.change(false);
-                        });
-                        setState(() {
-                          selectedMenu = menu;
-                        });
-                      },
-                      riveonInit: (artboard) {
-                        StateMachineController controller =
-                            RiveUtils.getRiveController(
-                          artboard,
-                          stateMachineName: menu.stateMachineName,
+                        // setState(() {
+                        //   selectedMenu = true;
+                        // });
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
                         );
-                        menu.input = controller.findSMI("active") as SMIBool;
-                      },
-                      isActive: selectedMenu == menu,
-                    ),
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  const Divider(color: Colors.white24, height: 1),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 24.0,
-                      top: 32,
-                      bottom: 16,
-                    ),
-                    child: Text(
-                      "History".toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.white70),
-                    ),
-                  ),
-                  ...sideMenus2.map(
-                    (menu) => SideMenuTile(
-                      menu: menu,
+                      }),
+                  SideBarMenuTile(
+                      title: 'Groups',
+                      icon: FontAwesomeIcons.peopleGroup,
+                      // isActive: false,
                       press: () {
-                        menu.input!.change(true);
-                        Future.delayed(const Duration(seconds: 1), () {
-                          menu.input!.change(false);
-                        });
-                        setState(() {
-                          selectedMenu = menu;
-                        });
-                      },
-                      riveonInit: (artboard) {
-                        StateMachineController controller =
-                            RiveUtils.getRiveController(
-                          artboard,
-                          stateMachineName: menu.stateMachineName,
+                        // setState(() {
+                        //   selectedMenu = true;
+                        // });
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const GroupsScreen(),
+                          ),
                         );
-                        menu.input = controller.findSMI("active") as SMIBool;
-                      },
-                      isActive: selectedMenu == menu,
-                    ),
-                  )
-                  // signout tile
-                  ,
-                  const ListTile(
-                    leading: FaIcon(
-                      FontAwesomeIcons.rightFromBracket,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    title: Text(
-                      "Sign Out",
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                  ),
+                      }),
+                  SideBarMenuTile(
+                      title: 'Calls',
+                      icon: FontAwesomeIcons.video,
+                      // isActive: false,
+                      press: () {
+                        // setState(() {
+                        //   selectedMenu = true;
+                        // });
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                      }),
+                  SideBarMenuTile(
+                      title: 'Profile',
+                      icon: FontAwesomeIcons.person,
+                      // isActive: false,
+                      press: () {
+                        // setState(() {
+                        //   selectedMenu = true;
+                        // });
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileScreen(),
+                          ),
+                        );
+                        // Navigator.of(context).pushNamed(menu[2]);
+                      }),
+                  SideBarMenuTile(
+                      title: 'Sign Out',
+                      icon: FontAwesomeIcons.arrowRightToBracket,
+                      // isActive: false,
+                      press: () {
+                        // setState(() {
+                        //   selectedMenu = true;
+                        // });
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      }),
+                  // ...sideMenus.map(
+                  //   (menu) => SideMenuTile(
+                  //     menu: menu,
+                  //     press: () {
+                  //       menu.input!.change(true);
+                  //       Future.delayed(const Duration(seconds: 1), () {
+                  //         menu.input!.change(false);
+                  //       });
+                  //       setState(() {
+                  //         selectedMenu = menu;
+                  //       });
+                  //     },
+                  // riveonInit: (artboard) {
+                  //   StateMachineController controller =
+                  //       RiveUtils.getRiveController(
+                  //     artboard,
+                  //     stateMachineName: menu.stateMachineName,
+                  //   );
+                  //   menu.input = controller.findSMI("active") as SMIBool;
+                  // },
+                  //     isActive: selectedMenu == menu,
+                  //   ),
+                  // )
+                  // ...navItems.map(
+                  //   (menu) => SideBarMenuTile(
+                  //     title: navItems[0][1],
+                  //     icon: navItems[0][0],
+                  //     isActive: selectedMenu == menu,
+                  //     press: () {
+                  //       setState(() {
+                  //         selectedMenu = menu;
+                  //       });
+                  //       Navigator.of(context).pushNamed(menu[2]);
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class SideBarMenuTile extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback press;
+  // final bool isActive;
+  final String title;
+
+  const SideBarMenuTile({
+    Key? key,
+    required this.icon,
+    required this.press,
+    // required this.isActive,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // AnimatedPositioned(
+        //   curve: Curves.fastOutSlowIn,
+        //   duration: const Duration(milliseconds: 300),
+        //   height: 56,
+        //   width: isActive ? 288 : 0,
+        //   child: Container(
+        //     decoration: const BoxDecoration(
+        //       color: Colors.deepPurpleAccent,
+        //       borderRadius: BorderRadius.all(Radius.circular(12)),
+        //     ),
+        //   ),
+        // ),
+        GestureDetector(
+          onTap: press,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                const SizedBox(width: 24),
+                SizedBox(
+                  height: 34,
+                  width: 34,
+                  child: FaIcon(
+                    icon,
+                    color: Colors.white.withOpacity(.85),
+                  ),
+                ),
+                const SizedBox(width: 24),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

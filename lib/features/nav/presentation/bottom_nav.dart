@@ -2,13 +2,11 @@ import 'dart:math';
 
 import 'package:convo_chat/features/nav/presentation/components/side_menu_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../core/utils/rive_utils.dart';
 import '../data/data.dart';
 import '../models/rive_asset.dart';
 import 'components/menu_drawer_button.dart';
-import 'components/sliding_indicator.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -242,59 +240,29 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 6.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ...List.generate(
-                      bottomNavs.length,
-                      (index) => GestureDetector(
-                        onTap: () {
-                          bottomNavs[index].input!.change(true);
-                          if (bottomNavs[index] != selectedBottomNav) {
-                            //selectedBottomNav.input!.change(false);
-                            selectedBottomNav = bottomNavs[index];
-                          }
-                          Future.delayed(const Duration(seconds: 1), () {
-                            bottomNavs[index].input!.change(false);
-                          });
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SlidingIndicator(
-                              isActive: bottomNavs[index] == selectedBottomNav,
-                            ),
-                            SizedBox(
-                              height: 36,
-                              width: 36,
-                              child: Opacity(
-                                opacity: selectedBottomNav == bottomNavs[index]
-                                    ? 1
-                                    : .5,
-                                child: RiveAnimation.asset(
-                                  bottomNavs.first.src,
-                                  artboard: bottomNavs[index].artboard,
-                                  onInit: (artboard) {
-                                    StateMachineController controller =
-                                        RiveUtils.getRiveController(
-                                      artboard,
-                                      stateMachineName:
-                                          bottomNavs[index].stateMachineName,
-                                    );
-
-                                    bottomNavs[index].input =
-                                        controller.findSMI("active") as SMIBool;
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
+                child: SizedBox(
+                    height: 36,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        FaIcon(
+                          FontAwesomeIcons.facebookMessenger,
+                          color: Colors.white,
                         ),
-                      ),
-                    ),
-                  ],
-                ),
+                        FaIcon(
+                          FontAwesomeIcons.peopleGroup,
+                          color: Colors.white,
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.phone,
+                          color: Colors.white,
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.circleUser,
+                          color: Colors.white,
+                        ),
+                      ],
+                    )),
               ),
             ),
           ),

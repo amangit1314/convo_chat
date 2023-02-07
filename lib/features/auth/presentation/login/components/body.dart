@@ -34,7 +34,7 @@ class _BodyState extends State<Body> {
     var height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: ListView(
           children: [
             // Container(
@@ -46,48 +46,55 @@ class _BodyState extends State<Body> {
             //     ),
             //   ),
             // ),
-            SizedBox(height: height * .15),
+            SizedBox(height: height * .08),
             const Text(
               'Login',
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 21,
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: height * .01),
+            SizedBox(height: height * .025),
             Text(
-              textAlign: TextAlign.center,
-              'Use your account to sign in and use this application, enjoy',
+              'Enter your credentials to sign in and \nchat freely with your contacts, enjoy',
+              textAlign: TextAlign.start,
               style: TextStyle(
-                fontSize: 16,
-                color: Colors.black.withOpacity(0.8),
+                fontSize: 15,
                 fontWeight: FontWeight.normal,
+                color: Colors.black.withOpacity(.8),
               ),
             ),
-            SizedBox(height: height * .08),
+            SizedBox(height: height * .04),
             const LoginForm(),
             SizedBox(height: height * .06),
+            Text(
+              "continue with social media",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: Colors.black54),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .03,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  //onTap: () => navigateToGenerateOtpScreen(),
-                  child: CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Colors.grey[200],
-                    child: const FaIcon(
-                      FontAwesomeIcons.phone,
-                      color: Color(0xff2D2B2B),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 25),
-                GestureDetector(
-                  // onTap: () => ref
-                  //     .read(authRepositoryProvider)
-                  //     .signInWithGoogle(context),
+                  onTap: () {
+                    // try {
+                    //   ref
+                    //       .read(authRepositoryProvider)
+                    //       .signInWithGoogle(context);
+                    // } catch (e) {
+                    //   if (e is FirebaseAuthException) {
+                    //     SnackBar(content: Text(e.message!));
+                    //   }
+                    // }
+                  },
                   child: CircleAvatar(
                     radius: 22,
                     backgroundColor: Colors.grey[200],
@@ -97,26 +104,59 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .05,
+                ),
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: Colors.grey[200],
+                  child: const FaIcon(
+                    FontAwesomeIcons.apple,
+                    color: Color(0xff2D2B2B),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .05,
+                ),
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: Colors.grey[200],
+                  child: const FaIcon(
+                    FontAwesomeIcons.phone,
+                    color: Color(0xff2D2B2B),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: height * .01),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .05,
+            ),
+            const Divider(height: 1),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .01,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const MyText(
-                  text: 'Don`t have account?',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
+                  text: 'Don\'t have an account?',
+                  fontSize: 12,
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 2),
                 TextButton(
                   child: const MyText(
-                    text: 'Sign Up',
-                    color: Colors.red,
+                    text: 'Register',
                     fontSize: 13,
-                    fontWeight: FontWeight.normal,
+                    color: Colors.red,
                   ),
-                  onPressed: () => navigateToRegister(),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ),
+                    );
+                  },
                 )
               ],
             ),

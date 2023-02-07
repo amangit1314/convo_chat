@@ -8,7 +8,7 @@ class ChatItem extends StatefulWidget {
   final String lastMessage;
   final String personTime;
   final int? messageCount;
-  //final OnTap onTap;
+  final VoidCallback? onTap;
   const ChatItem({
     Key? key,
     this.messageCount,
@@ -16,6 +16,7 @@ class ChatItem extends StatefulWidget {
     required this.personName,
     required this.lastMessage,
     required this.personTime,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -28,6 +29,7 @@ class _ChatItemState extends State<ChatItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: widget.onTap,
       child: Container(
         padding: const EdgeInsets.only(right: 8),
         height: 100,
@@ -91,13 +93,6 @@ class _ChatItemState extends State<ChatItem> {
           ],
         ),
       ),
-      onTap: () {
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(
-        //     builder: (_) => One2OneChatScreen(),
-        //   ),
-        // );
-      },
     );
   }
 }

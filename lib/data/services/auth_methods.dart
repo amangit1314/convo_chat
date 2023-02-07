@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:convo_chat/core/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../features/auth/domain/models/user_model.dart';
 
@@ -19,6 +19,7 @@ class AuthMethods {
 
   // to register the user
   Future<dynamic> registerUser({
+    required BuildContext context,
     required String email,
     required String password,
     required String fullName,
@@ -61,19 +62,16 @@ class AuthMethods {
       }
     } catch (err) {
       res = res.toString();
-      Get.snackbar(
-        "error",
-        res,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      showErrorSnackBar(context, err.toString());
     }
     return res;
   }
 
   // to login the user
-  Future<String> loginUser({required email, required password}) async {
+  Future<String> loginUser(
+      {required BuildContext context,
+      required email,
+      required password}) async {
     String res = "❓error occured";
     try {
       if (email.isNotEmpty || password.isNotEmpty) {
@@ -85,13 +83,7 @@ class AuthMethods {
       }
     } catch (err) {
       res = res.toString();
-      Get.snackbar(
-        "error",
-        res.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      showErrorSnackBar(context, err.toString());
     }
     return res;
   }

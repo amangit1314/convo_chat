@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TextFieldInput extends StatelessWidget {
   final TextEditingController textEditingController;
   final String hintText;
+  final String labelText;
   final bool isPass;
   final TextInputType textInputType;
   final Icon preIcon;
@@ -10,6 +11,7 @@ class TextFieldInput extends StatelessWidget {
   final String? Function(String?)? onChanged;
   final String? Function(String?)? onSaved;
   final String? Function(String?)? validator;
+  final double? contentPadding;
 
   const TextFieldInput({
     Key? key,
@@ -22,6 +24,8 @@ class TextFieldInput extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.onSaved,
+    this.contentPadding = 15.0,
+    required this.labelText,
   }) : super(key: key);
 
   @override
@@ -45,8 +49,9 @@ class TextFieldInput extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.white,
+        labelText: labelText,
         prefixIcon: preIcon,
-        contentPadding: const EdgeInsets.all(15),
+        contentPadding: EdgeInsets.all(contentPadding!),
       ),
       keyboardType: textInputType,
       obscureText: isPass,

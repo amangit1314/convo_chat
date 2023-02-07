@@ -1,7 +1,7 @@
 import 'package:convo_chat/core/components/custom_btn.dart' show CustomBtn;
 import 'package:convo_chat/core/components/custom_text.dart' show MyText;
+import 'package:convo_chat/features/auth/presentation/login/login_screen.dart';
 import 'package:convo_chat/features/auth/presentation/register/register_screen.dart';
-import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,7 +47,9 @@ class Onboard2Screen extends StatelessWidget {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BottomNav()),
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
               );
             },
             color: const Color(0xff2D2B2B),
