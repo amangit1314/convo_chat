@@ -41,6 +41,45 @@ class AuthRepository {
     await _users.doc(userModel.id).update(userModel.toMap());
   }
 
+  Stream<UserModel> userData(String userId) {
+    return firestore
+        .collection('users')
+        .doc(userId)
+        .snapshots()
+        .map((event) => UserModel.fromJson(event.data()!));
+  }
+
+  void setUserState(bool isOnline) async {
+    await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .update({'isOnline': isOnline});
+  }
+
+  Future<dynamic> registerUser(
+      {required BuildContext context,
+      required String email,
+      required String password,
+      required String fullName}) {
+    return auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) async {
+      await firestore.collection('users').doc(value.user!.uid).set({
+        'id': value.user!.uid,
+        'nickname': fullName,
+        'photoUrl': '',
+        'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
+        'chattingWith': null,
+      });
+
+      // Navigator.pushNamedAndRemoveUntil(
+      //   context,
+      //   UserInformationScreen.routeName,
+      //   (route) => false,
+      // );
+    });
+  }
+
   Future signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn!.signIn();
@@ -129,46 +168,7 @@ class AuthRepository {
     }
   }
 
-  Stream<UserModel> userData(String userId) {
-    return firestore
-        .collection('users')
-        .doc(userId)
-        .snapshots()
-        .map((event) => UserModel.fromJson(event.data()!));
-  }
-
-  void setUserState(bool isOnline) async {
-    await firestore
-        .collection('users')
-        .doc(auth.currentUser!.uid)
-        .update({'isOnline': isOnline});
-  }
-
-  Future<dynamic> registerUser(
-      {required BuildContext context,
-      required String email,
-      required String password,
-      required String fullName}) {
-    return auth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) async {
-      await firestore.collection('users').doc(value.user!.uid).set({
-        'id': value.user!.uid,
-        'nickname': fullName,
-        'photoUrl': '',
-        'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-        'chattingWith': null,
-      });
-
-      // Navigator.pushNamedAndRemoveUntil(
-      //   context,
-      //   UserInformationScreen.routeName,
-      //   (route) => false,
-      // );
-    });
-  }
-
-  Future<void> loginUser(
+  Future<void> signInWithEmailAndPassword(
       {required BuildContext context,
       required String email,
       required String password}) {

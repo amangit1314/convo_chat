@@ -1,9 +1,9 @@
 import 'package:convo_chat/features/home/presentation/components/body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String routeName = "/homeScreen";
   final VoidCallback? onTap;
   const HomeScreen({super.key, this.onTap});
 
@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    // StreamChatCore.of(context).client.
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -30,18 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        leading: GestureDetector(
-          onTap: widget.onTap,
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.white,
-            child: Center(
-                child: SvgPicture.asset(
-              'assets/svg/nav.svg',
-              height: 19,
-            )),
-          ),
-        ),
+        // leading: GestureDetector(
+        //   onTap: widget.onTap,
+        //   child: CircleAvatar(
+        //     radius: 20,
+        //     backgroundColor: Colors.white,
+        //     child: Center(
+        //         child: SvgPicture.asset(
+        //       'assets/svg/nav.svg',
+        //       height: 19,
+        //     )),
+        //   ),
+        // ),
+
         actions: [
           PopupMenuButton<int>(
             icon: const FaIcon(

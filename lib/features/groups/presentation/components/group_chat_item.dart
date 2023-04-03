@@ -32,7 +32,7 @@ class _GroupChatItemState extends State<GroupChatItem> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.only(right: 8, bottom: 8.0),
         height: 100,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(color: Colors.white),
@@ -40,7 +40,7 @@ class _GroupChatItemState extends State<GroupChatItem> {
           children: [
             ProfilePicSect(dpImage: widget.groupDpImg, messageCount: 0),
             const SizedBox(width: 20),
-            Flexible(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -49,15 +49,16 @@ class _GroupChatItemState extends State<GroupChatItem> {
                   Text(
                     widget.groupName,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     widget.lastMessage,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Colors.black.withOpacity(.8),
                       fontWeight: FontWeight.w400,
                     ),
@@ -69,18 +70,37 @@ class _GroupChatItemState extends State<GroupChatItem> {
             // const Spacer(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Center(
                   child: Text(
                     widget.personTime,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 11,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
                 const SizedBox(height: 5),
+                const Positioned(
+                  right: 5,
+                  top: 44,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 12,
+                    child: Center(
+                      child: Text(
+                        '0',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ],

@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC0g-fCHFlV5gT9tO5u2q40cRmckGFVXo0',
-    appId: '1:261739528222:android:991bebaaa5a9289bd1ae0f',
+    appId: '1:261739528222:android:73263a9367ff0e11d1ae0f',
     messagingSenderId: '261739528222',
     projectId: 'convo-chat-2023',
     storageBucket: 'convo-chat-2023.appspot.com',

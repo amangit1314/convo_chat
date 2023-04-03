@@ -15,6 +15,7 @@ class _OneToOneChatScreenState extends State<OneToOneChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: TopChatBar(),

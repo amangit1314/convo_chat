@@ -27,6 +27,7 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
         color: const Color(0xff22211F),
         child: SafeArea(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const InfoCard(
@@ -81,7 +82,7 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
                       }),
                   SideBarMenuTile(
                       title: 'Calls',
-                      icon: FontAwesomeIcons.video,
+                      icon: FontAwesomeIcons.mobile,
                       // isActive: false,
                       press: () {
                         // setState(() {
@@ -95,7 +96,7 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
                       }),
                   SideBarMenuTile(
                       title: 'Profile',
-                      icon: FontAwesomeIcons.person,
+                      icon: FontAwesomeIcons.solidCircleUser,
                       // isActive: false,
                       press: () {
                         // setState(() {
@@ -108,20 +109,27 @@ class _SideMenuDrawerState extends State<SideMenuDrawer> {
                         );
                         // Navigator.of(context).pushNamed(menu[2]);
                       }),
-                  SideBarMenuTile(
-                      title: 'Sign Out',
-                      icon: FontAwesomeIcons.arrowRightToBracket,
-                      // isActive: false,
-                      press: () {
-                        // setState(() {
-                        //   selectedMenu = true;
-                        // });
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      }),
+                  const SizedBox(height: 30),
+                  const Divider(color: Colors.white24, height: 1),
+                  const SizedBox(height: 20),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * .9,
+                    bottom: 0,
+                    child: SideBarMenuTile(
+                        title: 'Sign Out',
+                        icon: FontAwesomeIcons.arrowRightToBracket,
+                        // isActive: false,
+                        press: () {
+                          // setState(() {
+                          //   selectedMenu = true;
+                          // });
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        }),
+                  ),
                   // ...sideMenus.map(
                   //   (menu) => SideMenuTile(
                   //     menu: menu,

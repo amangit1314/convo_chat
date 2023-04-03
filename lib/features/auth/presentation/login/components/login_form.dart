@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/components/custom_text.dart';
 import '../../../../../core/components/text_field_input.dart';
+import '../../../../../data/services/auth_methods.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -12,16 +13,17 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final User? user = AuthMethods().currentUser;
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late bool _passwordVisible;
-  final RegExp emailValidatorRegExp =
-      RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  final RegExp emailRegex = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final List<String> errors = [];
 
-  late SharedPreferences logindata;
-  late bool newuser;
+  // Widget _userUid() {
+  //   return Text(user?.email ?? 'Guest user');
+  // }
 
   @override
   void initState() {
@@ -52,6 +54,41 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  // void loginUser(BuildContext context) {
+  //   if (formKey.currentState!.validate()) {
+  //     AuthMethods()
+  //         .loginUser(
+  //             context: context,
+  //             email: _emailController.text,
+  //             password: _passwordController.text)
+  //         .then((value) {
+  //       Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (context) => const BottomNav()),
+  //       );
+  //     }).catchError((e) => showErrorSnackBar(context, e.toString()));
+  //   }
+  // }
+
+  // Future<void> signInWithEmailAndPassword(BuildContext context) async {
+  //   try {
+  //     await AuthMethods().loginUser(
+  //       context: context,
+  //       email: _emailController.text,
+  //       password: _passwordController.text,
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       setState(() {
+  //         addError(error: 'No user found for that email.');
+  //       });
+  //     } else if (e.code == 'wrong-password') {
+  //       setState(() {
+  //         addError(error: 'Wrong password provided');
+  //       });
+  //     }
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -62,43 +99,6 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 20),
           buildPasswordFormField(),
           const SizedBox(height: 15),
-
-          // CustomBtn(
-          //   text: 'Login',
-          //   press: () {
-          //     AuthMethods()
-          //         .loginUser(
-          //           email: _emailController.text,
-          //           password: _passwordController.text,
-          //         )
-          //         .then(
-          //           (value) => Navigator.of(context).pushReplacement(
-          //             MaterialPageRoute(
-          //               builder: (context) => const BottomNav(),
-          //             ),
-          //           ),
-          //         )
-          //         .catchError((e) => Get.snackbar(
-          //               "error",
-          //               e.toString(),
-          //               snackPosition: SnackPosition.BOTTOM,
-          //               backgroundColor: Colors.red,
-          //               colorText: Colors.white,
-          //             ));
-          //   },
-          //   // press: () => ref.read(authRepositoryProvider).loginUser(
-          //   //       context: context,
-          //   //       email: _emailController.text,
-          //   //       password: _passwordController.text,
-          //   //     ),
-          //   color: const Color(0xff2D2B2B),
-          //   width: MediaQuery.of(context).size.width,
-          //   height: 55,
-          //   textColor: Colors.white,
-          //   fontSize: 17,
-          //   fontWeight: FontWeight.normal,
-          //   borderRadius: 10,
-          // ),
           Container(
             width: double.maxFinite,
             padding: const EdgeInsets.all(10),
@@ -116,29 +116,21 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
               onPressed: () {
-                // AuthMethods()
-                //     .loginUser(
-                //       context: context,
-                //       email: _emailController.text,
-                //       password: _passwordController.text,
-                //     )
-                //     .then(
-                //       (value) => Navigator.of(context).pushReplacement(
-                //         MaterialPageRoute(
-                //           builder: (context) => const BottomNav(),
-                //         ),
-                //       ),
-                //     )
-                //     .catchError(
-                //       (e) => showErrorSnackBar(
-                //         context,
-                //         e.toString(),
-                //       ),
+                // try {
+                // ref.read(authControllerProvider).signInWithEmailAndPassword(
+                //       context,
+                //       _emailController.text,
+                //       _passwordController.text,
                 //     );
+                // loginUser(context);
+                // } catch (e) {
+                //   if (e is FirebaseAuthException) {
+                //     SnackBar(content: Text(e.message!));
+                //   }
+                // }
               },
             ),
           ),
-
           const SizedBox(height: 15),
           const MyText(text: 'forgot password?', fontSize: 13),
         ],
@@ -173,7 +165,7 @@ class _LoginFormState extends State<LoginForm> {
         } else if (value.length >= 8) {
           removeError(error: "Password is too short");
         }
-        return;
+        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -200,7 +192,7 @@ class _LoginFormState extends State<LoginForm> {
       onChanged: (value) {
         if (value!.isNotEmpty) {
           removeError(error: "Please Enter your email");
-        } else if (emailValidatorRegExp.hasMatch(value)) {
+        } else if (emailRegex.hasMatch(value)) {
           removeError(error: "Please Enter valid email");
         }
         return;
@@ -209,7 +201,7 @@ class _LoginFormState extends State<LoginForm> {
         if (value!.isEmpty) {
           addError(error: "Please Enter your email");
           return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
+        } else if (!emailRegex.hasMatch(value)) {
           addError(error: "Please Enter valid email");
           return "";
         }

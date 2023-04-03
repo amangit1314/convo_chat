@@ -5,47 +5,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../core/components/custom_text.dart';
 import '../../register/register_screen.dart';
 
-class Body extends StatefulWidget {
+// ConsumerW
+class Body extends StatelessWidget {
   const Body({super.key});
-
-  @override
-  State<Body> createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
-  void navigateToRegister() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => const RegisterScreen(),
-      ),
-    );
-  }
-
-  // void navigateToGenerateOtpScreen() {
-  //   Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: (_) => const GenerateOtpScreen(),
-  //     ),
-  //   );
-  // }
-
+// , WidgetRef ref
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: ListView(
           children: [
-            // Container(
-            //   height: 160,
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       fit: BoxFit.cover,
-            //       image: AssetImage('assets/green.webp'),
-            //     ),
-            //   ),
-            // ),
             SizedBox(height: height * .08),
             const Text(
               'Login',
@@ -77,64 +49,35 @@ class _BodyState extends State<Body> {
                   .bodySmall!
                   .copyWith(color: Colors.black54),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .03,
-            ),
+            SizedBox(height: height * .03),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    // try {
-                    //   ref
-                    //       .read(authRepositoryProvider)
-                    //       .signInWithGoogle(context);
-                    // } catch (e) {
-                    //   if (e is FirebaseAuthException) {
-                    //     SnackBar(content: Text(e.message!));
-                    //   }
-                    // }
-                  },
-                  child: CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Colors.grey[200],
-                    child: const FaIcon(
-                      FontAwesomeIcons.google,
-                      color: Color(0xff2D2B2B),
-                    ),
+                SizedBox(width: MediaQuery.of(context).size.width * .05),
+                const SocialCard(
+                  icon: FaIcon(
+                    FontAwesomeIcons.google,
+                    color: Color(0xff2D2B2B),
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .05,
-                ),
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Colors.grey[200],
-                  child: const FaIcon(
+                const SocialCard(
+                  icon: FaIcon(
                     FontAwesomeIcons.apple,
                     color: Color(0xff2D2B2B),
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .05,
-                ),
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Colors.grey[200],
-                  child: const FaIcon(
+                SizedBox(width: MediaQuery.of(context).size.width * .05),
+                const SocialCard(
+                  icon: FaIcon(
                     FontAwesomeIcons.phone,
                     color: Color(0xff2D2B2B),
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .05,
-            ),
+            SizedBox(height: height * .05),
             const Divider(height: 1),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .01,
-            ),
+            SizedBox(height: height * .01),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -149,19 +92,37 @@ class _BodyState extends State<Body> {
                     fontSize: 13,
                     color: Colors.red,
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const RegisterScreen(),
+                    ),
+                  ),
                 )
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SocialCard extends StatelessWidget {
+  const SocialCard({
+    super.key,
+    this.icon,
+    this.onTap,
+  });
+  final FaIcon? icon;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap!,
+      child: CircleAvatar(
+        radius: 22,
+        backgroundColor: Colors.grey[200],
+        child: Center(child: icon),
       ),
     );
   }

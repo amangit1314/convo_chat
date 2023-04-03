@@ -38,24 +38,25 @@ class ProfilePicSect extends StatelessWidget {
           ),
         ),
         // messageCount != 0 ?
-        Positioned(
-          right: 5,
-          top: 44,
-          child: CircleAvatar(
-            backgroundColor: Colors.black,
-            radius: 12,
-            child: Center(
-              child: Text(
-                '$messageCount',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        )
+        // Positioned(
+        //   right: 5,
+        //   top: 44,
+        //   child: CircleAvatar(
+        //     backgroundColor: Colors.black,
+        //     radius: 12,
+        //     child: Center(
+        //       child: Text(
+        //         '$messageCount',
+        //         style: const TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 10,
+        //         ),
+        //         textAlign: TextAlign.center,
+        //       ),
+        //     ),
+        //   ),
+        // )
+
         //: Container()
       ],
     );

@@ -6,57 +6,54 @@ import 'package:flutter/material.dart';
 import '../../features/auth/domain/models/user_model.dart';
 
 class AuthMethods {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  User? get currentUser => auth.currentUser;
+  Stream<User?> get authStateChanges => auth.authStateChanges();
 
   // Getting information from user
   Future<UserModel> getUserDetails() async {
-    User currentUser = _auth.currentUser!;
+    User currentUser = auth.currentUser!;
     final DocumentSnapshot snap =
-        await _firestore.collection('users').doc(currentUser.uid).get();
+        await firestore.collection('users').doc(currentUser.uid).get();
     return UserModel.fromMap(snap as Map<String, dynamic>);
   }
 
   // to register the user
-  Future<dynamic> registerUser({
+  Future<void> registerUser({
     required BuildContext context,
     required String email,
     required String password,
-    required String fullName,
+    String? fullName,
+    String? number,
   }) async {
     String res = "Some error occured";
     try {
-      // ||bio.isNotEmpty ||file != null
-      if (email.isNotEmpty || password.isNotEmpty || fullName.isNotEmpty) {
-        //  register user using firebase
-        UserCredential cred = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
-        if (cred.user != null) {
-          // DatabaseService(uid: cred.user!.uid)
-          //     .updateUserData(fullName: fullName, email: email);
-          return true;
-        }
+      if (email.isNotEmpty || password.isNotEmpty) {
+        UserCredential cred = await auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
         UserModel user = UserModel(
-          number: '',
+          number: number,
           email: email,
           password: password,
           name: fullName,
           id: cred.user!.uid,
           isOnline: true,
-          //groupId: [],
         );
 
         //  add user to our database
-        await _firestore
+        await firestore
             .collection('users')
             .doc(cred.user!.uid)
             .set(user.toJson());
-        res = 'success';
+        // res = 'success';
       }
     } on FirebaseAuthException catch (err) {
       if (err.code == 'invalid-email') {
-        res = '❗The email is badly formated...';
+        // res = '❗The email is badly formated...';
       } else if (err.code == 'weak-password') {
         res = 'Password should be 6 characters long...';
       }
@@ -64,19 +61,19 @@ class AuthMethods {
       res = res.toString();
       showErrorSnackBar(context, err.toString());
     }
-    return res;
+    // return res;
   }
 
   // to login the user
-  Future<String> loginUser(
-      {required BuildContext context,
-      required email,
-      required password}) async {
+  Future<void> loginUser({
+    required BuildContext context,
+    required email,
+    required password,
+  }) async {
     String res = "❓error occured";
     try {
       if (email.isNotEmpty || password.isNotEmpty) {
-        await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
+        await auth.signInWithEmailAndPassword(email: email, password: password);
         res = 'success';
       } else {
         res = '❗Please enter both email and password';
@@ -85,6 +82,11 @@ class AuthMethods {
       res = res.toString();
       showErrorSnackBar(context, err.toString());
     }
-    return res;
+    // return res;
+  }
+
+  // to signout the use
+  Future<void> signOut() async {
+    await auth.signOut();
   }
 }
