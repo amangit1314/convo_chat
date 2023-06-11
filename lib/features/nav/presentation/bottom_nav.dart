@@ -21,31 +21,21 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
   RiveAsset selectedBottomNav = bottomNavs.first;
   late int _selected = 0;
 
-  // purane code se
   late bool _isAnimating;
 
-  // flutter way video wala
-  // late SMIBool isSideBarClosed;
   late AnimationController _animationController;
   late Animation<double> animation;
   late Animation<double> scaleAnimation;
-  // late TabController tabController;
 
   @override
   void initState() {
-    // isSideBarClosed =
-
     _isAnimating = false;
-
-    // tabController = TabController(length: 3, vsync: this);
 
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 250),
     )..addListener(() {
-        setState(() {
-          // isSideMenuClosed = _animationController.isCompleted;
-        });
+        setState(() {});
       });
 
     animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
@@ -78,7 +68,6 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
-    // tabController.dispose();
     super.dispose();
   }
 
@@ -93,79 +82,12 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
         }
         return true;
       },
-      // child: AnimatedBuilder(
-      //   animation: _animationController,
-      // builder: ((context, child) {
-      //   return Stack(
-      //     children: [
-      //       // Drawer
-      //       AnimatedPositioned(
-      //         duration: const Duration(milliseconds: 200),
-      //         curve: Curves.fastOutSlowIn,
-      //         width: 288,
-      //         left: isSideMenuClosed ? -288 : 0,
-      //         height: MediaQuery.of(context).size.height,
-      //         child: const SideMenuDrawer(),
-      //       ),
-      //       // Screen
-      //       Transform(
-      //         alignment: Alignment.center,
-      //         transform: Matrix4.identity()
-      //           ..setEntry(3, 2, 0.001)
-      //           ..rotateY(animation.value - 30 * animation.value * pi / 180),
-      //         child: Transform.translate(
-      //           offset: Offset(animation.value * 265, 0),
-      //           // offset: Offset(isSideMenuClosed ? 0 : 288, 0),
-      //           child: Transform.scale(
-      //             // scale: isSideMenuClosed ? 1 : 0.7,
-      //             scale: scaleAnimation.value,
-      //             child: GestureDetector(
-      //               onTap: _animationController.isCompleted ? close : null,
-      //               child: ClipRRect(
-      //                 borderRadius: _animationController.isCompleted
-      //                     ? const BorderRadius.all(Radius.circular(0))
-      //                     : const BorderRadius.all(Radius.circular(24)),
-      //                 child: child,
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //       // Menu Button
-      //       AnimatedPositioned(
-      //         duration: const Duration(milliseconds: 200),
-      //         top: 15,
-      //         left: isSideMenuClosed ? 13 : 220,
-      //         curve: Curves.fastOutSlowIn,
-      //         child: MenuDrawerButton(
-      //           riveOnInit: (artboard) {
-      //             StateMachineController controller =
-      //                 RiveUtils.getRiveController(
-      //               artboard,
-      //               stateMachineName: "MENU_Interactivity",
-      //             );
-      //             isSideBarClosed = controller.findSMI("isOpen") as SMIBool;
-      //             isSideBarClosed.value = true;
-      //           },
-      //           press: () {
-      //             isSideBarClosed.value = !isSideBarClosed.value;
-      //             isSideMenuClosed ? open() : close();
-      //             setState(() {
-      //               isSideMenuClosed = isSideBarClosed.value;
-      //             });
-      //           },
-      //         ),
-      //       ),
-      //     ],
-      //   );
-      // }),
       child: Scaffold(
         backgroundColor: const Color(0xff22211F),
         extendBody: true,
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            // Drawer
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
               curve: Curves.fastOutSlowIn,
@@ -174,8 +96,6 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
               height: MediaQuery.of(context).size.height,
               child: const SideMenuDrawer(),
             ),
-
-            // Screen
             Transform(
               alignment: Alignment.center,
               transform: Matrix4.identity()
@@ -183,12 +103,9 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                 ..rotateY(animation.value - 30 * animation.value * pi / 180),
               child: Transform.translate(
                 offset: Offset(animation.value * 265, 0),
-                // offset: Offset(isSideMenuClosed ? 0 : 288, 0),
                 child: Transform.scale(
-                  // scale: isSideMenuClosed ? 1 : 0.7,
                   scale: scaleAnimation.value,
                   child: GestureDetector(
-                    //onTap: _animationController.isCompleted ? close : null,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(
                           _animationController.isCompleted ? 24 : 0),
@@ -198,8 +115,6 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                 ),
               ),
             ),
-
-            // Menu Button
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
               top: 15,
@@ -227,91 +142,12 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
               height: 60,
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(.8),
-                // color: Colors.black,
-                borderRadius: const BorderRadius.all(Radius.circular(60)),
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(60)),
               ),
-              // child: BottomNavigationBar(
-              //   backgroundColor: Colors.transparent,
-              //   // fixedColor: Colors.transparent,
-              //   selectedItemColor: Colors.white,
-              //   showSelectedLabels: false,
-              //   showUnselectedLabels: false,
-              //   currentIndex: _selected,
-              //   unselectedItemColor: Colors.white.withOpacity(.3),
-              //   elevation: 1,
-              //   onTap: (index) {
-              //     setState(() {
-              //       _selected = index;
-              //     });
-              //   },
-              //   items: [
-              //     BottomNavigationBarItem(
-              //       icon: GestureDetector(
-              //         onTap: () => {
-              //           setState(() {
-              //             _selected = 0;
-              //           })
-              //         },
-              //         child: const FaIcon(
-              //           FontAwesomeIcons.facebookMessenger,
-              //           color: Colors.white,
-              //           size: 18,
-              //         ),
-              //       ),
-              //       label: '',
-              //     ),
-              //     BottomNavigationBarItem(
-              //       icon: GestureDetector(
-              //         onTap: () => {
-              //           setState(() {
-              //             _selected = 1;
-              //           })
-              //         },
-              //         child: const FaIcon(
-              //           FontAwesomeIcons.peopleGroup,
-              //           color: Colors.white,
-              //           size: 18,
-              //         ),
-              //       ),
-              //       label: '',
-              //     ),
-              //     BottomNavigationBarItem(
-              //       icon: GestureDetector(
-              //         onTap: () => {
-              //           setState(() {
-              //             _selected = 2;
-              //           })
-              //         },
-              //         child: const FaIcon(
-              //           FontAwesomeIcons.userGroup,
-              //           color: Colors.white,
-              //           size: 18,
-              //         ),
-              //       ),
-              //       label: '',
-              //     ),
-              //     BottomNavigationBarItem(
-              //       icon: GestureDetector(
-              //         onTap: () => {
-              //           setState(() {
-              //             _selected = 3;
-              //           })
-              //         },
-              //         child: const FaIcon(
-              //           FontAwesomeIcons.user,
-              //           color: Colors.white,
-              //           size: 18,
-              //         ),
-              //       ),
-              //       label: '',
-              //     ),
-              //   ],
-              // )
-
               child: SizedBox(
-                height: 36,
+                height: 40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -324,7 +160,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       child: FaIcon(
                         FontAwesomeIcons.facebookMessenger,
                         color: _selected == 0
-                            ? Colors.deepPurpleAccent
+                            ? const Color.fromARGB(255, 125, 95, 206)
                             : Colors.white,
                       ),
                     ),
@@ -337,7 +173,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       child: FaIcon(
                         FontAwesomeIcons.peopleGroup,
                         color: _selected == 1
-                            ? Colors.deepPurpleAccent
+                            ? const Color.fromARGB(255, 125, 95, 206)
                             : Colors.white,
                       ),
                     ),
@@ -350,7 +186,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       child: FaIcon(
                         FontAwesomeIcons.mobile,
                         color: _selected == 2
-                            ? Colors.deepPurpleAccent
+                            ? const Color.fromARGB(255, 125, 95, 206)
                             : Colors.white,
                       ),
                     ),
@@ -363,15 +199,12 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       child: FaIcon(
                         FontAwesomeIcons.circleUser,
                         color: _selected == 3
-                            ? Colors.deepPurpleAccent
+                            ? const Color.fromARGB(255, 125, 95, 206)
                             : Colors.white,
                       ),
                     ),
                   ],
                 ),
-
-                //   ),
-                // ),
               ),
             ),
           ),

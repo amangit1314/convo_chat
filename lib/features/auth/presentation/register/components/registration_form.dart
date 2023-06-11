@@ -1,40 +1,38 @@
 import 'package:convo_chat/features/auth/presentation/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../core/components/text_field_input.dart';
+import '../../../../../core/components/widgets.dart';
+import '../../../data/controller/auth_controller.dart';
+import '../../components/auth_button.dart';
 
-// Consumer
-class RegisterationForm extends StatefulWidget {
-  const RegisterationForm({super.key});
-// Consumer
+class RegisterationForm extends ConsumerStatefulWidget {
+  const RegisterationForm({Key? key}) : super(key: key);
+
   @override
-  State<RegisterationForm> createState() => _RegisterationFormState();
+  ConsumerState<RegisterationForm> createState() => _RegisterationFormState();
 }
 
-// Consumer
-class _RegisterationFormState extends State<RegisterationForm> {
+class _RegisterationFormState extends ConsumerState<RegisterationForm> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
-  late bool _passwordVisible;
   final RegExp emailValidatorRegExp =
       RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final List<String> errors = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _passwordVisible = false;
-  }
+  bool _passwordVisible = false;
 
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     _mobileNumberController.dispose();
   }
 
@@ -54,71 +52,48 @@ class _RegisterationFormState extends State<RegisterationForm> {
     }
   }
 
-  // void registerUser(BuildContext context) async {
-  //   if (formKey.currentState!.validate()) {
-  //     AuthMethods().registerUser(
-  //       context: context,
-  //       email: _emailController.text,
-  //       password: _passwordController.text.trim(),
-  //       fullName: '',
-  //     );
-  //     //   .then((res) {
-  //     // if (res == 'success') {
-  //     //   showSnackbar(
-  //     //       context, Colors.greenAccent, 'Welcome, you are registered 🥳🎉');
-  //     //   Navigator.pushReplacement(
-  //     //     context,
-  //     //     MaterialPageRoute(builder: (context) => const LoginScreen()),
-  //     //   );
-  //     // } else {
-  //     //   showErrorSnackBar(context, res);
-  //     // }
-  //     // })
-  //     // String res = await ref.read(authControllerProvider).signInWithEmailAndPassword(
-  //     //       context,
-  //     //       _emailController.text.trim(),
-  //     //       _passwordController.text.trim(),
-  //     //     );
-  //   }
-  //   if (!mounted) return;
-  //   showErrorSnackBar(context, 'Unable to validate');
-  // }
+  void register() async {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
 
-  // Future<void> createUserWithEmailAndPassword(BuildContext context) async {
-  //   try {
-  //     await AuthMethods().registerUser(
-  //       context: context,
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim(),
-  //       fullName: '',
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       setState(() {
-  //         addError(error: 'No user found for that email.');
-  //       });
-  //     } else if (e.code == 'wrong-password') {
-  //       setState(() {
-  //         addError(error: 'Wrong password provided');
-  //       });
-  //     }
-  //   }
-  // }
+      final String result =
+          await ref.read<AuthController>(authControllerProvider).register(
+                _emailController.text.split('@')[0],
+                _emailController.text,
+                _passwordController.text,
+              );
+
+      if (result == 'success') {
+        if (!mounted) return;
+        showSnackbar(context, Colors.green, "Registration is successful 🎉");
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      } else {
+        if (!mounted) return;
+        showSnackbar(context, Colors.red, result.toString());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
+    var size = MediaQuery.of(context).size;
+
     return Form(
       key: formKey,
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: height * .06),
+          SizedBox(height: size.height * .025),
           buildPasswordFormField(),
-          SizedBox(height: height * .06),
+          SizedBox(height: size.height * .025),
           buildEnterMobileNumberFormField(),
-          SizedBox(height: height * .07),
-          const RegisterButton(),
+          SizedBox(height: size.height * .025),
+          AuthButton(
+            onTap: register,
+            name: 'Register',
+          ),
         ],
       ),
     );
@@ -126,12 +101,10 @@ class _RegisterationFormState extends State<RegisterationForm> {
 
   TextFieldInput buildPasswordFormField() {
     return TextFieldInput(
-      // textEditingController: controller.password,
       textEditingController: _passwordController,
-      hintText: 'Password',
+      hintText: 'Enter Password',
       labelText: 'Password',
       preIcon: const Icon(Icons.fingerprint),
-      contentPadding: 22,
       suffixicon: IconButton(
         icon: Icon(
           _passwordVisible ? Icons.visibility : Icons.visibility_off,
@@ -144,22 +117,45 @@ class _RegisterationFormState extends State<RegisterationForm> {
         },
       ),
       textInputType: TextInputType.text,
-      isPass: true,
+      contentPadding: 22,
+      isPass: _passwordVisible ? false : true,
       onSaved: (newValue) => _passwordController.text = newValue!,
       onChanged: (value) {
         if (value!.isNotEmpty) {
-          removeError(error: "Please Enter your password");
+          removeError(error: "Please enter your password");
         } else if (value.length >= 8) {
           removeError(error: "Password is too short");
         }
-        return;
+
+        // Check for at least 1 special character
+        if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+          removeError(
+              error: "Password must contain at least 1 special character");
+        }
+
+        // Check for at least 1 capital letter
+        if (!value.contains(RegExp(r'[A-Z]'))) {
+          removeError(error: "Password must contain at least 1 capital letter");
+        }
+
+        // Check for at least 1 number
+        if (!value.contains(RegExp(r'[0-9]'))) {
+          removeError(error: "Password must contain at least 1 number");
+        }
+        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: "Please Enter your password");
+          addError(error: "Please enter your password");
           return "";
         } else if (value.length < 8) {
           addError(error: "Password is too short");
+          return "";
+        } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+          addError(error: "Password must contain at least 1 special character");
+          return "";
+        } else if (!value.contains(RegExp(r'[A-Z]'))) {
+          addError(error: "Password must contain at least 1 capital letter");
           return "";
         }
         return null;
@@ -169,7 +165,6 @@ class _RegisterationFormState extends State<RegisterationForm> {
 
   TextFieldInput buildConfirmPasswordFormField() {
     return TextFieldInput(
-      // textEditingController: controller.password,
       textEditingController: _confirmPasswordController,
       hintText: 'Confirm Password',
       labelText: 'Confirm Password',
@@ -195,7 +190,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
         } else if (value.length >= 8) {
           removeError(error: "Password is too short");
         }
-        return;
+        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -212,22 +207,21 @@ class _RegisterationFormState extends State<RegisterationForm> {
 
   TextFieldInput buildEnterMobileNumberFormField() {
     return TextFieldInput(
-      // textEditingController: controller.password,
       textEditingController: _mobileNumberController,
-      hintText: 'Confirm Password',
-      labelText: 'Confirm Password',
+      hintText: 'Mobile Number',
+      labelText: 'Mobile Number',
       preIcon: const Icon(Icons.phone_android_outlined),
       contentPadding: 22,
       textInputType: TextInputType.number,
-      isPass: true,
+      isPass: false,
       onSaved: (newValue) => _mobileNumberController.text = newValue!,
       onChanged: (value) {
         if (value!.isNotEmpty) {
           removeError(error: "Please Enter your number");
         } else if (value.length < 10) {
-          removeError(error: "Number is t00 short");
+          removeError(error: "Number is too short");
         }
-        return;
+        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -244,7 +238,6 @@ class _RegisterationFormState extends State<RegisterationForm> {
 
   TextFieldInput buildEmailFormField() {
     return TextFieldInput(
-      // textEditingController: controller.email,
       textEditingController: _emailController,
       preIcon: const Icon(Icons.mail),
       hintText: 'Email',
@@ -258,7 +251,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: "Please Enter valid email");
         }
-        return;
+        return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -270,39 +263,6 @@ class _RegisterationFormState extends State<RegisterationForm> {
         }
         return null;
       },
-    );
-  }
-}
-
-class RegisterButton extends StatelessWidget {
-  const RegisterButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: const Color(0xff2D2B2B),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: MaterialButton(
-        child: const Text(
-          "Register",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => const LoginScreen(),
-          ),
-        ),
-      ),
     );
   }
 }

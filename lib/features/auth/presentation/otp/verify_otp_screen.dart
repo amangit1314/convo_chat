@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../data/controller/auth_controller.dart';
+
 class VerifyOtpScreen extends ConsumerWidget {
   final String verificationId;
-  static const routeName = '/verify-otp';
+  static const routeName = '/verifyOtp';
   const VerifyOtpScreen({Key? key, required this.verificationId})
       : super(key: key);
 
-  // void verifyOTP(WidgetRef ref, BuildContext context, String userOTP) {
-  //   ref.read(authControllerProvider).verifyOTP(
-  //         context,
-  //         verificationId,
-  //         userOTP,
-  //       );
-  // }
+  void verifyOTP(WidgetRef ref, BuildContext context, String userOTP) {
+    ref.read<AuthController>(authControllerProvider).verifyOTP(
+          verificationId,
+          userOTP,
+        );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

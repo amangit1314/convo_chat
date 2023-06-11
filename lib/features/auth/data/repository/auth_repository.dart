@@ -1,44 +1,54 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../core/providers/common_firebase_storage_repository_provider.dart';
 import '../../../../core/utils/constants/firebase_constants.dart';
-import '../../domain/models/user_model.dart';
+import '../../../../models/user_model.dart';
 
-final authRepositoryProvider = Provider(
+final authStateProvider = StreamProvider<User?>(
+  (ref) => ref.watch(authRepositoryProvider).authStateChanges,
+);
+
+final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => AuthRepository(
-    GoogleSignIn(),
-    auth: FirebaseAuth.instance,
-    firestore: FirebaseFirestore.instance,
+    ref.watch(commonFirebaseStorageRepositoryProvider),
   ),
 );
 
 class AuthRepository {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
-  final GoogleSignIn? _googleSignIn;
+  final GoogleSignIn googleSignIn;
+  final CommonFirebaseStorageRepository commonFirebaseStorageRepository;
 
-  AuthRepository(
-    this._googleSignIn, {
-    required this.auth,
-    required this.firestore,
-  });
+  AuthRepository(this.commonFirebaseStorageRepository)
+      : auth = FirebaseAuth.instance,
+        firestore = FirebaseFirestore.instance,
+        googleSignIn = GoogleSignIn();
 
   CollectionReference get _users =>
       firestore.collection(FirebaseConstants.usersCollection);
 
-  Stream<User?> get authStateChange => auth.authStateChanges();
+  Stream<User?> get authStateChanges => auth.idTokenChanges();
 
-  Stream<UserModel> getUserData(String uid) {
-    return _users.doc(uid).snapshots().map(
-        (event) => UserModel.fromMap(event.data() as Map<String, dynamic>));
+  Future<UserModel?> getCurrentUserData() async {
+    final userData =
+        await firestore.collection('users').doc(auth.currentUser?.uid).get();
+    UserModel? user;
+
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
   }
 
-  Future<void> updateUserData(UserModel userModel) async {
-    await _users.doc(userModel.id).update(userModel.toMap());
+  Future updateUserData(UserModel userModel) async {
+    await _users.doc(userModel.uid).update(userModel.toMap());
   }
 
   Stream<UserModel> userData(String userId) {
@@ -46,43 +56,50 @@ class AuthRepository {
         .collection('users')
         .doc(userId)
         .snapshots()
-        .map((event) => UserModel.fromJson(event.data()!));
+        .map((event) => UserModel.fromMap(event.data()!));
   }
 
-  void setUserState(bool isOnline) async {
+  setUserState(bool isOnline) async {
     await firestore
         .collection('users')
         .doc(auth.currentUser!.uid)
         .update({'isOnline': isOnline});
   }
 
-  Future<dynamic> registerUser(
-      {required BuildContext context,
-      required String email,
-      required String password,
-      required String fullName}) {
-    return auth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) async {
-      await firestore.collection('users').doc(value.user!.uid).set({
-        'id': value.user!.uid,
-        'nickname': fullName,
-        'photoUrl': '',
-        'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-        'chattingWith': null,
-      });
+  saveUserDataToFirebase({
+    required String name,
+    required File? profilePic,
+    required String email,
+    String? phoneNumber,
+  }) async {
+    try {
+      String uid = auth.currentUser!.uid;
+      String photoUrl =
+          'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
 
-      // Navigator.pushNamedAndRemoveUntil(
-      //   context,
-      //   UserInformationScreen.routeName,
-      //   (route) => false,
-      // );
-    });
+      if (profilePic != null) {
+        photoUrl = await commonFirebaseStorageRepository.storeFileToFirebase(
+            'profilePic/$uid', profilePic);
+      }
+
+      var user = UserModel(
+        name: name,
+        uid: uid,
+        profilePic: photoUrl,
+        isOnline: true,
+        number: phoneNumber,
+        email: email,
+      );
+
+      await firestore.collection('users').doc(uid).set(user.toMap());
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future signInWithGoogle(BuildContext context) async {
+  Future<String> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn!.signIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
 
@@ -111,18 +128,32 @@ class AuthRepository {
             'chattingWith': null,
           });
         }
+        return 'success';
       }
+      return 'failure';
     } on FirebaseAuthException catch (e) {
-      Get.snackbar(
-        'Error',
-        e.message!,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-      );
+      log(e.message!);
+      return 'failure';
     }
   }
 
-  Future signInWithPhone(BuildContext context, String phoneNumber) async {
+  Future<String> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+      return 'success';
+    } on FirebaseAuthException catch (err) {
+      log(err.toString());
+      return 'failure';
+    } catch (err) {
+      log(err.toString());
+      return 'failure';
+    }
+  }
+
+  Future<String> signInWithPhone(String phoneNumber) async {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
@@ -132,25 +163,23 @@ class AuthRepository {
         verificationFailed: (e) {
           throw Exception(e.message);
         },
-        codeSent: ((String verificationId, int? resendToken) async {
-          // Navigator.pushNamed( context, VerifyOtpScreen.routeName, arguments: verificationId);
-        }),
+        codeSent: ((String verificationId, int? resendToken) async {}),
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
-    } on FirebaseAuthException catch (e) {
-      Get.snackbar(
-        'Error',
-        e.message!,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-      );
+      return 'success';
+    } on FirebaseAuthException catch (err) {
+      log(err.toString());
+      return 'failure';
+    } catch (err) {
+      log(err.toString());
+      return 'failure';
     }
   }
 
-  Future verifyOTP(
-      {required BuildContext context,
-      required String verificationId,
-      required String userOTP}) async {
+  void verifyOTP({
+    required String verificationId,
+    required String userOTP,
+  }) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
@@ -158,35 +187,49 @@ class AuthRepository {
       );
       await auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      Get.showSnackbar(
-        GetSnackBar(
-          message: e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-        ),
-      );
+      log(e.message!);
     }
   }
 
-  Future<void> signInWithEmailAndPassword(
-      {required BuildContext context,
-      required String email,
-      required String password}) {
-    return auth
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) {
-      Get.snackbar(
-        'error',
-        value.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
+  Future<String> register({
+    required String email,
+    required String password,
+    required String fullName,
+    String? phoneNumber,
+    File? profilePic,
+  }) async {
+    try {
+      UserCredential cred = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
-    });
+
+      var user = UserModel(
+        email: email,
+        password: password,
+        name: fullName,
+        uid: cred.user!.uid,
+        isOnline: true,
+      );
+
+      await firestore.collection('users').doc(cred.user!.uid).set(user.toMap());
+      log('Success');
+      return 'success';
+    } on FirebaseAuthException catch (err) {
+      if (err.code == 'invalid-email') {
+        log('❗The email is badly formatted...');
+      } else if (err.code == 'weak-password') {
+        log('Password should be 6 characters long...');
+      }
+      return err.code;
+    } catch (err) {
+      log(err.toString());
+      return err.toString();
+    }
   }
 
-  Future<void> signOut() async {
-    await _googleSignIn!.signOut();
+  Future signOut() async {
+    await googleSignIn.signOut();
     await auth.signOut();
   }
 }

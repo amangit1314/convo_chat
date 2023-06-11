@@ -38,9 +38,9 @@ class Body extends StatelessWidget {
                     color: Colors.black.withOpacity(.8),
                   ),
                 ),
-                SizedBox(height: height * .07), // 7%
+                SizedBox(height: height * .04), // 7%
                 const RegisterationForm(),
-                SizedBox(height: height * .04),
+                SizedBox(height: height * .1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -65,9 +65,9 @@ class Body extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: height * .015),
+                SizedBox(height: height * .025),
                 const Divider(height: 1),
-                SizedBox(height: height * .02),
+                SizedBox(height: height * .025),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 23.0),
                   child: Text(

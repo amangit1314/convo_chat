@@ -1,9 +1,5 @@
-import 'package:convo_chat/core/components/loading_widget.dart';
-import 'package:convo_chat/core/utils/utils.dart';
-import 'package:convo_chat/domain/view_model/login_bloc/login_bloc.dart';
-import 'package:convo_chat/features/auth/presentation/otp/verify_otp_screen.dart';
+// import 'package:convo_chat/domain/view_model/login_bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,7 +15,7 @@ class _GenerateOtpScreenState extends ConsumerState<GenerateOtpScreen> {
   final formKey = GlobalKey<FormState>();
   late TextEditingController phoneNoController = TextEditingController();
   late TextEditingController otpController = TextEditingController();
-  LoginBloc loginBloc = LoginBloc(LoginScreenInitialState());
+  // LoginBloc loginBloc = LoginBloc(LoginScreenInitialState());
 
   @override
   void dispose() {
@@ -59,7 +55,6 @@ class _GenerateOtpScreenState extends ConsumerState<GenerateOtpScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 25),
               const SizedBox(height: 25),
               const Text(
                 'Enter Mobile Number',
@@ -116,56 +111,10 @@ class _GenerateOtpScreenState extends ConsumerState<GenerateOtpScreen> {
               TextButton(
                 onPressed: () {
                   if (formKey.currentState != null &&
-                      formKey.currentState!.validate()) {
-                    loginBloc.add(
-                      SendOtpToPhoneEvent(phoneNumber: phoneNoController.text),
-                    );
-                  }
+                      formKey.currentState!.validate()) {}
                 },
-                child: BlocConsumer<LoginBloc, LoginStates>(
-                  listener: (context, state) {
-                    if (state is LoginScreenLoadedState) {
-                      Navigator.of(context)
-                          .pushNamed(VerifyOtpScreen.routeName);
-                    } else if (state is LoginScreenErrorState) {
-                      showErrorSnackBar(context, state.error.toString());
-                    } else if (state is PhoneAuthCodeSentSuccess) {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Please Enter OTP'),
-                              content: TextField(
-                                controller: otpController,
-                                decoration: const InputDecoration(
-                                  hintText: 'Enter OTP',
-                                  hintStyle: TextStyle(fontSize: 14),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(10),
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    loginBloc.add(
-                                      VerifySentOtp(
-                                          otp: otpController.text,
-                                          verificationId: state.verificationId),
-                                    );
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Submit'),
-                                ),
-                              ],
-                            );
-                          });
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is LoginScreenLoadingState) {
-                      return const LoadingWidget(
-                          isCenter: true, color: Colors.deepOrangeAccent);
-                    }
+                child: Builder(
+                  builder: (context) {
                     return const Text(
                       'Send OTP',
                       style: TextStyle(color: Colors.deepPurpleAccent),

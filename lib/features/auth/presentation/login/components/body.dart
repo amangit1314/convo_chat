@@ -1,24 +1,22 @@
 import 'package:convo_chat/features/auth/presentation/login/components/login_form.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../core/components/custom_text.dart';
 import '../../register/register_screen.dart';
 
-// ConsumerW
 class Body extends StatelessWidget {
   const Body({super.key});
-// , WidgetRef ref
+
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
 
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: ListView(
           children: [
-            SizedBox(height: height * .08),
+            SizedBox(height: size.height * .08),
             const Text(
               'Login',
               textAlign: TextAlign.start,
@@ -28,9 +26,10 @@ class Body extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: height * .025),
+            SizedBox(height: size.height * .02),
             Text(
-              'Enter your credentials to sign in and \nchat freely with your contacts, enjoy',
+              //'Enter your credentials to sign in and \nchat freely with your contacts, enjoy',
+              'Sign in with credentials and enjoy',
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 15,
@@ -38,46 +37,11 @@ class Body extends StatelessWidget {
                 color: Colors.black.withOpacity(.8),
               ),
             ),
-            SizedBox(height: height * .04),
+            SizedBox(height: size.height * .04),
             const LoginForm(),
-            SizedBox(height: height * .06),
-            Text(
-              "continue with social media",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Colors.black54),
-            ),
-            SizedBox(height: height * .03),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: MediaQuery.of(context).size.width * .05),
-                const SocialCard(
-                  icon: FaIcon(
-                    FontAwesomeIcons.google,
-                    color: Color(0xff2D2B2B),
-                  ),
-                ),
-                const SocialCard(
-                  icon: FaIcon(
-                    FontAwesomeIcons.apple,
-                    color: Color(0xff2D2B2B),
-                  ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width * .05),
-                const SocialCard(
-                  icon: FaIcon(
-                    FontAwesomeIcons.phone,
-                    color: Color(0xff2D2B2B),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: height * .05),
+            SizedBox(height: size.height * .04),
             const Divider(height: 1),
-            SizedBox(height: height * .01),
+            SizedBox(height: size.height * .02),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -102,27 +66,6 @@ class Body extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class SocialCard extends StatelessWidget {
-  const SocialCard({
-    super.key,
-    this.icon,
-    this.onTap,
-  });
-  final FaIcon? icon;
-  final VoidCallback? onTap;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap!,
-      child: CircleAvatar(
-        radius: 22,
-        backgroundColor: Colors.grey[200],
-        child: Center(child: icon),
       ),
     );
   }

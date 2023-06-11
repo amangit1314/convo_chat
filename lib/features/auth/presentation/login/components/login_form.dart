@@ -1,34 +1,65 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../core/components/custom_text.dart';
 import '../../../../../core/components/text_field_input.dart';
-import '../../../../../data/services/auth_methods.dart';
+import '../../../../../core/components/widgets.dart';
+import '../../../../nav/presentation/bottom_nav.dart';
+import '../../../data/controller/auth_controller.dart';
+import '../../components/auth_button.dart';
+import '../../components/social_card.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class LoginForm extends ConsumerStatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
-  final User? user = AuthMethods().currentUser;
+class _LoginFormState extends ConsumerState<LoginForm> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late bool _passwordVisible;
+  bool _passwordVisible = false;
   final RegExp emailRegex = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final List<String> errors = [];
 
-  // Widget _userUid() {
-  //   return Text(user?.email ?? 'Guest user');
-  // }
+  void addError({required String error}) {
+    if (!errors.contains(error)) {
+      setState(() {
+        errors.add(error);
+      });
+    }
+  }
 
-  @override
-  void initState() {
-    super.initState();
-    _passwordVisible = false;
+  void removeError({required String error}) {
+    if (errors.contains(error)) {
+      setState(() {
+        errors.remove(error);
+      });
+    }
+  }
+
+  void loginUser() async {
+    if (formKey.currentState!.validate()) {
+      final String result =
+          await ref.read(authControllerProvider).signInWithEmailAndPassword(
+                _emailController.text,
+                _passwordController.text,
+              );
+
+      if (result == 'success') {
+        if (!mounted) return;
+        showSnackbar(context, Colors.green, "Authentication is successfull 🎉");
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const BottomNav()),
+        );
+      } else {
+        if (!mounted) return;
+        showSnackbar(context, Colors.red, result.toString());
+      }
+    }
   }
 
   @override
@@ -38,101 +69,70 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
-  void addError({String? error}) {
-    if (!errors.contains(error)) {
-      setState(() {
-        errors.add(error!);
-      });
-    }
-  }
-
-  void removeError({String? error}) {
-    if (errors.contains(error)) {
-      setState(() {
-        errors.remove(error);
-      });
-    }
-  }
-
-  // void loginUser(BuildContext context) {
-  //   if (formKey.currentState!.validate()) {
-  //     AuthMethods()
-  //         .loginUser(
-  //             context: context,
-  //             email: _emailController.text,
-  //             password: _passwordController.text)
-  //         .then((value) {
-  //       Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (context) => const BottomNav()),
-  //       );
-  //     }).catchError((e) => showErrorSnackBar(context, e.toString()));
-  //   }
-  // }
-
-  // Future<void> signInWithEmailAndPassword(BuildContext context) async {
-  //   try {
-  //     await AuthMethods().loginUser(
-  //       context: context,
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       setState(() {
-  //         addError(error: 'No user found for that email.');
-  //       });
-  //     } else if (e.code == 'wrong-password') {
-  //       setState(() {
-  //         addError(error: 'Wrong password provided');
-  //       });
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final authController = ref.watch(authControllerProvider);
+
     return Form(
       key: formKey,
       child: Column(
         children: [
           buildEmailFormField(),
-          const SizedBox(height: 20),
+          SizedBox(height: size.height * .025),
           buildPasswordFormField(),
-          const SizedBox(height: 15),
-          Container(
-            width: double.maxFinite,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: const Color(0xff2D2B2B),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: MaterialButton(
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+          SizedBox(height: size.height * .025),
+          AuthButton(
+            onTap: loginUser,
+            name: 'Login',
+          ),
+          SizedBox(height: size.height * .15),
+          Row(
+            children: const [
+              Spacer(),
+              MyText(text: 'forgot password?', fontSize: 13),
+            ],
+          ),
+          SizedBox(height: size.height * .06),
+          Text(
+            "continue with social media",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Colors.black54),
+          ),
+          SizedBox(height: size.height * .03),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SocialCard(
+                onTap: () {
+                  authController.signInWithGoogle().then(
+                    (value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const BottomNav()),
+                      );
+                    },
+                  );
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.google,
+                  size: 18,
+                  color: Color(0xff2D2B2B),
                 ),
               ),
-              onPressed: () {
-                // try {
-                // ref.read(authControllerProvider).signInWithEmailAndPassword(
-                //       context,
-                //       _emailController.text,
-                //       _passwordController.text,
-                //     );
-                // loginUser(context);
-                // } catch (e) {
-                //   if (e is FirebaseAuthException) {
-                //     SnackBar(content: Text(e.message!));
-                //   }
-                // }
-              },
-            ),
+              SizedBox(width: size.width * .05),
+              const SocialCard(
+                icon: FaIcon(
+                  FontAwesomeIcons.phone,
+                  size: 18,
+                  color: Color(0xff2D2B2B),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 15),
-          const MyText(text: 'forgot password?', fontSize: 13),
         ],
       ),
     );
@@ -141,7 +141,7 @@ class _LoginFormState extends State<LoginForm> {
   TextFieldInput buildPasswordFormField() {
     return TextFieldInput(
       textEditingController: _passwordController,
-      hintText: 'Password',
+      hintText: 'Enter Password',
       labelText: 'Password',
       preIcon: const Icon(Icons.fingerprint),
       suffixicon: IconButton(
@@ -157,22 +157,44 @@ class _LoginFormState extends State<LoginForm> {
       ),
       textInputType: TextInputType.text,
       contentPadding: 22,
-      isPass: true,
+      isPass: _passwordVisible ? false : true,
       onSaved: (newValue) => _passwordController.text = newValue!,
       onChanged: (value) {
         if (value!.isNotEmpty) {
-          removeError(error: "Please Enter your password");
+          removeError(error: "Please enter your password");
         } else if (value.length >= 8) {
           removeError(error: "Password is too short");
+        }
+
+        // Check for at least 1 special character
+        if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+          removeError(
+              error: "Password must contain at least 1 special character");
+        }
+
+        // Check for at least 1 capital letter
+        if (!value.contains(RegExp(r'[A-Z]'))) {
+          removeError(error: "Password must contain at least 1 capital letter");
+        }
+
+        // Check for at least 1 number
+        if (!value.contains(RegExp(r'[0-9]'))) {
+          removeError(error: "Password must contain at least 1 number");
         }
         return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: "Please Enter your password");
+          addError(error: "Please enter your password");
           return "";
         } else if (value.length < 8) {
           addError(error: "Password is too short");
+          return "";
+        } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+          addError(error: "Password must contain at least 1 special character");
+          return "";
+        } else if (!value.contains(RegExp(r'[A-Z]'))) {
+          addError(error: "Password must contain at least 1 capital letter");
           return "";
         }
         return null;
@@ -190,19 +212,19 @@ class _LoginFormState extends State<LoginForm> {
       textInputType: TextInputType.emailAddress,
       onSaved: (newValue) => _emailController.text = newValue!,
       onChanged: (value) {
-        if (value!.isNotEmpty) {
-          removeError(error: "Please Enter your email");
-        } else if (emailRegex.hasMatch(value)) {
-          removeError(error: "Please Enter valid email");
+        if (value != '') {
+          removeError(error: "Please enter your email");
+        } else if (emailRegex.hasMatch(value!)) {
+          removeError(error: "Please enter a valid email");
         }
-        return;
+        return null;
       },
       validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: "Please Enter your email");
+        if (value != '') {
+          addError(error: "Please enter your email");
           return "";
-        } else if (!emailRegex.hasMatch(value)) {
-          addError(error: "Please Enter valid email");
+        } else if (!emailRegex.hasMatch(value!)) {
+          addError(error: "Please enter a valid email");
           return "";
         }
         return null;

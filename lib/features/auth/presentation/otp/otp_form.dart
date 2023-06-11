@@ -8,7 +8,9 @@ class OtpForm extends ConsumerWidget {
   const OtpForm(this.verificationId, {super.key});
 
   void verifyOtp(WidgetRef ref, BuildContext context, String otp) {
-    ref.read(authControllerProvider).verifyOTP(context, verificationId, otp);
+    ref
+        .read<AuthController>(authControllerProvider)
+        .verifyOTP(verificationId, otp);
   }
 
   @override
@@ -19,7 +21,6 @@ class OtpForm extends ConsumerWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-              //color: Color.fromARGB(255, 77, 21, 21),
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
@@ -31,7 +32,7 @@ class OtpForm extends ConsumerWidget {
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 hintText: '- - - - - -',
-                hintStyle: Theme.of(context).textTheme.headline6!.copyWith(
+                hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color:
                           const Color.fromARGB(255, 99, 99, 99).withOpacity(.7),
                     ),
@@ -48,7 +49,7 @@ class OtpForm extends ConsumerWidget {
               keyboardType: TextInputType.number,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: Colors.white),
               inputFormatters: [
                 LengthLimitingTextInputFormatter(1),
