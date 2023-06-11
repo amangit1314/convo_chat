@@ -1,61 +1,61 @@
-# *.class
-# *.log
-# *.pyc
-# *.swp
-# .DS_Store
-# .atom/
-# .buildlog/
-# .history
-# .svn/
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
 
 # # IntelliJ related
 # *.iml
 # *.ipr
 # *.iws
-# .idea/
-# lib/firebase_options.dart
-# lib/config/secret_keys.dart
-# android/app/google-services.json
+.idea/
+lib/firebase_options.dart
+lib/config/secret_keys.dart
+android/app/google-services.json
 
 # # The .vscode folder contains launch configuration and tasks you configure in
 # # VS Code which you may wish to be included in version control, so this line
 # # is commented out by default.
-# #.vscode/
+.vscode/
 
 # # Flutter/Dart/Pub related
 # **/doc/api/
 # **/ios/Flutter/.last_build_id
-# .dart_tool/
-# .flutter-plugins
-# .flutter-plugins-dependencies
-# .packages
-# .pub-cache/
-# .pub/
-# .vscode/
-# build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+.vscode/
+build/
 
 # # /secret/
 
 # # Web related
-# lib/generated_plugin_registrant.dart
-# android/app/google-services.json
+lib/generated_plugin_registrant.dart
+android/app/google-services.json
 
 # # Symbolication related
-# app.*.symbols
+app.*.symbols
 
 # # Obfuscation related
-# app.*.map.json
+app.*.map.json
 
 # # Android Studio will place build artifacts here
-# /android/app/debug
-# /android/app/profile
-# /android/app/release
-# android/app/google-services.json
+/android/app/debug
+/android/app/profile
+/android/app/release
+android/app/google-services.json
 # ------------------------------------------------------------
 
 # Miscellaneous
 *.class
-#*.lock
+*.lock
 *.log
 *.pyc
 *.swp
@@ -194,9 +194,9 @@ app.*.map.json
 # See https://www.dartlang.org/guides/libraries/private-files
 
 # Files and directories created by pub
-#.dart_tool/
-#.packages
-#build/
+.dart_tool/
+.packages
+build/
 # If you're building an application, you may want to check-in your pubspec.lock
 #pubspec.lock
 
@@ -216,8 +216,8 @@ doc/api/
 *.js.deps
 *.js.map
 
-#.flutter-plugins
-#.flutter-plugins-dependencies
+.flutter-plugins
+.flutter-plugins-dependencies
 
 
 ### -------------------------- Swift.gitignore  ------------------------ ###
@@ -227,15 +227,15 @@ doc/api/
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
-#xcuserdata/
+xcuserdata/
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 #*.xcscmblueprint
 #*.xccheckout
 
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-#build/
-#DerivedData/
+build/
+DerivedData/
 #*.moved-aside
 #*.pbxuser
 #!default.pbxuser
@@ -278,7 +278,7 @@ playground.xcworkspace
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
-# Pods/
+Pods/
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
@@ -286,7 +286,7 @@ playground.xcworkspace
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
+Carthage/Checkouts
 
 Carthage/Build/
 
@@ -333,9 +333,9 @@ iOSInjectionProject/
 *.war
 *.nar
 *.ear
-#*.zip
+*.zip
 *.tar.gz
-#*.rar
+*.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -344,7 +344,7 @@ replay_pid*
 
 ### -------------------------- Kotlin.gitignore ------------------------ ###
 
-#.DS_Store
+.DS_Store
 .idea/shelf
 /confluence/target
 /dependencies/repo
@@ -366,26 +366,26 @@ workspace.xml
 /js/js.translator/testData/out/
 /js/js.translator/testData/out-min/
 /js/js.translator/testData/out-pir/
-#.gradle/
-#build/
+.gradle/
+build/
 !**/src/**/build
 !**/test/**/build
-#*.iml
+*.iml
 !**/testData/**/*.iml
 .idea/remote-targets.xml
 .idea/libraries/Gradle*.xml
 .idea/libraries/Maven*.xml
 .idea/artifacts/PILL_*.xml
 .idea/artifacts/KotlinPlugin.xml
-#.idea/modules
+.idea/modules
 .idea/runConfigurations/JPS_*.xml
 .idea/runConfigurations/PILL_*.xml
 .idea/runConfigurations/_FP_*.xml
 .idea/runConfigurations/_MT_*.xml
-#.idea/libraries
-#.idea/modules.xml
-#.idea/gradle.xml
-#.idea/compiler.xml
+.idea/libraries
+.idea/modules.xml
+.idea/gradle.xml
+.idea/compiler.xml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/.name
 .idea/artifacts/dist_auto_*
@@ -404,14 +404,14 @@ workspace.xml
 .idea/artifacts/kotlin_test_js_ir_*
 .idea/artifacts/kotlin_stdlib_wasm_*
 .idea/artifacts/kotlinx_atomicfu_runtime_*
-#.idea/jarRepositories.xml
+.idea/jarRepositories.xml
 .idea/csv-plugin.xml
 .idea/libraries-with-intellij-classes.xml
 .idea/misc.xml
 node_modules/
 .rpt2_cache/
 libraries/tools/kotlin-test-js-runner/lib/
-#local.properties
+local.properties
 buildSrcTmp/
 distTmp/
 outTmp/
@@ -464,10 +464,10 @@ freeline/
 freeline_project_description.json
 
 # fastlane
-#fastlane/report.xml
-#fastlane/Preview.html
+fastlane/report.xml
+fastlane/Preview.html
 fastlane/screenshots
-#fastlane/test_output
+fastlane/test_output
 fastlane/readme.md
 
 # Keystore files
@@ -480,6 +480,7 @@ fastlane/readme.md
 .gradle
 **/build/
 !src/**/build/
+**/lib/firebase_options.dart
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -492,9 +493,9 @@ gradle-app.setting
 
 # Eclipse Gradle plugin generated files
 # Eclipse Core
-#.project
+.project
 # JDT-specific (Eclipse Java Development Tools)
-#.classpath
+.classpath
 
 
 ### ------------------------- Maven.gitignore -------------------------- ###
@@ -513,9 +514,9 @@ buildNumber.properties
 
 # Eclipse m2e generated files
 # Eclipse Core
-#.project
+.project
 # JDT-specific (Eclipse Java Development Tools)
-#.classpath
+.classpath
 
 
 ### ------------------------ JetBrains.gitignore ----------------------- ###
@@ -559,8 +560,8 @@ buildNumber.properties
  .idea/modules.xml
  .idea/*.iml
  .idea/modules
-# *.iml
-# *.ipr
+*.iml
+*.ipr
 
 # CMake
 cmake-build-*/
@@ -569,10 +570,10 @@ cmake-build-*/
 .idea/**/mongoSettings.xml
 
 # File-based project format
-#*.iws
+*.iws
 
 # IntelliJ
-#out/
+out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -613,7 +614,7 @@ xcuserdata/
 *.xccheckout
 
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-#build/
+build/
 DerivedData/
 *.moved-aside
 *.pbxuser
@@ -864,6 +865,7 @@ Temporary Items
 #*.msm
 #*.msp
 *.txz
+*.lock
 
 
 ### ------------------------- Backup.gitignore ------------------------- ###
@@ -887,7 +889,7 @@ Temporary Items
 ### ------------------------- Project Specific ------------------------- ###
 
 # Include any specific files here.
-
+lib/firebase_options.dart
 
 ### ---------------------------- References ---------------------------- ###
 
