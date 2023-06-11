@@ -1,40 +1,84 @@
 {
   "project_info": {
-    "project_number": "982105301472",
-    "project_id": "convo-chat-fe48f",
-    "storage_bucket": "convo-chat-fe48f.appspot.com"
+    "project_number": "261739528222",
+    "project_id": "convo-chat-2023",
+    "storage_bucket": "convo-chat-2023.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:982105301472:android:c383c080a9af5569c08b85",
+        "mobilesdk_app_id": "1:261739528222:android:73263a9367ff0e11d1ae0f",
+        "android_client_info": {
+          "package_name": "com.amanSoniChuru.convoChat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261739528222-2q9sgagdg1sanod2cptll75hhirvrs1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amanSoniChuru.convoChat",
+            "certificate_hash": "bd4e945b4fd151975d6f0f16bff162e2e6745dfa"
+          }
+        },
+        {
+          "client_id": "261739528222-9rblcdje4nsm97v3fonsjh66eg3knd0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0g-fCHFlV5gT9tO5u2q40cRmckGFVXo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261739528222-8dpaam3513v3plo5krqcgjsoch8c4n1r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "261739528222-b45t1n4a3gbtgp361ppeuhje55oh4f4q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.convoChat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261739528222:android:991bebaaa5a9289bd1ae0f",
         "android_client_info": {
           "package_name": "com.aman_soni_churu.convo_chat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
+          "client_id": "261739528222-9rblcdje4nsm97v3fonsjh66eg3knd0c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU"
+          "current_key": "AIzaSyC0g-fCHFlV5gT9tO5u2q40cRmckGFVXo0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
+              "client_id": "261739528222-8dpaam3513v3plo5krqcgjsoch8c4n1r.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "982105301472-1aqa3bujpt2s73ge8tqj0u51gfor4ogr.apps.googleusercontent.com",
+              "client_id": "261739528222-b45t1n4a3gbtgp361ppeuhje55oh4f4q.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.flutterFirebaseLogin"
+                "bundle_id": "com.example.convoChat"
               }
             }
           ]
@@ -43,142 +87,34 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:982105301472:android:bf9a1023a5598f14c08b85",
+        "mobilesdk_app_id": "1:261739528222:android:0da85ec34464f085d1ae0f",
         "android_client_info": {
           "package_name": "com.example.convo_chat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
+          "client_id": "261739528222-9rblcdje4nsm97v3fonsjh66eg3knd0c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU"
+          "current_key": "AIzaSyC0g-fCHFlV5gT9tO5u2q40cRmckGFVXo0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
+              "client_id": "261739528222-8dpaam3513v3plo5krqcgjsoch8c4n1r.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "982105301472-1aqa3bujpt2s73ge8tqj0u51gfor4ogr.apps.googleusercontent.com",
+              "client_id": "261739528222-b45t1n4a3gbtgp361ppeuhje55oh4f4q.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.flutterFirebaseLogin"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:982105301472:android:d7688d946bbb60a3c08b85",
-        "android_client_info": {
-          "package_name": "com.example.flutter_firebase_login"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "982105301472-1aqa3bujpt2s73ge8tqj0u51gfor4ogr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterFirebaseLogin"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:982105301472:android:0b5e721e6bb4d9d9c08b85",
-        "android_client_info": {
-          "package_name": "com.example.island_chat_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "982105301472-1aqa3bujpt2s73ge8tqj0u51gfor4ogr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterFirebaseLogin"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:982105301472:android:86414b90da525b4fc08b85",
-        "android_client_info": {
-          "package_name": "com.hulk.convo_chat"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCm2lXVgMXoXhwyJbDP8hbG3R7lH1-plvU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "982105301472-q6l035thbfk080u5tj1hnb8hu80lbtt0.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "982105301472-1aqa3bujpt2s73ge8tqj0u51gfor4ogr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterFirebaseLogin"
+                "bundle_id": "com.example.convoChat"
               }
             }
           ]

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:rive/rive.dart';
 
 class MenuDrawerButton extends StatelessWidget {
   final VoidCallback press;
-  final ValueChanged<Artboard> riveOnInit;
+  // final ValueChanged<Artboard> riveOnInit;
   final String svgIcon;
+  final bool? isOpened;
 
   const MenuDrawerButton({
     Key? key,
     required this.press,
-    required this.riveOnInit,
+    this.isOpened = false,
+    // required this.riveOnInit,
     required this.svgIcon,
   }) : super(key: key);
 
@@ -20,22 +21,19 @@ class MenuDrawerButton extends StatelessWidget {
       child: GestureDetector(
         onTap: press,
         child: Container(
-          height: 30,
-          width: 30,
-          decoration: const BoxDecoration(
+          padding: const EdgeInsets.all(12),
+          height: 40,
+          width: 40,
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: isOpened! ? Colors.transparent : Colors.white,
           ),
-          // child: RiveAnimation.asset(
-          //   "assets/riveAsset/menu_button.riv",
-          //   onInit: riveOnInit,
-          // ),
           child: Center(
-              //'assets/svg/nav.svg',
-              child: SvgPicture.asset(
-            svgIcon,
-            height: 19,
-          )),
+            child: SvgPicture.asset(
+              svgIcon,
+              height: 19,
+            ),
+          ),
         ),
       ),
     );

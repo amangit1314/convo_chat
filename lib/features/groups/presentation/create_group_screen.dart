@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CreateGroupScreen extends StatelessWidget {
+  static const routeName = '/createGroup';
   const CreateGroupScreen({super.key});
 
   @override

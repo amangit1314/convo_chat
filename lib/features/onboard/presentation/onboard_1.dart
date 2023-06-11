@@ -1,7 +1,9 @@
-import 'package:convo_chat/features/onboard/presentation/onboard_2.dart';
 import 'package:flutter/material.dart';
 
+import 'onboard_2.dart';
+
 class Onboard1Screen extends StatelessWidget {
+  static const routeName = '/onboard1';
   const Onboard1Screen({Key? key}) : super(key: key);
 
   @override
@@ -49,7 +51,7 @@ class Onboard1Screen extends StatelessWidget {
                   'Freely chat with anyone!',
                   style: TextStyle(
                     fontSize: 21,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
                 ),

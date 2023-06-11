@@ -1,50 +1,42 @@
+import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'features/auth/data/providers/user_provider.dart';
-import 'features/auth/presentation/login/login_screen.dart';
-import 'features/nav/presentation/bottom_nav.dart';
+import 'core/router/routes.dart';
+import 'features/auth/data/repository/auth_repository.dart';
+import 'features/onboard/presentation/onboard_1.dart';
 
-class ConvoApp extends StatelessWidget {
+class ConvoApp extends ConsumerWidget {
   const ConvoApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
-      ],
-      child: GetMaterialApp(
-        title: 'Convo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-          textTheme: GoogleFonts.poppinsTextTheme(),
-        ),
-        home: StreamBuilder(
-          stream: null,
-          //stream: FirebaseAuth.instance.authStateChanges(),
-          builder: ((context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()));
-            } else if (snapshot.hasData) {
-              return const BottomNav();
-            } else if (snapshot.hasError) {
-              Get.snackbar(
-                "Error",
-                snapshot.error.toString(),
-                snackPosition: SnackPosition.BOTTOM,
-                colorText: Colors.white,
-                backgroundColor: Colors.red,
-              );
-            }
-            return const LoginScreen();
-          }),
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return GetMaterialApp(
+      title: 'Convo',
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: Consumer(builder: (context, ref, _) {
+        final authState = ref.watch(authStateProvider);
+        return authState.when(
+          data: (user) {
+            if (user != null) {
+              return const BottomNav();
+            } else {
+              return const Onboard1Screen();
+            }
+          },
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (err, stackTrace) {
+            return const Text('An error occurred');
+          },
+        );
+      }),
     );
   }
 }

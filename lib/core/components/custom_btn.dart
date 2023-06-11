@@ -25,7 +25,7 @@ class CustomBtn extends StatelessWidget {
     required this.width,
     this.height = 55,
     this.fontSize = 18,
-    this.fontWeight = FontWeight.normal,
+    this.fontWeight = FontWeight.w600,
     required this.borderRadius,
   }) : super(key: key);
 

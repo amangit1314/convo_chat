@@ -23,22 +23,33 @@ class _MessageTileState extends State<MessageTile> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: 4,
+        top: 8,
         bottom: 4,
-        left: widget.sentByMe ? 0 : 12,
-        right: widget.sentByMe ? 12 : 0,
+        left: widget.sentByMe ? 30 : 12,
+        right: widget.sentByMe ? 12 : 30,
       ),
       alignment: widget.sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
+        crossAxisAlignment:
+            widget.sentByMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: [
-          Text(
-            widget.sender,
-            textAlign: widget.sentByMe ? TextAlign.end : TextAlign.start,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              letterSpacing: -0.5,
+          Container(
+            margin: widget.sentByMe
+                ? const EdgeInsets.only(left: 30)
+                : const EdgeInsets.only(right: 30),
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+            ),
+            child: Text(
+              widget.sender,
+              textAlign: widget.sentByMe ? TextAlign.end : TextAlign.start,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                letterSpacing: -0.5,
+              ),
             ),
           ),
           const SizedBox(height: 4),
@@ -65,10 +76,8 @@ class _MessageTileState extends State<MessageTile> {
                       bottomRight: Radius.circular(20),
                     ),
               color: widget.sentByMe
-                  ?
-                  //Theme.of(context).primaryColor
-                  Colors.black
-                  : Colors.yellow,
+                  ? Theme.of(context).primaryColor
+                  : Colors.deepOrange.withOpacity(.3),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,10 +94,21 @@ class _MessageTileState extends State<MessageTile> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            widget.msgTime,
-            textAlign: TextAlign.start,
-            style: const TextStyle(fontSize: 12, color: Colors.black),
+          Container(
+            margin: widget.sentByMe
+                ? const EdgeInsets.only(left: 30)
+                : const EdgeInsets.only(right: 30),
+            padding: const EdgeInsets.only(
+              // top: 17,
+              // bottom: 17,
+              left: 20,
+              right: 20,
+            ),
+            child: Text(
+              widget.msgTime,
+              textAlign: TextAlign.start,
+              style: const TextStyle(fontSize: 12, color: Colors.black),
+            ),
           )
         ],
       ),

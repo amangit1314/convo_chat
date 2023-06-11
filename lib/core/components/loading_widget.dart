@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
+  final Color color;
+  final bool isCenter;
+
   const LoadingWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    this.isCenter = false,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(color: Colors.red),
-    );
+    return isCenter
+        ? Center(child: CircularProgressIndicator(color: color))
+        : CircularProgressIndicator(color: color);
   }
 }

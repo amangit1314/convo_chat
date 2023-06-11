@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 final List images = [
   'assets/images/1.jpg',
   'assets/images/2.jpg',
@@ -18,4 +21,11 @@ final List images = [
   'assets/images/17.jpg',
   'assets/images/18.jpg',
   'assets/images/19.jpg',
+];
+
+List navItems = [
+  [Icons.home, 'Home', FontAwesomeIcons.chartBar],
+  [Icons.home, 'Groups', FontAwesomeIcons.userGroup],
+  [Icons.home, 'Calls', FontAwesomeIcons.phone],
+  [Icons.home, 'Profile', FontAwesomeIcons.person],
 ];

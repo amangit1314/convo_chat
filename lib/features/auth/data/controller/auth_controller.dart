@@ -1,88 +1,92 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import '../../domain/models/user_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../models/user_model.dart';
 import '../repository/auth_repository.dart';
 
-// final authControllerProvider = Provider((ref) {
-//   final authRepository = ref.watch(authRepositoryProvider);
-//   return AuthController(authRepository: authRepository, ref: ref);
-// });
+final authControllerProvider = Provider<AuthController>((ref) {
+  final authRepository = ref.watch(authRepositoryProvider);
+  return AuthController(authRepository: authRepository, ref: ref);
+});
 
-// final userDataAuthProvider = FutureProvider((ref) {
-//   final authController = ref.watch(authControllerProvider);
-//   return authController.getUserData();
-// });
+final userDataAuthProvider = FutureProvider<UserModel?>((ref) {
+  final authController = ref.watch(authControllerProvider);
+  return authController.getUserData();
+});
 
 class AuthController {
   final AuthRepository authRepository;
-  // final ProviderRef ref;
+  final ProviderRef ref;
 
   AuthController({
     required this.authRepository,
-    //required this.ref,
+    required this.ref,
   });
 
-  // Future<UserModel?> getUserData() async {
-  //   UserModel? user = await authRepository.getCurrentUserData();
-  //   return user;
-  // }
-
-  void signInWithPhone(BuildContext context, String phoneNumber) {
-    authRepository.signInWithPhone(context, phoneNumber);
-  }
-
-  void verifyOTP(BuildContext context, String verificationId, String userOTP) {
-    authRepository.verifyOTP(
-      context: context,
-      verificationId: verificationId,
-      userOTP: userOTP,
-    );
-  }
-
-  // void saveUserDataToFirebase(BuildContext context, String email,
-  //     String password, String name, File? profilePic) {
-  //   authRepository.saveUserDataToFirebase(
-  //     email: email,
-  //     password: password,
-  //     name: name,
-  //     profilePic: profilePic,
-  //     //ref: ref,
-  //     context: context,
-  //   );
-  // }
-
-  Stream<UserModel> userDataById(String userId) {
-    return authRepository.userData(userId);
+  Future<UserModel?> getUserData() async {
+    UserModel? user = await authRepository.getCurrentUserData();
+    return user;
   }
 
   void setUserState(bool isOnline) {
     authRepository.setUserState(isOnline);
   }
 
-  void signOut() {
-    authRepository.signOut();
-  }
-
-  Future<dynamic> registerUser(
-      BuildContext context, String name, String email, String password) async {
-    return await authRepository.registerUser(
-      context: context,
+  Future<String> register(
+    String name,
+    String email,
+    String password,
+  ) async {
+    return await authRepository.register(
       fullName: name,
       email: email,
       password: password,
     );
   }
 
-  Future<dynamic> loginUser(
-      BuildContext context, String email, String password) async {
-    return await authRepository.loginUser(
-      context: context,
+  void signInWithPhone(String phoneNumber) {
+    authRepository.signInWithPhone(phoneNumber);
+  }
+
+  void verifyOTP(String verificationId, String userOTP) {
+    authRepository.verifyOTP(
+      verificationId: verificationId,
+      userOTP: userOTP,
+    );
+  }
+
+  Future<String> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    return await authRepository.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<dynamic> signInWithGoogle(BuildContext context) async {
-    return await authRepository.signInWithGoogle(context);
+  Future<dynamic> signInWithGoogle() async {
+    return await authRepository.signInWithGoogle();
+  }
+
+  void saveUserDataToFirebase({
+    required String name,
+    required String email,
+    File? profilePic,
+  }) {
+    authRepository.saveUserDataToFirebase(
+      name: name,
+      email: email,
+      profilePic: profilePic,
+    );
+  }
+
+  Stream<UserModel?> userDataById(String userId) {
+    return authRepository.userData(userId);
+  }
+
+  void signOut() {
+    authRepository.signOut();
   }
 }

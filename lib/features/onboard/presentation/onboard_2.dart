@@ -1,11 +1,13 @@
 import 'package:convo_chat/core/components/custom_btn.dart' show CustomBtn;
 import 'package:convo_chat/core/components/custom_text.dart' show MyText;
 import 'package:convo_chat/features/auth/presentation/register/register_screen.dart';
-import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../auth/presentation/login/login_screen.dart';
+
 class Onboard2Screen extends StatelessWidget {
+  static const routeName = '/onboard2';
   const Onboard2Screen({Key? key}) : super(key: key);
 
   @override
@@ -13,6 +15,7 @@ class Onboard2Screen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Spacer(),
@@ -45,29 +48,21 @@ class Onboard2Screen extends StatelessWidget {
           CustomBtn(
             text: 'Login',
             press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BottomNav()),
-              );
+              Navigator.of(context).pushNamed(LoginScreen.routeName);
             },
             color: const Color(0xff2D2B2B),
-            width: 331,
+            width: MediaQuery.of(context).size.width * 0.8,
             textColor: Colors.white,
             height: 55,
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            borderRadius: 10,
+            borderRadius: 12,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 14.0),
             child: MaterialButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RegisterScreen(),
-                  ),
-                );
+                Navigator.of(context).pushNamed(RegisterScreen.routeName);
               },
               child: const MyText(
                 text: 'Register',
