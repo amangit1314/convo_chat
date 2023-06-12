@@ -22,11 +22,6 @@ final headingStyle = TextStyle(
   height: 1.5,
 );
 
-messageTheme({
-  messageBackgroundColor = primaryColor,
-  messageText = const TextStyle(color: textColor),
-}) {}
-
 final otpInputDecoration = InputDecoration(
   contentPadding:
       EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
@@ -38,6 +33,6 @@ final otpInputDecoration = InputDecoration(
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
-    borderSide: const BorderSide(color: textColor),
+    borderSide: BorderSide(color: textColor),
   );
 }

@@ -65,10 +65,16 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
 
       if (result == 'success') {
         if (!mounted) return;
-        showSnackbar(context, Colors.green, "Registration is successful 🎉");
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
+
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            )
+            .then((value) => showSnackbar(
+                  context,
+                  Colors.green,
+                  "Registration is successful 🎉",
+                ));
       } else {
         if (!mounted) return;
         showSnackbar(context, Colors.red, result.toString());
@@ -85,11 +91,11 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .015),
           buildPasswordFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .015),
           buildEnterMobileNumberFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .035),
           AuthButton(
             onTap: register,
             name: 'Register',

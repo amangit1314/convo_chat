@@ -2,18 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/controller/auth_controller.dart';
+import 'otp_form.dart';
 
 class VerifyOtpScreen extends ConsumerWidget {
   final String verificationId;
   static const routeName = '/verifyOtp';
+
   const VerifyOtpScreen({Key? key, required this.verificationId})
       : super(key: key);
 
-  void verifyOTP(WidgetRef ref, BuildContext context, String userOTP) {
-    ref.read<AuthController>(authControllerProvider).verifyOTP(
-          verificationId,
-          userOTP,
-        );
+  void verifyOTP(BuildContext context, WidgetRef ref, String userOTP) async {
+    final authController = ref.read(authControllerProvider);
+    bool isOTPValid = await authController.verifyOTP(verificationId, userOTP);
+
+    if (isOTPValid) {
+      Navigator.of(context).pushReplacementNamed('/bottomNavScreen');
+    } else {
+      // Show an error message or perform any other action
+    }
+  }
+
+  void resendOTP(BuildContext context, WidgetRef ref) {
+    final authController = ref.read(authControllerProvider);
+    // authController.();
   }
 
   @override
@@ -67,23 +78,11 @@ class VerifyOtpScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 60),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    hintText: '- - - - - -',
-                    hintStyle: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                  onChanged: (val) {
-                    if (val.length == 6) {
-                      // verifyOTP(ref, context, val.trim());
-                    }
-                  },
-                ),
+              OtpForm(
+                verificationId: verificationId,
+                onOTPVerified: (userOTP) {
+                  verifyOTP(context, ref, userOTP);
+                },
               ),
               const SizedBox(height: 100),
               Row(
@@ -95,7 +94,9 @@ class VerifyOtpScreen extends ConsumerWidget {
                     style: TextStyle(fontSize: 13),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      resendOTP(context, ref);
+                    },
                     child: const Text(
                       'Get OTP',
                       textAlign: TextAlign.center,

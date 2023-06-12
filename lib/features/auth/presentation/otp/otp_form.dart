@@ -5,12 +5,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OtpForm extends ConsumerWidget {
   final String verificationId;
-  const OtpForm(this.verificationId, {super.key});
+  final Function(String) onOTPVerified;
 
-  void verifyOtp(WidgetRef ref, BuildContext context, String otp) {
-    ref
-        .read<AuthController>(authControllerProvider)
-        .verifyOTP(verificationId, otp);
+  const OtpForm({
+    required this.verificationId,
+    required this.onOTPVerified,
+    Key? key,
+  }) : super(key: key);
+
+  void verifyOtp(WidgetRef ref, BuildContext context, String otp) async {
+    final authController = ref.read(authControllerProvider);
+    bool isOTPValid = await authController.verifyOTP(verificationId, otp);
+
+    if (isOTPValid) {
+      onOTPVerified(otp);
+    } else {
+      // Show an error message or perform any other action
+    }
   }
 
   @override
@@ -19,168 +30,54 @@ class OtpForm extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-            ),
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                hintText: '- - - - - -',
-                hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color:
-                          const Color.fromARGB(255, 99, 99, 99).withOpacity(.7),
-                    ),
+          for (int i = 0; i < 6; i++)
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
-              onChanged: (value) {
-                if (value.length == 6) {
-                  verifyOtp(ref, context, value);
-                  FocusScope.of(context).nextFocus();
-                }
-              },
-              onSaved: (pin) {
-                verifyOtp(ref, context, pin!);
-              },
-              keyboardType: TextInputType.number,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: Colors.white),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              textAlign: TextAlign.center,
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    hintText: '-',
+                    hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: const Color.fromARGB(255, 99, 99, 99)
+                              .withOpacity(.7),
+                        ),
+                  ),
+                  onChanged: (value) {
+                    if (value.isNotEmpty && i < 5) {
+                      FocusScope.of(context).nextFocus();
+                    }
+                    if (value.length == 6) {
+                      verifyOtp(ref, context, value);
+                      FocusScope.of(context).unfocus();
+                    }
+                  },
+                  onSaved: (value) {
+                    if (value != null && value.length == 6) {
+                      verifyOtp(ref, context, value);
+                    }
+                  },
+                  keyboardType: TextInputType.number,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Colors.black,
+                      ),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(1),
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-          ),
-          // Container(
-          //   decoration: const BoxDecoration(
-          //     color: Color.fromARGB(255, 77, 21, 21),
-          //     borderRadius: BorderRadius.all(Radius.circular(12)),
-          //   ),
-          //   height: 68,
-          //   width: 64,
-          //   child: TextFormField(
-          //     decoration: InputDecoration(
-          //       border: InputBorder.none,
-          //       focusedBorder: InputBorder.none,
-          //       enabledBorder: InputBorder.none,
-          //       errorBorder: InputBorder.none,
-          //       disabledBorder: InputBorder.none,
-          //       hintText: '0',
-          //       hintStyle: Theme.of(context)
-          //           .textTheme
-          //           .headline6!
-          //           .copyWith(color: Colors.grey),
-          //     ),
-          //     onChanged: (value) {
-          //       if (value.length == 1) {
-          //         verifyOtp(ref, context, value.trim());
-          //         FocusScope.of(context).nextFocus();
-          //       }
-          //     },
-          //     onSaved: (pin2) {
-          //       verifyOtp(ref, context, pin2!);
-          //     },
-          //     keyboardType: TextInputType.number,
-          //     style: Theme.of(context)
-          //         .textTheme
-          //         .headline6!
-          //         .copyWith(color: Colors.white),
-          //     inputFormatters: [
-          //       LengthLimitingTextInputFormatter(1),
-          //       FilteringTextInputFormatter.digitsOnly,
-          //     ],
-          //     textAlign: TextAlign.center,
-          //   ),
-          // ),
-          // Container(
-          //   decoration: const BoxDecoration(
-          //     color: Color.fromARGB(255, 77, 21, 21),
-          //     borderRadius: BorderRadius.all(Radius.circular(12)),
-          //   ),
-          //   height: 68,
-          //   width: 64,
-          //   child: TextFormField(
-          //     decoration: InputDecoration(
-          //       border: InputBorder.none,
-          //       focusedBorder: InputBorder.none,
-          //       enabledBorder: InputBorder.none,
-          //       errorBorder: InputBorder.none,
-          //       disabledBorder: InputBorder.none,
-          //       hintText: '0',
-          //       hintStyle: Theme.of(context)
-          //           .textTheme
-          //           .headline6!
-          //           .copyWith(color: Colors.grey),
-          //     ),
-          //     onChanged: (value) {
-          //       if (value.length == 1) {
-          //         verifyOtp(ref, context, value.trim());
-          //         FocusScope.of(context).nextFocus();
-          //       }
-          //     },
-          //     onSaved: (pin3) {
-          //       verifyOtp(ref, context, pin3!);
-          //     },
-          //     keyboardType: TextInputType.number,
-          //     style: Theme.of(context)
-          //         .textTheme
-          //         .headline6!
-          //         .copyWith(color: Colors.white),
-          //     inputFormatters: [
-          //       LengthLimitingTextInputFormatter(1),
-          //       FilteringTextInputFormatter.digitsOnly,
-          //     ],
-          //     textAlign: TextAlign.center,
-          //   ),
-          // ),
-          // Container(
-          //   decoration: const BoxDecoration(
-          //     color: Color.fromARGB(255, 77, 21, 21),
-          //     borderRadius: BorderRadius.all(Radius.circular(12)),
-          //   ),
-          //   height: 68,
-          //   width: 64,
-          //   child: TextFormField(
-          //     decoration: InputDecoration(
-          //       border: InputBorder.none,
-          //       focusedBorder: InputBorder.none,
-          //       enabledBorder: InputBorder.none,
-          //       errorBorder: InputBorder.none,
-          //       disabledBorder: InputBorder.none,
-          //       hintText: '0',
-          //       hintStyle: Theme.of(context)
-          //           .textTheme
-          //           .headline6!
-          //           .copyWith(color: Colors.grey),
-          //     ),
-          //     onChanged: (value) {
-          //       if (value.length == 1) {
-          //         verifyOtp(ref, context, value.trim());
-          //         FocusScope.of(context).nextFocus();
-          //       }
-          //     },
-          //     onSaved: (pin4) {
-          //       verifyOtp(ref, context, pin4!);
-          //     },
-          //     keyboardType: TextInputType.number,
-          //     style: Theme.of(context)
-          //         .textTheme
-          //         .headline6!
-          //         .copyWith(color: Colors.white),
-          //     inputFormatters: [
-          //       LengthLimitingTextInputFormatter(1),
-          //       FilteringTextInputFormatter.digitsOnly,
-          //     ],
-          //     textAlign: TextAlign.center,
-          //   ),
-          // ),
         ],
       ),
     );

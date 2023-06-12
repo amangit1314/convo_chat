@@ -136,8 +136,8 @@ class TopChatBar extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 13.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'John Doe',
                       style: TextStyle(
                         fontSize: 14,

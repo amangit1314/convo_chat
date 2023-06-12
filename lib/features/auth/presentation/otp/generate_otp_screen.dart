@@ -1,4 +1,4 @@
-// import 'package:convo_chat/domain/view_model/login_bloc/login_bloc.dart';
+import 'package:convo_chat/features/auth/data/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,15 +13,21 @@ class GenerateOtpScreen extends ConsumerStatefulWidget {
 
 class _GenerateOtpScreenState extends ConsumerState<GenerateOtpScreen> {
   final formKey = GlobalKey<FormState>();
-  late TextEditingController phoneNoController = TextEditingController();
-  late TextEditingController otpController = TextEditingController();
-  // LoginBloc loginBloc = LoginBloc(LoginScreenInitialState());
+  late TextEditingController phoneNoController;
+  late TextEditingController otpController;
+
+  @override
+  void initState() {
+    super.initState();
+    phoneNoController = TextEditingController();
+    otpController = TextEditingController();
+  }
 
   @override
   void dispose() {
-    super.dispose();
     phoneNoController.dispose();
     otpController.dispose();
+    super.dispose();
   }
 
   @override
@@ -111,7 +117,11 @@ class _GenerateOtpScreenState extends ConsumerState<GenerateOtpScreen> {
               TextButton(
                 onPressed: () {
                   if (formKey.currentState != null &&
-                      formKey.currentState!.validate()) {}
+                      formKey.currentState!.validate()) {
+                    ref
+                        .read<AuthController>(authControllerProvider)
+                        .signInWithPhone(phoneNoController.text);
+                  }
                 },
                 child: Builder(
                   builder: (context) {

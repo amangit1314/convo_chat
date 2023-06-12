@@ -3,8 +3,7 @@ import 'package:convo_chat/features/auth/presentation/register/register_screen.d
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/components/animated_shadow_button.dart';
-import '../../../core/utils/theme/colors.dart';
+import '../../auth/presentation/components/auth_button.dart';
 import '../../auth/presentation/login/login_screen.dart';
 
 class Onboard2Screen extends StatelessWidget {
@@ -48,7 +47,7 @@ class Onboard2Screen extends StatelessWidget {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15),
-            child: AnimatedShadowContainer(
+            child: AuthButton(
               onTap: () {
                 // Navigator.of(context).pushNamed(RegisterScreen.routeName);
                 Navigator.of(context).push(
@@ -57,8 +56,7 @@ class Onboard2Screen extends StatelessWidget {
                   ),
                 );
               },
-              buttonText: 'Login',
-              buttonBackgroundGradient: primaryGradientColor,
+              name: 'Login',
             ),
           ),
           Padding(

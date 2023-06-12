@@ -23,11 +23,11 @@ class MyText extends StatelessWidget {
       text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        textStyle: TextStyle(
-          fontSize: fontSize,
-          color: color,
-          fontWeight: fontWeight,
-        ),
+        textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontSize: fontSize,
+              color: color,
+              fontWeight: fontWeight,
+            ),
       ),
     );
   }
