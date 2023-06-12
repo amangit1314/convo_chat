@@ -86,7 +86,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             onTap: loginUser,
             name: 'Login',
           ),
-          SizedBox(height: size.height * .15),
+          SizedBox(height: size.height * .025),
           Row(
             children: const [
               Spacer(),
@@ -220,10 +220,10 @@ class _LoginFormState extends ConsumerState<LoginForm> {
         return null;
       },
       validator: (value) {
-        if (value != '') {
+        if (value!.isEmpty) {
           addError(error: "Please enter your email");
           return "";
-        } else if (!emailRegex.hasMatch(value!)) {
+        } else if (!emailRegex.hasMatch(value)) {
           addError(error: "Please enter a valid email");
           return "";
         }

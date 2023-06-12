@@ -48,7 +48,12 @@ class Onboard2Screen extends StatelessWidget {
           CustomBtn(
             text: 'Login',
             press: () {
-              Navigator.of(context).pushNamed(LoginScreen.routeName);
+              // Navigator.of(context).pushNamed(LoginScreen.routeName);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const LoginScreen(),
+                ),
+              );
             },
             color: const Color(0xff2D2B2B),
             width: MediaQuery.of(context).size.width * 0.8,
