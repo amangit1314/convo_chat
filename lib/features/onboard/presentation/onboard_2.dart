@@ -1,9 +1,10 @@
-import 'package:convo_chat/core/components/custom_btn.dart' show CustomBtn;
 import 'package:convo_chat/core/components/custom_text.dart' show MyText;
 import 'package:convo_chat/features/auth/presentation/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/components/animated_shadow_button.dart';
+import '../../../core/utils/theme/colors.dart';
 import '../../auth/presentation/login/login_screen.dart';
 
 class Onboard2Screen extends StatelessWidget {
@@ -45,29 +46,31 @@ class Onboard2Screen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          CustomBtn(
-            text: 'Login',
-            press: () {
-              // Navigator.of(context).pushNamed(LoginScreen.routeName);
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => const LoginScreen(),
-                ),
-              );
-            },
-            color: const Color(0xff2D2B2B),
-            width: MediaQuery.of(context).size.width * 0.8,
-            textColor: Colors.white,
-            height: 55,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            borderRadius: 12,
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0, right: 15),
+            child: AnimatedShadowContainer(
+              onTap: () {
+                // Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const LoginScreen(),
+                  ),
+                );
+              },
+              buttonText: 'Login',
+              buttonBackgroundGradient: primaryGradientColor,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 14.0),
             child: MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                // Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const RegisterScreen(),
+                  ),
+                );
               },
               child: const MyText(
                 text: 'Register',

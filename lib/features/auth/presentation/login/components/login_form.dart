@@ -1,3 +1,4 @@
+import 'package:convo_chat/core/utils/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -85,12 +86,17 @@ class _LoginFormState extends ConsumerState<LoginForm> {
           AuthButton(
             onTap: loginUser,
             name: 'Login',
+            bgColor: primaryColor,
           ),
           SizedBox(height: size.height * .025),
           Row(
             children: const [
               Spacer(),
-              MyText(text: 'forgot password?', fontSize: 13),
+              MyText(
+                text: 'forgot password?',
+                fontSize: 13,
+                color: primaryColor,
+              ),
             ],
           ),
           SizedBox(height: size.height * .06),
@@ -100,7 +106,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
-                .copyWith(color: Colors.black54),
+                .copyWith(color: textColor),
           ),
           SizedBox(height: size.height * .03),
           Row(
@@ -120,7 +126,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 icon: const FaIcon(
                   FontAwesomeIcons.google,
                   size: 18,
-                  color: Color(0xff2D2B2B),
+                  color: primaryColor,
                 ),
               ),
               SizedBox(width: size.width * .05),
@@ -128,7 +134,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 icon: FaIcon(
                   FontAwesomeIcons.phone,
                   size: 18,
-                  color: Color(0xff2D2B2B),
+                  color: primaryColor,
                 ),
               ),
             ],

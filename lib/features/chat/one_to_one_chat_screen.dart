@@ -1,7 +1,9 @@
 import 'package:convo_chat/core/components/message_tile.dart';
 import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../core/utils/theme/colors.dart';
 import '../home/data/data.dart';
 
 class OneToOneChatScreen extends StatefulWidget {
@@ -15,7 +17,7 @@ class _OneToOneChatScreenState extends State<OneToOneChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryLightColor.withOpacity(.97),
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: TopChatBar(),
@@ -66,6 +68,7 @@ class BottomMessageInputBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      elevation: 1,
       color: Colors.white,
       child: Row(
         children: [
@@ -145,7 +148,7 @@ class TopChatBar extends StatelessWidget {
                       'Active 2h ago',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.grey,
+                        color: textColor,
                       ),
                     ),
                   ],
@@ -154,11 +157,17 @@ class TopChatBar extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.videocam),
+                icon: const FaIcon(
+                  FontAwesomeIcons.video,
+                  size: 20,
+                ),
               ),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.call),
+                icon: const FaIcon(
+                  FontAwesomeIcons.mobileRetro,
+                  size: 24,
+                ),
               ),
               IconButton(
                 onPressed: () {},
