@@ -1,3 +1,4 @@
+import 'package:convo_chat/core/utils/theme/colors.dart';
 import 'package:convo_chat/features/auth/presentation/login/components/login_form.dart';
 import 'package:flutter/material.dart';
 
@@ -15,26 +16,27 @@ class Body extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: size.height * .08),
             const Text(
               'Login',
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontSize: 21,
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
+                fontSize: 24,
+                color: primaryColor,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            SizedBox(height: size.height * .01),
-            Text(
+            SizedBox(height: size.height * .008),
+            const Text(
               //'Enter your credentials to sign in and \nchat freely with your contacts, enjoy',
               'Sign in with credentials and enjoy',
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: FontWeight.normal,
-                color: Colors.black.withOpacity(.8),
+                color: textColor,
               ),
             ),
             SizedBox(height: size.height * .04),
