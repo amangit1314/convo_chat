@@ -1,35 +1,28 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, MediaQuery, MediaQueryData, Orientation;
 
 class SizeConfig {
-  static double _designWidth = 360;
-  static double _designHeight = 800;
-
   static late MediaQueryData _mediaQueryData;
-  static late double screenWidth;
-  static late double screenHeight;
-  static late double blockSizeHorizontal;
-  static late double blockSizeVertical;
+  static double screenWidth = 360;
+  static double screenHeight = 740;
+  static late double defaultSize;
   static late Orientation orientation;
 
-  static void init(
-      BuildContext context, double designWidth, double designHeight) {
+  void init(BuildContext context) {
+    SizeConfig().init(context);
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
+    screenHeight = MediaQuery.of(context).size.height;
     orientation = _mediaQueryData.orientation;
-
-    _designWidth = designWidth;
-    _designHeight = designHeight;
-
-    blockSizeHorizontal = screenWidth / _designWidth;
-    blockSizeVertical = screenHeight / _designHeight;
   }
+}
 
-  static double getProportionateScreenHeight(double inputHeight) {
-    return inputHeight * blockSizeVertical;
-  }
+double getProportionateScreenHeight(double inputHeight) {
+  double screenHeight = SizeConfig.screenHeight;
+  return (inputHeight / screenHeight) * screenHeight;
+}
 
-  static double getProportionateScreenWidth(double inputWidth) {
-    return inputWidth * blockSizeHorizontal;
-  }
+double getProportionateScreenWidth(double inputWidth) {
+  double screenWidth = SizeConfig.screenWidth;
+  return (inputWidth / screenWidth) * screenWidth;
 }

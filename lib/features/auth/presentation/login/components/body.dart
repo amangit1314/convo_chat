@@ -14,7 +14,7 @@ class Body extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-        child: ListView(
+        child: Column(
           children: [
             SizedBox(height: size.height * .08),
             const Text(
@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: size.height * .02),
+            SizedBox(height: size.height * .01),
             Text(
               //'Enter your credentials to sign in and \nchat freely with your contacts, enjoy',
               'Sign in with credentials and enjoy',

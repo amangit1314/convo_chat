@@ -22,18 +22,8 @@ class ProfileBody extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 ProfileMenu(
-                  text: "$userName's Account",
+                  text: "My Account",
                   icon: "assets/icons/User Icon.svg",
-                  press: () => {},
-                ),
-                ProfileMenu(
-                  text: "Email -> $email",
-                  icon: "assets/icons/User Icon.svg",
-                  press: () => {},
-                ),
-                ProfileMenu(
-                  text: "My Orders",
-                  icon: "assets/icons/Shop Icon.svg",
                   press: () => {},
                 ),
                 ProfileMenu(

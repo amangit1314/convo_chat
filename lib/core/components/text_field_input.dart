@@ -1,3 +1,4 @@
+import 'package:convo_chat/core/utils/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldInput extends StatelessWidget {
@@ -31,7 +32,7 @@ class TextFieldInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.black),
+      borderSide: const BorderSide(color: primaryColor),
       borderRadius: BorderRadius.circular(12),
     );
     return TextFormField(
@@ -48,7 +49,7 @@ class TextFieldInput extends StatelessWidget {
           fontWeight: FontWeight.normal,
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: primaryLightColor,
         labelText: labelText,
         prefixIcon: preIcon,
         contentPadding: EdgeInsets.all(contentPadding!),
