@@ -2,6 +2,7 @@ import 'package:convo_chat/features/calls/calls_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../core/utils/theme/colors.dart';
 import '../../data/static_data.dart';
 
 class CallInfoScreen extends StatelessWidget {
@@ -12,13 +13,12 @@ class CallInfoScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Call Info',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+                color: primaryColor,
+              ),
         ),
         leading: IconButton(
           icon: const FaIcon(

@@ -1,7 +1,7 @@
+import 'package:convo_chat/core/utils/theme/colors.dart';
 import 'package:convo_chat/features/calls/call_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 
 class CallNotificationTile extends StatelessWidget {
   final String img;
@@ -84,11 +84,11 @@ class CallNotificationTile extends StatelessWidget {
                         Text(
                           time,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: primaryColor,
+                                  ),
                         ),
                       ],
                     ),
@@ -101,7 +101,11 @@ class CallNotificationTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Get.to(() => const CallInfoScreen());
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => const CallInfoScreen(),
+          ),
+        );
       },
     );
   }

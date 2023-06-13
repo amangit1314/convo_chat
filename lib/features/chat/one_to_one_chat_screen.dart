@@ -103,9 +103,7 @@ class BottomMessageInputBar extends StatelessWidget {
 }
 
 class TopChatBar extends StatelessWidget {
-  const TopChatBar({
-    super.key,
-  });
+  const TopChatBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +111,7 @@ class TopChatBar extends StatelessWidget {
       child: Flexible(
         child: Material(
           elevation: 0,
-          color: Colors.white,
+          color: primaryLightColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

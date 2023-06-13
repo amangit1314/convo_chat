@@ -3,6 +3,7 @@ import 'package:convo_chat/features/auth/presentation/register/register_screen.d
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/utils/theme/colors.dart';
 import '../../auth/presentation/components/auth_button.dart';
 import '../../auth/presentation/login/login_screen.dart';
 
@@ -32,13 +33,13 @@ class Onboard2Screen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15),
-          const Padding(
-            padding: EdgeInsets.only(left: 31.0, right: 31),
+          Padding(
+            padding: const EdgeInsets.only(left: 31.0, right: 31),
             child: Text(
               'A secured and beautiful app to chat with friends, family and contacts.',
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.black,
+                color: textColor,
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,

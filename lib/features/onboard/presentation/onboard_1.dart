@@ -13,7 +13,7 @@ class Onboard1Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff22211F),
+      backgroundColor: primaryColor,
       body: SafeArea(
         child: ConstrainedBox(
           constraints:
@@ -41,8 +41,8 @@ class Onboard1Screen extends StatelessWidget {
                             'Convo',
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              color: primaryLightColor,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],

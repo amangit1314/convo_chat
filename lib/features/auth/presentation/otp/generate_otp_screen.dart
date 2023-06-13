@@ -1,4 +1,4 @@
-import 'package:convo_chat/features/auth/data/controller/auth_controller.dart';
+import 'package:convo_chat/features/auth/presentation/otp/verify_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -118,9 +118,13 @@ class _GenerateOtpScreenState extends ConsumerState<GenerateOtpScreen> {
                 onPressed: () {
                   if (formKey.currentState != null &&
                       formKey.currentState!.validate()) {
-                    ref
-                        .read<AuthController>(authControllerProvider)
-                        .signInWithPhone(phoneNoController.text);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => VerifyOtpScreen(
+                          verificationId: phoneNoController.text),
+                    ));
+                    // ref
+                    //     .read<AuthController>(authControllerProvider)
+                    //     .signInWithPhone(phoneNoController.text);
                   }
                 },
                 child: Builder(
