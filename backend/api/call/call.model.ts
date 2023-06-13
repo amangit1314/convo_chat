@@ -9,24 +9,21 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
-interface Message {
+interface Call {
     id: string;
-    chat_room_id: string;
-    sender_id: string;
-    type: "text" | "voice" | "video";
-    content: string;
-    reactions: { user_id: string; reaction: string }[];
+    type: "video" | "voice";
+    participants: string[];
+    state: "join" | "call" | "hang" | "leave" | "dontPick";
     created_at: string;
 }
 
-const createMessage = async (message: Message): Promise<Message | null> => {
-    const { data, error } = await supabase.from("messages").insert([message]);
+const createCall = async (call: Call): Promise<Call | null> => {
+    const { data, error } = await supabase.from("calls").insert([call]);
     if (error) {
-        console.error("Error creating message:", error);
+        console.error("Error creating call:", error);
         return null;
     }
     return data?.[0] ?? null;
 };
 
-// Other CRUD operations for Message
+// Other CRUD operations for Call

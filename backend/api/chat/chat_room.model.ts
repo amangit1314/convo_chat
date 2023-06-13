@@ -1,39 +1,30 @@
-// // chat name
-// // is group chat
-// // users
-// // last message
-// // group Admin if admin
+import { createClient } from '@supabase/supabase-js';
 
-// const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_API_KEY;
 
-// const chatSchema = new Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//     trim: true,
-//   },
-//   isGroupChat: {
-//     type: Boolean,
-//     required: true,
-//     default: false,
-//   },
-//   users: [
-//     {
-//       type: Schema.Types.ObjectId,
-//       ref: "User",
-//     },
-//   ],
-//   lastMessage: {
-//     type: Schema.Types.ObjectId,
-//     ref: "Message",
-//   },
-//   groupAdmin: {
-//     type: Schema.Types.ObjectId,
-//     ref: "User",
-//   },
-//   timestamps: true,
-// });
+if (!supabaseUrl || !supabaseKey) {
+    throw new Error('Supabase URL or API key is not provided.');
+}
 
-// const Chat = mongoose.model("Chat", chatSchema);
-// module.exports = Chat;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+interface ChatRoom {
+    id: string;
+    name: string;
+    type: "direct" | "group";
+    users: string[];
+    created_at: string;
+}
+
+const createChatRoom = async (chatRoom: ChatRoom): Promise<ChatRoom | null> => {
+    const { data, error } = await supabase.from("chat_rooms").insert([chatRoom]);
+    if (error) {
+        console.error("Error creating chat room:", error);
+        return null;
+    }
+    return data?.[0] ?? null;
+};
+
+// Other CRUD operations for ChatRoom
