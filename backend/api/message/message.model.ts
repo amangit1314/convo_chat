@@ -1,14 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_API_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Supabase URL or API key is not provided.');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
+const supabase = createClient('https://xfhjgjtviyqcmsvvmbas.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmaGpnanR2aXlxY21zdnZtYmFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzI3MzI5NTUsImV4cCI6MTk4ODMwODk1NX0.cynDuO9vxKM6Yzo_UQJJ-5ePeATIY84ee2A3GmqvM8c');
 
 interface Message {
     id: string;
@@ -20,7 +12,7 @@ interface Message {
     created_at: string;
 }
 
-const createMessage = async (message: Message): Promise<Message | null> => {
+export const createMessage = async (message: Message): Promise<Message | null> => {
     const { data, error } = await supabase.from("messages").insert([message]);
     if (error) {
         console.error("Error creating message:", error);
@@ -29,4 +21,22 @@ const createMessage = async (message: Message): Promise<Message | null> => {
     return data?.[0] ?? null;
 };
 
-// Other CRUD operations for Message
+// Delete Message
+export const deleteMessage = async (messageId: string): Promise<boolean> => {
+    const { error } = await supabase.from("messages").delete().match({ id: messageId });
+    if (error) {
+        console.error("Error deleting message:", error);
+        return false;
+    }
+    return true;
+}
+
+// React to Message
+export const reactToMessage = async (messageId: string, userId: string, reaction: string): Promise<boolean> => {
+    const { error } = await supabase.from("messages").update({ reactions: [{ user_id: userId, reaction }] }).match({ id: messageId });
+    if (error) {
+        console.error("Error reacting to message:", error);
+        return false;
+    }
+    return true;
+}

@@ -7,7 +7,7 @@ if (!supabaseUrl || !supabaseKey) {
     throw new Error('Supabase URL or API key is not provided.');
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient('https://xfhjgjtviyqcmsvvmbas.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmaGpnanR2aXlxY21zdnZtYmFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzI3MzI5NTUsImV4cCI6MTk4ODMwODk1NX0.cynDuO9vxKM6Yzo_UQJJ-5ePeATIY84ee2A3GmqvM8c');
 
 interface Call {
     id: string;
