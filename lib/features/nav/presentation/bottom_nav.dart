@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../data/data.dart';
-import '../models/rive_asset.dart';
 import 'components/menu_drawer_button.dart';
 
 class BottomNav extends StatefulWidget {
@@ -19,7 +18,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
   bool isSideMenuClosed = true;
-  RiveAsset selectedBottomNav = bottomNavs.first;
+  // RiveAsset selectedBottomNav = bottomNavs.first;
 
   late int _selected = 0;
   late bool _isAnimating;
@@ -36,7 +35,9 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 250),
-    );
+    )..addListener(() {
+        setState(() {});
+      });
 
     animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
       parent: _animationController,
@@ -81,7 +82,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
         return true;
       },
       child: Scaffold(
-        backgroundColor: const Color(0xff22211F),
+        backgroundColor: primaryColor,
         extendBody: true,
         resizeToAvoidBottomInset: false,
         body: Stack(
@@ -137,12 +138,12 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
           offset: Offset(0, 100 * animation.value),
           child: SafeArea(
             child: Container(
-              height: 60,
-              padding: const EdgeInsets.all(12),
+              height: 70,
+              padding: const EdgeInsets.all(15),
               margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               decoration: const BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.all(Radius.circular(60)),
+                borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
               child: SizedBox(
                 height: 40,
@@ -157,8 +158,8 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       },
                       child: FaIcon(
                         FontAwesomeIcons.facebookMessenger,
-                        color:
-                            _selected == 0 ? Colors.indigo : primaryLightColor,
+                        // size: 20,
+                        color: _selected == 0 ? popColor : primaryLightColor,
                       ),
                     ),
                     GestureDetector(
@@ -168,9 +169,9 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                         })
                       },
                       child: FaIcon(
-                        FontAwesomeIcons.peopleGroup,
-                        color:
-                            _selected == 1 ? Colors.indigo : primaryLightColor,
+                        FontAwesomeIcons.userGroup,
+                        size: 20,
+                        color: _selected == 1 ? popColor : primaryLightColor,
                       ),
                     ),
                     GestureDetector(
@@ -181,8 +182,8 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       },
                       child: FaIcon(
                         FontAwesomeIcons.mobile,
-                        color:
-                            _selected == 2 ? Colors.indigo : primaryLightColor,
+                        // size: 20,
+                        color: _selected == 2 ? popColor : primaryLightColor,
                       ),
                     ),
                     GestureDetector(
@@ -192,9 +193,9 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                         })
                       },
                       child: FaIcon(
+                        // size: 20,
                         FontAwesomeIcons.circleUser,
-                        color:
-                            _selected == 3 ? Colors.indigo : primaryLightColor,
+                        color: _selected == 3 ? popColor : primaryLightColor,
                       ),
                     ),
                   ],

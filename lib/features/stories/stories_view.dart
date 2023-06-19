@@ -1,7 +1,8 @@
-import 'package:convo_chat/core/components/story_item.dart';
+import 'package:convo_chat/features/stories/selected_story_screen.dart';
+import 'package:convo_chat/features/stories/story_item.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/data.dart';
+import '../home/data/data.dart';
 
 class StoriesView extends StatelessWidget {
 //ConsumerWidget {
@@ -32,11 +33,24 @@ class StoriesView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           //var storyData = snapshot.data![index];
-          return StoryItem(
-            //text: storyData.userName,
-            text: storiesDummyData[index][1],
-            //avatarImg: AssetImage(storyData.storyItemUrl[index]),
-            avatarImg: AssetImage(storiesDummyData[index][0]),
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => SelectedStoryScreen(
+                    image: storiesDummyData[index][0],
+                    username: storiesDummyData[index][1],
+                    time: index,
+                  ),
+                ),
+              );
+            },
+            child: StoryItem(
+              //text: storyData.userName,
+              text: storiesDummyData[index][1],
+              //avatarImg: AssetImage(storyData.storyItemUrl[index]),
+              avatarImg: AssetImage(storiesDummyData[index][0]),
+            ),
           );
         },
       ),

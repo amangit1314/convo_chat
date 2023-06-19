@@ -31,19 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        // leading: GestureDetector(
-        //   onTap: widget.onTap,
-        //   child: CircleAvatar(
-        //     radius: 20,
-        //     backgroundColor: Colors.white,
-        //     child: Center(
-        //         child: SvgPicture.asset(
-        //       'assets/svg/nav.svg',
-        //       height: 19,
-        //     )),
-        //   ),
-        // ),
-
         actions: [
           PopupMenuButton<int>(
             icon: const FaIcon(

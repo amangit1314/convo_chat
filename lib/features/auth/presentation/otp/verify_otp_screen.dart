@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 import '../../data/controller/auth_controller.dart';
 import 'otp_form.dart';
@@ -18,12 +21,15 @@ class VerifyOtpScreen extends ConsumerWidget {
     if (isOTPValid) {
       Navigator.of(context).pushReplacementNamed('/bottomNavScreen');
     } else {
-      // Show an error message or perform any other action
+      const GetSnackBar(
+        title: 'Error',
+        message: 'Invalid OTP',
+      );
     }
   }
 
   void resendOTP(BuildContext context, WidgetRef ref) {
-    final authController = ref.read(authControllerProvider);
+    // final authController = ref.read(authControllerProvider);
     // authController.();
   }
 

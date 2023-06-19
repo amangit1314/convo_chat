@@ -1,4 +1,4 @@
-import 'package:convo_chat/features/home/presentation/components/stories_view.dart';
+import 'package:convo_chat/features/stories/stories_view.dart';
 import 'package:flutter/material.dart';
 
 import 'conversations_list_view.dart';

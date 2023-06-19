@@ -61,42 +61,76 @@ class ChatMessagesList extends StatelessWidget {
 }
 
 class BottomMessageInputBar extends StatelessWidget {
-  const BottomMessageInputBar({
-    super.key,
-  });
+  const BottomMessageInputBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      ),
       elevation: 1,
       color: Colors.white,
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.emoji_emotions),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.attach_file),
-          ),
-          const Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Type a message',
-                border: InputBorder.none,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.emoji_emotions),
+            ),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Type a message ...',
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: primaryColor.withOpacity(.7)),
+                  border: InputBorder.none,
+                ),
               ),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.camera_alt),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.mic),
-          ),
-        ],
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.link),
+            ),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: PopupMenuButton<int>(
+            //     icon: const FaIcon(
+            //       FontAwesomeIcons.sortDown,
+            //       color: Colors.black,
+            //       size: 20,
+            //     ),
+            //     splashRadius: 20,
+            //     itemBuilder: (context) => [
+            //       PopupMenuItem(
+            //           child: IconButton(
+            //             onPressed: () {},
+            //             icon: const Icon(Icons.camera_alt),
+            //           ),
+            //           onTap: () {}),
+            //       PopupMenuItem(
+            //           child: IconButton(
+            //             onPressed: () {},
+            //             icon: const Icon(Icons.mic),
+            //           ),
+            //           onTap: () {}),
+            //     ],
+            //   ),
+            // ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.mic),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.send_outlined),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -144,10 +178,10 @@ class TopChatBar extends StatelessWidget {
                     ),
                     Text(
                       'Active 2h ago',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: textColor,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(color: primaryColor.withOpacity(.7)),
                     ),
                   ],
                 ),
