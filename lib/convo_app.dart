@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'core/utils/theme/colors.dart';
 import 'features/auth/data/controller/auth_controller.dart';
 import 'features/nav/presentation/bottom_nav.dart';
 import 'features/onboard/presentation/onboard_1.dart';
@@ -35,7 +36,35 @@ class ConvoApp extends ConsumerWidget {
               return const Onboard1Screen();
             }
           },
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => Center(
+            child: Stack(
+              children: [
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/convo_logo.png'),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 130.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'Convo',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: primaryLightColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           error: (err, stackTrace) {
             return const Text('An error occurred');
           },

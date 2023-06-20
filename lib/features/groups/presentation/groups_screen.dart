@@ -10,45 +10,66 @@ class GroupsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          'Groups',
-          style: TextStyle(
-              fontSize: 21, color: Colors.black, fontWeight: FontWeight.w600),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 15.0),
+          child: Text(
+            'Groups',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         actions: [
           IconButton(
-              icon: const Padding(
-                padding: EdgeInsets.only(right: 12.0),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                  size: 24,
-                ),
-              ),
-              // style: IconStyle.material,
-              onPressed: () => {
-                    // this.navigate('AddGroup');
-                  }),
-        ],
-      ),
-      body: CustomScrollView(
-        // mainAxisSize: MainAxisSize.min,
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return LocalGroupChatItem(index: index);
-                },
+            icon: const Padding(
+              padding: EdgeInsets.only(right: 12.0),
+              child: Icon(
+                Icons.add_circle_outline,
+                color: Colors.black,
+                size: 24,
               ),
             ),
+            onPressed: () => {},
           ),
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            ConversationsListView(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ConversationsListView extends StatelessWidget {
+  const ConversationsListView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10.0, top: 15),
+      child: Flexible(
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: conversationsDummyData.length,
+          itemBuilder: (context, index) {
+            return LocalGroupChatItem(
+              index: index,
+            );
+          },
+        ),
       ),
     );
   }

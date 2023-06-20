@@ -39,9 +39,25 @@ class CallInfoScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                subtitle: const Text('Called you'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '+91 9414777393',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Called you',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
                 leading: CircleAvatar(
                   radius: 30,
                   backgroundImage: AssetImage(images[0]),
@@ -50,83 +66,99 @@ class CallInfoScreen extends StatelessWidget {
                   'Person Name',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                trailing:
-                    // Row(
-                    //   children: const [
-                    const FaIcon(
-                  FontAwesomeIcons.phone,
-                  color: Colors.black,
-                ),
-                // FaIcon(
-                //   FontAwesomeIcons.video,
-                //   color: Colors.black,
-                // ),
-                //   ],
-                // ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Call Details',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                trailing: CircleAvatar(
+                  backgroundColor: Colors.indigoAccent.shade100,
+                  radius: 24,
+                  child: const FaIcon(
+                    FontAwesomeIcons.phone,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
-              const ListTile(
-                leading: FaIcon(
-                  FontAwesomeIcons.phone,
-                  color: Colors.black,
+              const Padding(
+                padding: EdgeInsets.only(left: 15.0),
+                child: Text(
+                  'Call Details',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                title: Text(
+              ),
+              const SizedBox(height: 10),
+              ListTile(
+                leading: const FaIcon(
+                  FontAwesomeIcons.phone,
+                  color: primaryColor,
+                  size: 20,
+                ),
+                title: const Text(
                   'Audio Call',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                subtitle: Text('Today, 10:00 AM'),
-                trailing: FaIcon(
+                subtitle: Text(
+                  'Today, 10:00 AM',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                trailing: const FaIcon(
                   Icons.call_missed,
                   color: Colors.green,
                 ),
               ),
-              const ListTile(
-                leading: FaIcon(
+              ListTile(
+                leading: const FaIcon(
                   FontAwesomeIcons.video,
                   color: Colors.black,
+                  size: 20,
                 ),
-                title: Text(
+                title: const Text(
                   'Video Call',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                subtitle: Text('Today, 10:00 AM'),
-                trailing: FaIcon(Icons.call_missed_outgoing, color: Colors.red),
+                subtitle: Text(
+                  'Today, 10:00 AM',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                trailing:
+                    const FaIcon(Icons.call_missed_outgoing, color: Colors.red),
               ),
-              const ListTile(
-                leading: FaIcon(
+              ListTile(
+                leading: const FaIcon(
                   FontAwesomeIcons.phone,
                   color: Colors.black,
+                  size: 20,
                 ),
-                title: Text(
+                title: const Text(
                   'Audio Call',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                subtitle: Text('Today, 10:00 AM'),
-                trailing: FaIcon(
+                subtitle: Text(
+                  'Today, 10:00 AM',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                trailing: const FaIcon(
                   Icons.call_missed,
                   color: Colors.red,
                 ),
               ),
-              const ListTile(
-                leading: FaIcon(
+              ListTile(
+                leading: const FaIcon(
                   FontAwesomeIcons.video,
                   color: Colors.black,
+                  size: 20,
                 ),
-                title: Text(
+                title: const Text(
                   'Video Call',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                subtitle: Text('Today, 10:00 AM'),
-                trailing: FaIcon(
+                subtitle: Text(
+                  'Today, 10:00 AM',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                trailing: const FaIcon(
                   Icons.call_missed_outgoing,
                   color: Colors.green,
                 ),

@@ -158,7 +158,6 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                       },
                       child: FaIcon(
                         FontAwesomeIcons.facebookMessenger,
-                        // size: 20,
                         color: _selected == 0 ? popColor : primaryLightColor,
                       ),
                     ),

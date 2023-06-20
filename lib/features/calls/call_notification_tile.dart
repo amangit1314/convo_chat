@@ -23,10 +23,9 @@ class CallNotificationTile extends StatelessWidget {
     return GestureDetector(
       child: Flexible(
         child: Container(
-          padding: const EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.only(bottom: 5, right: 5),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            //color: const Color.fromARGB(255, 110, 43, 244).withOpacity(.3),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -81,13 +80,14 @@ class CallNotificationTile extends StatelessWidget {
                           color: Colors.green,
                           size: 14,
                         ),
+                        const SizedBox(width: 4),
                         Text(
                           time,
                           overflow: TextOverflow.ellipsis,
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
+                                    color: textColor,
+                                    fontSize: 12,
                                   ),
                         ),
                       ],

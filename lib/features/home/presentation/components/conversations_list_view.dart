@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../chat/one_to_one_chat_screen.dart';
+import '../../../chat/presentation/one_to_one_chat_screen.dart';
 import '../../data/data.dart';
 import 'chat_item.dart';
 
@@ -15,12 +15,9 @@ class ConversationsListView extends StatelessWidget {
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          // scrollDirection: Axis.vertical,
           itemCount: conversationsDummyData.length,
           itemBuilder: (context, index) {
-            return LocalChatItem(
-              index: index,
-            );
+            return LocalChatItem(index: index);
           },
         ),
       ),
@@ -39,7 +36,12 @@ class LocalChatItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const OneToOneChatScreen(),
+            builder: (context) => OneToOneChatScreen(
+              imgAssetUrl: conversationsDummyData[index][0],
+              username: conversationsDummyData[index][1],
+              receiverId: conversationsDummyData[index][5],
+              time: conversationsDummyData[index][3],
+            ),
           ),
         );
       },
@@ -48,62 +50,5 @@ class LocalChatItem extends StatelessWidget {
       lastMessage: conversationsDummyData[index][2],
       personTime: conversationsDummyData[index][3],
     );
-  }
-}
-
-class ChatsListWidget extends StatelessWidget {
-//ConsumerWidget {
-  const ChatsListWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    //, WidgetRef ref) {
-    // return StreamBuilder<List<ChatContact>>(
-    //   stream: ref.read(chatRepositoryProvider).getChatContacts(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting) {
-    //       return const LoadingWidget();
-    //     }
-    return Flexible(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: conversationsDummyData.length,
-        itemBuilder: (context, index) {
-          //var chatItemData = snapshot.data![index];
-          // return ChatItem(
-          //   personDpImg: AssetImage(chatItemData.profilePic),
-          //   personName: chatItemData.name,
-          //   personTime: DateFormat.Hm().format(chatItemData.timeSent),
-          //   lastMessage: chatItemData.lastMessage,
-          //   messageCount: chatItemData.unreadMessages,
-          // );
-          return ChatItem(
-            personDpImg: AssetImage(conversationsDummyData[index][0]),
-            personName: conversationsDummyData[index][1],
-            lastMessage: conversationsDummyData[index][2],
-            personTime: conversationsDummyData[index][3],
-          );
-        },
-      ),
-    );
-    // return CustomScrollView(
-    //   slivers: [
-    //     SliverList(
-    //       delegate: SliverChildBuilderDelegate(
-    //         childCount: 20,
-    //         (BuildContext context, int index) {
-    //           return ChatItem(
-    //             lastMessage: 'lastMessage',
-    //             personDpImg: AssetImage(content[2]),
-    //             personName: '',
-    //             personTime: '',
-    //           );
-    //         },
-    //       ),
-    //     ),
-    //   ],
-    // );
-    //},
-    //);
   }
 }
