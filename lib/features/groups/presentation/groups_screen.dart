@@ -1,7 +1,9 @@
+import 'package:convo_chat/features/groups/presentation/group_chatting_screen.dart';
 import 'package:convo_chat/features/home/data/data.dart';
 import 'package:flutter/material.dart';
 
 import 'components/group_chat_item.dart';
+import 'create_group_screen.dart';
 
 class GroupsScreen extends StatelessWidget {
   static const routeName = '/groups';
@@ -35,7 +37,15 @@ class GroupsScreen extends StatelessWidget {
                 size: 24,
               ),
             ),
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const CreateGroupScreen(
+                    imageAssetUrl: 'assets/images/1.jpg',
+                  ),
+                ),
+              )
+            },
           ),
         ],
       ),
@@ -67,6 +77,17 @@ class ConversationsListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return LocalGroupChatItem(
               index: index,
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => GroupChattingScreen(
+                      imageAssetUrl: conversationsDummyData[index][0],
+                      groupName: conversationsDummyData[index][1],
+                      groupId: conversationsDummyData[index][5],
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
@@ -76,13 +97,15 @@ class ConversationsListView extends StatelessWidget {
 }
 
 class LocalGroupChatItem extends StatelessWidget {
+  final VoidCallback onTap;
   final int index;
-  const LocalGroupChatItem({Key? key, required this.index}) : super(key: key);
+  const LocalGroupChatItem({Key? key, required this.index, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GroupChatItem(
-      onTap: () {},
+      onTap: onTap,
       groupDpImg: AssetImage(conversationsDummyData[index][0]),
       groupName: conversationsDummyData[index][1],
       lastMessage: conversationsDummyData[index][2],

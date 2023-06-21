@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../repository/chat_repository.dart';
@@ -18,7 +17,7 @@ class ChatController {
     await chatRepository.sendMessage(receiverId, message);
   }
 
-  Stream<QuerySnapshot> getMessages(String otherUserId) {
-    return chatRepository.getMessages(otherUserId);
+  Stream getMessages() {
+    return chatRepository.getMessages();
   }
 }

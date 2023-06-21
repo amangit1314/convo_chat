@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../features/auth/presentation/login/login_screen.dart';
 import '../../features/auth/presentation/register/register_screen.dart';
 import '../../features/calls/calls_screen.dart';
-import '../../features/groups/presentation/create_group_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/onboard/presentation/onboard_2.dart';
 import '../components/components.dart';
@@ -49,10 +48,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => const GroupsScreen(),
       );
 
-    case CreateGroupScreen.routeName:
-      return MaterialPageRoute(
-        builder: (context) => const CreateGroupScreen(),
-      );
+    // case CreateGroupScreen.routeName:
+    //   return MaterialPageRoute(
+    //     builder: (context) => const CreateGroupScreen(),
+    //   );
 
     case ProfileScreen.routeName:
       return MaterialPageRoute(

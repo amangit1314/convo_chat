@@ -44,17 +44,39 @@ class ChatRepository {
         .add(newMessage.toMap());
   }
 
-  Stream<QuerySnapshot> getMessages(String otherUserId) {
-    // construct chat room id
-    List<String> ids = [auth.currentUser!.uid, otherUserId];
-    ids.sort();
-    String chatRoomId = ids.join("_");
+  Stream<List<QueryDocumentSnapshot>> getMessages() {
+    String currentUserId = auth.currentUser!.uid;
 
     return firestore
         .collection("chat_rooms")
-        .doc(chatRoomId)
-        .collection('messages')
-        .orderBy('timestamp', descending: false)
-        .snapshots();
+        .where('participants', arrayContains: currentUserId)
+        .snapshots()
+        .asyncMap((snapshot) {
+      List<String> chatRoomIds = [];
+      for (var doc in snapshot.docs) {
+        List<dynamic> participants = doc['participants'];
+        if (participants.contains(currentUserId)) {
+          chatRoomIds.add(doc.id);
+        }
+      }
+
+      return Future.wait(chatRoomIds.map((chatRoomId) {
+        return firestore
+            .collection("chat_rooms")
+            .doc(chatRoomId)
+            .collection('messages')
+            .orderBy('timestamp', descending: false)
+            .get();
+      }));
+    }).map((querySnapshots) {
+      List<QueryDocumentSnapshot> allMessages = [];
+      for (var querySnapshot in querySnapshots) {
+        allMessages.addAll(querySnapshot.docs);
+      }
+      allMessages.sort(
+        (a, b) => a['timestamp'].compareTo(b['timestamp']),
+      );
+      return allMessages;
+    });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:convo_chat/features/groups/presentation/components/group_memebers_list.dart';
+import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 class GroupInfo extends StatefulWidget {
@@ -50,7 +51,21 @@ class _GroupInfoState extends State<GroupInfo> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
-        title: const Text("Group Info"),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const BottomNav()),
+            );
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
+        title: const Text(
+          "Group Info",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -104,8 +119,9 @@ class _GroupInfoState extends State<GroupInfo> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Theme.of(context).primaryColor.withOpacity(0.2)),
+                borderRadius: BorderRadius.circular(30),
+                color: Theme.of(context).primaryColor.withOpacity(0.2),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -115,12 +131,12 @@ class _GroupInfoState extends State<GroupInfo> {
                     child: Text(
                       widget.groupName.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
-                          fontWeight: FontWeight.w500, color: Colors.white),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
