@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../chat/presentation/one_to_one_chat_screen.dart';
+import '../../../direct_chat/presentation/direct_chat_screen.dart';
 import '../../data/data.dart';
 import 'chat_item.dart';
 

@@ -3,45 +3,57 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageModel {
+  final String messageId;
   final String senderId;
-  final String senderEmail;
   final String receiverId;
-  final String message;
+  final String chatRoomId;
+  final String content;
+  final String messageType;
+  final String reaction;
   final Timestamp timeStamp;
-  // final String chatRoom;
-  // final String chatRoomId;
+  final String userName;
+  final String userImage;
 
   MessageModel(
-    this.senderEmail, {
+    this.reaction, {
+    required this.messageId,
     required this.senderId,
     required this.receiverId,
-    required this.message,
+    required this.chatRoomId,
+    required this.content,
+    required this.messageType,
     required this.timeStamp,
-    // required this.chatRoom,
-    // required this.chatRoomId,
+    required this.userImage,
+    required this.userName,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'senderEmail': senderEmail,
+      'messageId': messageId,
       'senderId': senderId,
       'receiverId': receiverId,
-      'message': message,
+      'chatRoomId': chatRoomId,
+      'message': content,
+      'messageType': messageType,
       'timeStamp': timeStamp,
-      // 'chatRoom': chatRoom,
-      // 'chatRoomId': chatRoomId,
+      'reaction': reaction,
+      'userImage': userImage,
+      'userName': userName,
     };
   }
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
-      map['senderEmail'] ?? '',
+      map['reaction'] ?? '',
+      messageId: map['senderEmail'] ?? '',
       senderId: map['senderId'] ?? '',
       receiverId: map['receiverId'] ?? '',
-      message: map['message'] ?? '',
+      chatRoomId: map['chatRoomId'] ?? '',
+      content: map['content'] ?? '',
+      messageType: map['messageType'] ?? '',
       timeStamp: map['timeStamp'] ?? '',
-      // chatRoom: map['chatRoom'] ?? '',
-      // chatRoomId: map['chatRoomId'] ?? '',
+      userImage: map['userImage'] ?? '',
+      userName: map['userName'] ?? '',
     );
   }
 

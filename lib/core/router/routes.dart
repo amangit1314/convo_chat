@@ -1,7 +1,6 @@
-import 'package:convo_chat/features/groups/presentation/groups_screen.dart';
+import 'package:convo_chat/features/group_chat/presentation/groups_screen.dart';
 import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:convo_chat/features/onboard/presentation/onboard_1.dart';
-import 'package:convo_chat/features/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login/login_screen.dart';
@@ -9,6 +8,7 @@ import '../../features/auth/presentation/register/register_screen.dart';
 import '../../features/calls/calls_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/onboard/presentation/onboard_2.dart';
+import '../../features/profile/presentation/profile_screen.dart';
 import '../components/components.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -53,9 +53,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //     builder: (context) => const CreateGroupScreen(),
     //   );
 
-    case ProfileScreen.routeName:
+    case Profile.routeName:
       return MaterialPageRoute(
-        builder: (context) => const ProfileScreen(),
+        builder: (context) => const Profile(userName: '', email: ''),
       );
 
     case CallsScreen.routeName:

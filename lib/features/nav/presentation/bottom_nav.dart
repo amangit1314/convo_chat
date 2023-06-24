@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:convo_chat/core/utils/theme/colors.dart';
-import 'package:convo_chat/features/nav/presentation/components/side_menu_drawer.dart';
+import 'package:convo_chat/features/nav/presentation/side_menu_drawer/side_menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../data/data.dart';
-import 'components/menu_drawer_button.dart';
+import 'side_menu_drawer/menu_drawer_button.dart';
 
 class BottomNav extends StatefulWidget {
   static const routeName = '/bottomNav';

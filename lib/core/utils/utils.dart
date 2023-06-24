@@ -6,6 +6,7 @@ import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 // for displaying snackbar for error
 showErrorSnackBar(BuildContext context, String text) {
@@ -69,4 +70,16 @@ Future<GiphyGif?> pickGIF(BuildContext context) async {
     showErrorSnackBar(context, e.toString());
   }
   return gif;
+}
+
+String generateId() {
+  const uuid = Uuid();
+  return uuid.v4(); // Generate a random UUID
+}
+
+Color convertStringToColor(String hexColor) {
+  // String hexColor = "#567890";
+  Color color =
+      Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
+  return color;
 }

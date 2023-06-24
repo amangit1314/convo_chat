@@ -45,7 +45,7 @@ class CustomBtn extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: MyText(
+          child: CustomText(
             text: text,
             fontSize: fontSize,
             color: textColor,

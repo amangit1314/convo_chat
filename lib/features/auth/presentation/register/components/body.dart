@@ -1,7 +1,7 @@
+import 'package:convo_chat/core/components/components.dart';
 import 'package:convo_chat/features/auth/presentation/register/components/registration_form.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/components/custom_text.dart';
 import '../../../../../core/utils/theme/colors.dart';
 import '../../login/login_screen.dart';
 
@@ -43,25 +43,22 @@ class Body extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const MyText(
+                  const CustomText(
                     text: 'Already have an account?',
                     fontSize: 12,
                   ),
                   SizedBox(width: size.width * .02),
                   TextButton(
-                    child: const MyText(
+                    child: const CustomText(
                       text: 'Login',
                       fontSize: 12,
-                      color: Colors.indigo,
+                      color: popColor,
                       fontWeight: FontWeight.w600,
                     ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()),
-                      );
-                    },
+                    onPressed: () => nextScreenReplace(
+                      context,
+                      const LoginScreen(),
+                    ),
                   )
                 ],
               ),

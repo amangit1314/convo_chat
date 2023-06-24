@@ -1,5 +1,5 @@
-import 'package:convo_chat/features/stories/selected_story_screen.dart';
-import 'package:convo_chat/features/stories/story_item.dart';
+import 'package:convo_chat/features/stories/presentation/story_content_screen.dart';
+import 'package:convo_chat/features/stories/presentation/story_item.dart';
 import 'package:flutter/material.dart';
 
 import '../home/data/data.dart';

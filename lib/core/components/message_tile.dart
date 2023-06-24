@@ -40,9 +40,8 @@ class MessageTile extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color: sentByMe
-                    ? Colors.indigoAccent.shade400.withOpacity(.8)
-                    : primaryColor,
+                color:
+                    sentByMe ? popColor.shade400.withOpacity(.8) : primaryColor,
               ),
             ),
           ),
@@ -60,7 +59,7 @@ class MessageTile extends StatelessWidget {
                 bottomRight: sentByMe ? Radius.zero : const Radius.circular(20),
               ),
               color: sentByMe
-                  ? Colors.indigoAccent.shade400.withOpacity(.8)
+                  ? popColor.shade400.withOpacity(.8)
                   : Colors.grey.shade100.withOpacity(.5),
             ),
             child: Text(

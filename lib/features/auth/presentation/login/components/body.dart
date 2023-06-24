@@ -47,14 +47,14 @@ class Body extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MyText(
+                CustomText(
                   text: 'Not a memeber?',
                   fontSize: 12,
                   color: textColor,
                 ),
                 const SizedBox(width: 2),
                 TextButton(
-                  child: const MyText(
+                  child: const CustomText(
                     text: 'Register now',
                     fontSize: 12,
                     color: Colors.indigo,

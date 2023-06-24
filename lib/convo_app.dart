@@ -26,50 +26,55 @@ class ConvoApp extends ConsumerWidget {
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      home: Consumer(builder: (context, ref, _) {
-        final authState = ref.watch(authStateProvider);
-        return authState.when(
-          data: (user) {
-            if (user != null) {
-              return const BottomNav();
-            } else {
-              return const Onboard1Screen();
-            }
-          },
-          loading: () => Center(
-            child: Stack(
-              children: [
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      home: Consumer(
+        builder: (context, ref, _) {
+          final authState = ref.watch(authStateProvider);
+          return authState.when(
+            data: (user) {
+              if (user != null) {
+                return const BottomNav();
+              } else {
+                return const Onboard1Screen();
+              }
+            },
+            loading: () => Scaffold(
+              backgroundColor: primaryColor,
+              body: Center(
+                child: Stack(
                   children: [
-                    Image.asset('assets/images/convo_logo.png'),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/convo_logo.png'),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 130.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            'Convo',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: primaryLightColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 130.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Convo',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: primaryLightColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-          error: (err, stackTrace) {
-            return const Text('An error occurred');
-          },
-        );
-      }),
+            error: (err, stackTrace) {
+              return const Text('An error occurred');
+            },
+          );
+        },
+      ),
     );
   }
 }

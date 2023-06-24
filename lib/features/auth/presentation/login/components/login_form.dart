@@ -98,7 +98,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
           Row(
             children: [
               const Spacer(),
-              MyText(
+              CustomText(
                 text: 'forgot password?',
                 fontSize: 12,
                 color: textColor,

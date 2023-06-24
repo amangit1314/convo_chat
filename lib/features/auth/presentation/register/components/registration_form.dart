@@ -61,6 +61,7 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
                 _emailController.text.split('@')[0],
                 _emailController.text,
                 _passwordController.text,
+                _mobileNumberController.text,
               );
 
       if (result == 'success') {
@@ -218,7 +219,7 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
       labelText: 'Mobile Number',
       preIcon: const Icon(Icons.phone_android_outlined),
       contentPadding: 22,
-      textInputType: TextInputType.number,
+      textInputType: TextInputType.phone,
       isPass: false,
       onSaved: (newValue) => _mobileNumberController.text = newValue!,
       onChanged: (value) {

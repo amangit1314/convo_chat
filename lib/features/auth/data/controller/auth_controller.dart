@@ -34,14 +34,12 @@ class AuthController {
   }
 
   Future<String> register(
-    String name,
-    String email,
-    String password,
-  ) async {
+      String name, String email, String password, String? number) async {
     return await authRepository.register(
       fullName: name,
       email: email,
       password: password,
+      phoneNumber: number,
     );
   }
 
