@@ -3,8 +3,8 @@
 *.pyc
 *.swp
 *.iml
-*.json
 */*/.json
+*.json
 
 .svn/
 .idea/
