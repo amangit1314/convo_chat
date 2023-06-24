@@ -14,3 +14,6 @@ build/
 
 android/app/google-services.json
 analysis_options.yaml
+# to remove google-services.json
+# run -> git rm --cached ./android/app/google-services.json
+# and also run -> git commit -m "Remove google-services.json from Git tracking"
