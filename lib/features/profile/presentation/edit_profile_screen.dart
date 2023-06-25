@@ -1,3 +1,4 @@
+import 'package:convo_chat/features/profile/presentation/components/profile_pic.dart';
 import 'package:convo_chat/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,7 +7,6 @@ import '../../../core/utils/config/size_config.dart';
 import '../../../core/utils/theme/colors.dart';
 import '../../auth/data/controller/auth_controller.dart';
 import '../data/controller/profile_controller.dart';
-import 'profile_pic.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -35,7 +35,6 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget build(BuildContext context) {
     final authProvider = ref.watch(authControllerProvider);
     final profileProvider = ref.watch(profileControllerProvider);
-    final currentUser = authProvider.getUserData();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -43,7 +42,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       appBar: AppBar(
         title: Text(
           "Edit Profile",
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: primaryColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -59,62 +58,75 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        children: [
-          const ProfilePic(),
-          SizedBox(height: getProportionateScreenHeight(40)),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                buildEditUsernameFormField(
-                  _usernameController,
-                  currentUser as UserModel,
-                ),
-                SizedBox(height: getProportionateScreenHeight(15)),
-                buildEditEmailFormField(
-                  _emailController,
-                  currentUser as UserModel,
-                ),
-                SizedBox(height: getProportionateScreenHeight(15)),
-                buildEditNumberFormField(
-                  _phoneController,
-                  currentUser as UserModel,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          GestureDetector(
-            onTap: () async {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                await profileProvider.updateUserData(currentUser as UserModel);
-                if (!mounted) return;
-                Navigator.pop(context);
-              }
-            },
-            child: Container(
-              width: double.infinity,
-              height: getProportionateScreenHeight(60),
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(
-                  "Done",
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: getProportionateScreenWidth(14),
-                      ),
+      body: FutureBuilder<UserModel?>(
+        future: authProvider.getUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          final currentUser = snapshot.data;
+
+          return ListView(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            children: [
+              const ProfilePic(),
+              SizedBox(height: getProportionateScreenHeight(40)),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    buildEditUsernameFormField(
+                      _usernameController,
+                      currentUser!,
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(15)),
+                    buildEditEmailFormField(
+                      _emailController,
+                      currentUser,
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(15)),
+                    buildEditNumberFormField(
+                      _phoneController,
+                      currentUser,
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-        ],
+              SizedBox(height: getProportionateScreenHeight(20)),
+              GestureDetector(
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    await profileProvider.updateUserData(currentUser);
+                    if (!mounted) return;
+                    Navigator.pop(context);
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: getProportionateScreenHeight(60),
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Done",
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: getProportionateScreenWidth(14),
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

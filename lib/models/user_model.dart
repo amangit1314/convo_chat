@@ -53,7 +53,7 @@ class UserModel {
       token: map['token'],
       number: map['number'] ?? '',
       isOnline: map['isOnline'] ?? false,
-      password: map['password'] ?? '',
+      password: map['password'] ?? '12345678',
       joinedGroups: List<GroupModel>.from(map['joinedGroups'] ?? []),
       profilePic: map['profilePic'],
       bio: map['bio'] ?? '',

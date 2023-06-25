@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: Text(
-                  'Story Privacy',
+                  'Add Story',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               PopupMenuItem(
                 child: Text(
-                  'Add Story',
+                  'Story Privacy',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),

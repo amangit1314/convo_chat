@@ -23,6 +23,7 @@ class CustomGroupAppBar extends StatelessWidget {
           elevation: 0,
           color: primaryLightColor,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () {
@@ -43,10 +44,10 @@ class CustomGroupAppBar extends StatelessWidget {
                 ),
               ),
               CircleAvatar(
-                radius: 24,
+                radius: 26,
                 backgroundImage: AssetImage(imageAssetUrl),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 15),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushReplacement(
@@ -84,20 +85,139 @@ class CustomGroupAppBar extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: FaIcon(
-                  FontAwesomeIcons.mobile,
+              PopupMenuButton<int>(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                icon: const FaIcon(
+                  FontAwesomeIcons.ellipsisVertical,
+                  color: Colors.black,
                   size: 20,
                 ),
+                splashRadius: 20,
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.video,
+                            size: 20,
+                          ),
+                        ),
+                        Text(
+                          'Video Call',
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.phone,
+                            size: 20,
+                          ),
+                        ),
+                        Text(
+                          'Voice Call',
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.volumeXmark,
+                            size: 20,
+                          ),
+                        ),
+                        Text(
+                          'Mute',
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.ban,
+                            size: 20,
+                          ),
+                        ),
+                        Text(
+                          'Block',
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.gear,
+                            size: 20,
+                          ),
+                        ),
+                        Text(
+                          'Settings',
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                ],
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: FaIcon(
-                  FontAwesomeIcons.optinMonster,
-                  size: 20,
-                ),
-              ),
+
+              // const Padding(
+              //   padding: EdgeInsets.all(8.0),
+              //   child: FaIcon(
+              //     FontAwesomeIcons.mobile,
+              //     size: 20,
+              //   ),
+              // ),
+              // const Padding(
+              //   padding: EdgeInsets.all(8.0),
+              //   child: FaIcon(
+              //     FontAwesomeIcons.optinMonster,
+              //     size: 20,
+              //   ),
+              // ),
             ],
           ),
         ),

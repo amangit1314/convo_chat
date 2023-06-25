@@ -41,7 +41,7 @@ class AuthButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           border: Border.all(
-            color: bgColor,
+            color: borderColor,
             width: borderWidth,
           ),
           borderRadius: BorderRadius.circular(radius),

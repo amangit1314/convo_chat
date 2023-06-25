@@ -1,14 +1,17 @@
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    schema          = "public, auth"
+    previewFeatures = ["fullTextSearch", "multiSchema"]
 }
 
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
+    schemas  = "public, auth"
 }
 
 model user {
-    uid                String       @id @unique @default(cuid())
+    uid                String       @id @default(cuid())
     token              String?
     firebaseToken      String?
     username           String?
@@ -22,6 +25,7 @@ model user {
     DirectChat         directChat[] @relation("UserChats")
 
     @@map("public.user")
+    @@schema("public, auth")
 }
 
 model directChat {
@@ -33,6 +37,7 @@ model directChat {
     participants  user[]    @relation("UserChats")
 
     @@map("public.directChat")
+    @@schema("public, auth")
 }
 
 model group {
@@ -45,6 +50,7 @@ model group {
     messages  message[] @relation("GroupMessage")
 
     @@map("public.group")
+    @@schema("public, auth")
 }
 
 model message {
@@ -64,6 +70,7 @@ model message {
     groupId          String?
 
     @@map("public.message")
+    @@schema("public, auth")
 }
 
 model reaction {
@@ -75,4 +82,5 @@ model reaction {
     messageMessageId String?
 
     @@map("public.reaction")
+    @@schema("public, auth")
 }

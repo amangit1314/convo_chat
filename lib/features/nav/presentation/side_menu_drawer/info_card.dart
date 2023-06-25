@@ -12,7 +12,15 @@ class InfoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authProvider = ref.watch(authControllerProvider);
-    final currentUser = authProvider.getUserData() as UserModel;
+
+    UserModel currentUser = UserModel(
+      uid: '',
+      email: '',
+    );
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
+      currentUser = await authProvider.getUserData() as UserModel;
+    });
+
     return ListTile(
       leading: currentUser.profilePic != null
           ? CircleAvatar(

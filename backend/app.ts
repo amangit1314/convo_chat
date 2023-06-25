@@ -1,12 +1,13 @@
-import { createClient } from '@supabase/supabase-js';
+// import { createClient } from '@supabase/supabase-js';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import router from './api/api';
+// import api from './api/index';
+import { getAllUsers, getUserById, loginUser, logoutUser, registerUser } from './api/user/user.controller';
 import MessageResponse from './interfaces/MessageResponse';
-import { errorHandler, notFound } from './middlewares';
+import { errorHandler, notFound, validateToken } from './middlewares';
 
 require('dotenv').config();
 
@@ -17,21 +18,21 @@ const io = new Server(server, {
     origin: ['*'],
   },
 });
-const supabase = createClient("https://xfhjgjtviyqcmsvvmbas.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmaGpnanR2aXlxY21zdnZtYmFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzI3MzI5NTUsImV4cCI6MTk4ODMwODk1NX0.cynDuO9vxKM6Yzo_UQJJ-5ePeATIY84ee2A3GmqvM8c");
+// const supabase = createClient("https://xfhjgjtviyqcmsvvmbas.supabase.co",
+//   process.env.SUPABASE_ANON_KEY as string
+// );
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-(io as any).on('connection', (socket: Socket) => {
-  (socket as any).on('directMessage', (data: any) => {
+io.sockets.on('connection', (socket: Socket) => {
+  io.sockets.on('directMessage', (data: any) => {
     io.to(data.recipientSocketId).emit('directMessage', data.message);
   });
-});
 
-(io as any).on('connection', (socket: Socket) => {
-  (socket as any).on('groupMessage', (data: any) => {
+  io.sockets.on('groupMessage', (data: any) => {
     socket.to(data.groupId).emit('groupMessage', data.message);
   });
 });
@@ -42,7 +43,15 @@ app.get<{}, MessageResponse>('/', (req, res) => {
   });
 });
 
-app.use('/api/v1', router);
+app.get("/users/", getAllUsers);
+app.get("/users/:id", getUserById);
+app.post("/users/login", loginUser);
+app.post("/users/register", registerUser);
+app.post("/users/logout/:id", logoutUser);
+app.post("/users/current", validateToken, loginUser);
+app.put('/users/:id/profile');
+
+// app.use('/api/v1', api);
 
 app.use(notFound);
 app.use(errorHandler);

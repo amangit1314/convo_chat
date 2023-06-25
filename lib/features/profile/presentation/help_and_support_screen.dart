@@ -1,10 +1,10 @@
-import 'package:convo_chat/core/components/widgets.dart';
-import 'package:convo_chat/features/support_chat/support_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../core/components/widgets.dart';
 import '../../../core/utils/config/size_config.dart';
 import '../../../core/utils/theme/colors.dart';
+import '../../support_chat/support_chat.dart';
 
 class HelpCenter extends StatelessWidget {
   const HelpCenter({super.key});

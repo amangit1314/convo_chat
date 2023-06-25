@@ -1,7 +1,7 @@
 import 'package:convo_chat/features/auth/data/controller/auth_controller.dart';
 import 'package:convo_chat/features/profile/presentation/help_center.dart';
 import 'package:convo_chat/features/profile/presentation/my_account.dart';
-import 'package:convo_chat/features/profile/presentation/settings.dart';
+import 'package:convo_chat/features/profile/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,7 +22,7 @@ class ProfileBody extends ConsumerWidget {
       children: [
         Column(
           children: [
-            ProfilePic(),
+            const ProfilePic(),
             const SizedBox(height: 20),
             Column(
               children: [

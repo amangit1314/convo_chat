@@ -1,17 +1,139 @@
-const asyncHandler = require("express-async-handler");
+import { PrismaClient } from "@prisma/client";
+import { Request, Response } from "express";
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-const registerUser = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password } = req.params;
-  if (!name || !email || !password) {
-    res.status(400);
-    throw new Error("Please Enter all the fields");
-  }
-});
+const prisma = new PrismaClient();
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "";
 
-const loginUser = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password } = req.params;
-  if (!name || !email || !password) {
-    res.status(400);
-    throw new Error("Please Enter all the fields");
+export const registerUser = async (req: Request, res: Response) => {
+  const { email, password, number } = req.body;
+
+  if (!email || !number || !password) {
+    return res.status(400).json({ message: "All fields are mandatory!" });
   }
-});
+
+  try {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+
+    if (existingUser) {
+      return res.status(409).json({ message: "Email already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const createdUser = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        number,
+      },
+    });
+
+    const accessToken = jwt.sign(
+      {
+        userId: createdUser.uid,
+      },
+      accessTokenSecret,
+      { expiresIn: "15m" }
+    );
+
+    // Update the user with the generated access token
+    await prisma.user.update({
+      where: {
+        uid: createdUser.uid,
+      },
+      data: {
+        token: accessToken,
+      },
+    });
+
+    res.status(201).json({
+      message: "Registration is successful",
+      _id: createdUser.uid,
+      email: createdUser.email,
+      accessToken,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to register user" });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "Authentication failed. User not found." });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ message: "Authentication failed. Wrong password." });
+    }
+
+    const accessToken = jwt.sign({ userId: user.uid }, accessTokenSecret, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("token", accessToken, { httpOnly: true, maxAge: 3600000 });
+
+    res.status(200).json({
+      message: "Authentication successful.",
+      user: { id: user.uid, email: user.email, username: user.username },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "User logged out successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to logout user" });
+  }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        uid: userId,
+      },
+    });
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch user" });
+  }
+};
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany();
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch users" });
+  }
+};

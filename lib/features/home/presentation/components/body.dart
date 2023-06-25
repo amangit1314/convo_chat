@@ -4,20 +4,14 @@ import 'package:flutter/material.dart';
 import 'conversations_list_view.dart';
 
 class Body extends StatelessWidget {
-  // final VoidCallback? onTap;, this.onTap
   const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-      // child: LayoutBuilder(
-      //   builder: (context, constraints) =>
       child: SingleChildScrollView(
-        // child: ConstrainedBox(
-        //   constraints: const BoxConstraints(maxHeight: double.infinity),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             SizedBox(height: 10),
@@ -51,7 +45,5 @@ class Body extends StatelessWidget {
         ),
       ),
     );
-    // ),
-    // );
   }
 }
