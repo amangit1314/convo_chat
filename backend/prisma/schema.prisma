@@ -29,12 +29,12 @@ model user {
 }
 
 model directChat {
-    roomId        String    @id @unique @default(cuid())
-    messages      message[] @relation("DirectChatMessage")
-    senderId      String
-    receiverId    String
-    lastMessageAt DateTime  @default(now()) @updatedAt
-    participants  user[]    @relation("UserChats")
+    roomId         String    @id @unique @default(cuid())
+    messages       message[] @relation("DirectChatMessage")
+    firstPersonId  String
+    secondPersonId String
+    lastMessageAt  DateTime  @default(now()) @updatedAt
+    participants   user[]    @relation("UserChats")
 
     @@map("public.directChat")
     @@schema("public, auth")
@@ -74,12 +74,12 @@ model message {
 }
 
 model reaction {
-    id               String   @id @default(cuid())
-    userId           String
-    reaction         String
-    reactedAt        DateTime @updatedAt
-    message          message? @relation("MessageReactions", fields: [messageMessageId], references: [messageId])
-    messageMessageId String?
+    reactionId String   @id @default(cuid())
+    userId     String
+    reaction   String
+    reactedAt  DateTime @updatedAt
+    message    message? @relation("MessageReactions", fields: [messageId], references: [messageId])
+    messageId  String?
 
     @@map("public.reaction")
     @@schema("public, auth")

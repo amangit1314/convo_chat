@@ -19,23 +19,77 @@ export function errorHandler(err: Error, req: Request, res: Response<ErrorRespon
     });
 }
 
-export const validateToken = asyncHandler(async (req: any, res: any, next: NextFunction) => {
-    let token;
-    let authHeader = req.headers.Authorization || req.headers.authorization;
-    if (authHeader && authHeader.startsWith("Bearer")) {
-        token = authHeader.split(" ")[1];
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECERT, (err: Error, decoded: any) => {
-            if (err) {
-                res.status(401);
-                throw new Error("User is not authorized");
+export const generateToken = async (email: string, hashedPassword: string) => {
+    const token = jwt.sign(
+        { email: email, password: hashedPassword },
+        process.env.ACCESS_TOKEN_SECRET
+    );
+    return token;
+};
+
+export const generateAccessToken = (email: string, hashedPassword: string) => {
+    const token = jwt.sign(
+        { email: email, password: hashedPassword },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION }
+    );
+    return token;
+};
+
+export const verifyToken = (req: any, res: any, next: any) => {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (typeof token !== "undefined") {
+        try {
+            const payload = jwt.verify(token, process.env.JWT_SECRET);
+            req.token = payload;
+            next();
+        } catch (err: any) {
+            console.log("JWT Verification Error:", err);
+            if (err.name === "TokenExpiredError") {
+                res.status(401).send({ message: "Token has expired" });
+            } else {
+                res.status(401).send({ message: "Invalid token" });
             }
+        }
+    } else {
+        console.log(token);
+        res.status(401).send({ message: "Access denied. Token is missing" });
+    }
+};
+
+export const generateRefreshToken = (email: string, hashedPassword: string) => {
+    const refreshToken = jwt.sign(
+        { email: email, password: hashedPassword },
+        process.env.REFRESH_SECRET,
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION }
+    );
+    return refreshToken;
+};
+
+export const verifyRefreshToken = async (refreshToken: string) => {
+    try {
+        const payload = await jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+        return payload.uid;
+    } catch (error: any) {
+        console.log(error.message);
+    }
+};
+
+export const validateToken = asyncHandler((req: any, res: any, next: any) => {
+    const authHeader = req.headers.authorization || req.headers.Authorization;
+    if (authHeader && authHeader.startsWith("Bearer")) {
+        const token = authHeader.split(" ")[1];
+        try {
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             req.user = decoded.user;
             next();
-        });
-
-        if (!token) {
+        } catch (err) {
             res.status(401);
-            throw new Error("User is not authorized or token is missing");
+            throw new Error("User is not authorized");
         }
+    } else {
+        res.status(401);
+        throw new Error("User is not authorized or token is missing");
     }
 });

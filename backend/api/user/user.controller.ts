@@ -1,10 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import AuthenticatedRequest from "../../interfaces/AuthenticatedRequest";
+import { generateToken } from "../../middlewares";
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
 const prisma = new PrismaClient();
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "";
 
 export const registerUser = async (req: Request, res: Response) => {
   const { email, password, number } = req.body;
@@ -30,29 +31,10 @@ export const registerUser = async (req: Request, res: Response) => {
       },
     });
 
-    const accessToken = jwt.sign(
-      {
-        userId: createdUser.uid,
-      },
-      accessTokenSecret,
-      { expiresIn: "15m" }
-    );
-
-    // Update the user with the generated access token
-    await prisma.user.update({
-      where: {
-        uid: createdUser.uid,
-      },
-      data: {
-        token: accessToken,
-      },
-    });
-
     res.status(201).json({
       message: "Registration is successful",
       _id: createdUser.uid,
       email: createdUser.email,
-      accessToken,
     });
   } catch (error) {
     console.error(error);
@@ -80,9 +62,7 @@ export const loginUser = async (req: Request, res: Response) => {
         .json({ message: "Authentication failed. Wrong password." });
     }
 
-    const accessToken = jwt.sign({ userId: user.uid }, accessTokenSecret, {
-      expiresIn: "1h",
-    });
+    const accessToken = generateToken(email, user.password);
 
     res.cookie("token", accessToken, { httpOnly: true, maxAge: 3600000 });
 
@@ -135,5 +115,28 @@ export const getAllUsers = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to fetch users" });
+  }
+};
+
+export const updateUserProfile = async (req: Request, res: Response) => {
+  const { profileImage, username, number } = req.body;
+  const { userId } = req.params;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: {
+        uid: userId,
+      },
+      data: {
+        profileImage: profileImage || undefined,
+        username: username || undefined,
+        number: number || undefined,
+      },
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to update user profile" });
   }
 };
