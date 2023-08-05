@@ -31,21 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        // leading: GestureDetector(
-        //   onTap: widget.onTap,
-        //   child: CircleAvatar(
-        //     radius: 20,
-        //     backgroundColor: Colors.white,
-        //     child: Center(
-        //         child: SvgPicture.asset(
-        //       'assets/svg/nav.svg',
-        //       height: 19,
-        //     )),
-        //   ),
-        // ),
-
         actions: [
           PopupMenuButton<int>(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             icon: const FaIcon(
               FontAwesomeIcons.sortDown,
               color: Colors.black,
@@ -53,9 +43,33 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             splashRadius: 20,
             itemBuilder: (context) => [
-              PopupMenuItem(child: const Text('Add Group'), onTap: () {}),
-              PopupMenuItem(child: const Text('Add Story'), onTap: () {}),
-              PopupMenuItem(child: const Text('Settings'), onTap: () {}),
+              PopupMenuItem(
+                child: Text(
+                  'Add Story',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                onTap: () {},
+              ),
+              PopupMenuItem(
+                child: Text(
+                  'Story Privacy',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                onTap: () {},
+              ),
+              PopupMenuItem(
+                child: Text(
+                  'Settings',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                onTap: () {},
+              ),
             ],
           ),
         ],

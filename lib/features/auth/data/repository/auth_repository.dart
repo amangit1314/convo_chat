@@ -155,18 +155,35 @@ class AuthRepository {
 
   Future<String> signInWithPhone(String phoneNumber) async {
     try {
+      String verificationId = '';
+
+      verificationCompleted(PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      }
+
+      verificationFailed(FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          log('The provided phone number is not valid.');
+        }
+        log(e.message.toString());
+      }
+
+      codeSent(String verId, int? resendToken) {
+        verificationId = verId;
+      }
+
+      codeAutoRetrievalTimeout(String verificationId) {}
+
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await auth.signInWithCredential(credential);
-        },
-        verificationFailed: (e) {
-          throw Exception(e.message);
-        },
-        codeSent: ((String verificationId, int? resendToken) async {}),
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        timeout: const Duration(seconds: 60),
       );
-      return 'success';
+
+      return verificationId;
     } on FirebaseAuthException catch (err) {
       log(err.toString());
       return 'failure';
@@ -176,7 +193,35 @@ class AuthRepository {
     }
   }
 
-  void verifyOTP({
+  Future<void> resendOTP(String phoneNumber) async {
+    try {
+      String verificationId = '';
+
+      codeSent(String verId, [int? resendToken]) async {
+        verificationId = verId;
+        // Handle the code sent to the user (e.g., display a UI for entering the code)
+      }
+
+      await auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        codeSent: codeSent,
+        timeout: const Duration(seconds: 60),
+        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {
+          if (e.code == 'invalid-phone-number') {
+            log('The provided phone number is not valid.');
+          }
+          log(e.message.toString());
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    } catch (e) {
+      log(e.toString());
+      throw Exception('Failed to resend OTP');
+    }
+  }
+
+  verifyOTP({
     required String verificationId,
     required String userOTP,
   }) async {
@@ -186,8 +231,10 @@ class AuthRepository {
         smsCode: userOTP,
       );
       await auth.signInWithCredential(credential);
+      return true;
     } on FirebaseAuthException catch (e) {
       log(e.message!);
+      return false;
     }
   }
 

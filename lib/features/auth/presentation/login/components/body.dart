@@ -16,11 +16,11 @@ class Body extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: size.height * .08),
+            SizedBox(height: size.height * .07),
             const Text(
-              'Login',
+              'Hello Again!',
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 24,
@@ -28,16 +28,16 @@ class Body extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            SizedBox(height: size.height * .008),
-            const Text(
+            SizedBox(height: size.height * .01),
+            Text(
               //'Enter your credentials to sign in and \nchat freely with your contacts, enjoy',
-              'Sign in with credentials and enjoy',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-                color: textColor,
-              ),
+              // 'Sign in with credentials and enjoy',
+              'Welcome back here we \n missed you so much',
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: textColor),
             ),
             SizedBox(height: size.height * .04),
             const LoginForm(),
@@ -47,16 +47,18 @@ class Body extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const MyText(
-                  text: 'Don\'t have an account?',
+                CustomText(
+                  text: 'Not a memeber?',
                   fontSize: 12,
+                  color: textColor,
                 ),
                 const SizedBox(width: 2),
                 TextButton(
-                  child: const MyText(
-                    text: 'Register',
-                    fontSize: 13,
-                    color: Colors.red,
+                  child: const CustomText(
+                    text: 'Register now',
+                    fontSize: 12,
+                    color: Colors.indigo,
+                    fontWeight: FontWeight.w600,
                   ),
                   onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute(

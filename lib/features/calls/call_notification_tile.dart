@@ -1,7 +1,7 @@
+import 'package:convo_chat/core/utils/theme/colors.dart';
 import 'package:convo_chat/features/calls/call_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 
 class CallNotificationTile extends StatelessWidget {
   final String img;
@@ -23,10 +23,9 @@ class CallNotificationTile extends StatelessWidget {
     return GestureDetector(
       child: Flexible(
         child: Container(
-          padding: const EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.only(bottom: 5, right: 5),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            //color: const Color.fromARGB(255, 110, 43, 244).withOpacity(.3),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -81,14 +80,15 @@ class CallNotificationTile extends StatelessWidget {
                           color: Colors.green,
                           size: 14,
                         ),
+                        const SizedBox(width: 4),
                         Text(
                           time,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: textColor,
+                                    fontSize: 12,
+                                  ),
                         ),
                       ],
                     ),
@@ -101,7 +101,11 @@ class CallNotificationTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Get.to(() => const CallInfoScreen());
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => const CallInfoScreen(),
+          ),
+        );
       },
     );
   }

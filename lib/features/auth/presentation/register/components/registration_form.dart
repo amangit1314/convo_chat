@@ -61,14 +61,21 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
                 _emailController.text.split('@')[0],
                 _emailController.text,
                 _passwordController.text,
+                _mobileNumberController.text,
               );
 
       if (result == 'success') {
         if (!mounted) return;
-        showSnackbar(context, Colors.green, "Registration is successful 🎉");
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
+
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            )
+            .then((value) => showSnackbar(
+                  context,
+                  Colors.green,
+                  "Registration is successful 🎉",
+                ));
       } else {
         if (!mounted) return;
         showSnackbar(context, Colors.red, result.toString());
@@ -85,11 +92,11 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .015),
           buildPasswordFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .015),
           buildEnterMobileNumberFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .035),
           AuthButton(
             onTap: register,
             name: 'Register',
@@ -212,7 +219,7 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
       labelText: 'Mobile Number',
       preIcon: const Icon(Icons.phone_android_outlined),
       contentPadding: 22,
-      textInputType: TextInputType.number,
+      textInputType: TextInputType.phone,
       isPass: false,
       onSaved: (newValue) => _mobileNumberController.text = newValue!,
       onChanged: (value) {

@@ -10,6 +10,7 @@ import '../../../../nav/presentation/bottom_nav.dart';
 import '../../../data/controller/auth_controller.dart';
 import '../../components/auth_button.dart';
 import '../../components/social_card.dart';
+import '../../otp/generate_otp_screen.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -52,10 +53,15 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
       if (result == 'success') {
         if (!mounted) return;
-        showSnackbar(context, Colors.green, "Authentication is successfull 🎉");
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const BottomNav()),
-        );
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(builder: (context) => const BottomNav()),
+            )
+            .then((value) => showSnackbar(
+                  context,
+                  Colors.green,
+                  "Authentication is successfull 🎉",
+                ));
       } else {
         if (!mounted) return;
         showSnackbar(context, Colors.red, result.toString());
@@ -80,26 +86,26 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .015),
           buildPasswordFormField(),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .035),
           AuthButton(
             onTap: loginUser,
             name: 'Login',
             bgColor: primaryColor,
           ),
-          SizedBox(height: size.height * .025),
+          SizedBox(height: size.height * .02),
           Row(
-            children: const [
-              Spacer(),
-              MyText(
+            children: [
+              const Spacer(),
+              CustomText(
                 text: 'forgot password?',
-                fontSize: 13,
-                color: primaryColor,
+                fontSize: 12,
+                color: textColor,
               ),
             ],
           ),
-          SizedBox(height: size.height * .06),
+          SizedBox(height: size.height * .04),
           Text(
             "continue with social media",
             textAlign: TextAlign.center,
@@ -108,7 +114,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 .bodyMedium!
                 .copyWith(color: textColor),
           ),
-          SizedBox(height: size.height * .03),
+          SizedBox(height: size.height * .02),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -130,8 +136,15 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ),
               ),
               SizedBox(width: size.width * .05),
-              const SocialCard(
-                icon: FaIcon(
+              SocialCard(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const GenerateOtpScreen(),
+                    ),
+                  );
+                },
+                icon: const FaIcon(
                   FontAwesomeIcons.phone,
                   size: 18,
                   color: primaryColor,

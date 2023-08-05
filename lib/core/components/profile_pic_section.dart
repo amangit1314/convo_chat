@@ -16,7 +16,7 @@ class ProfilePicSect extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
-          radius: 34,
+          radius: 32,
           child: Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -28,11 +28,11 @@ class ProfilePicSect extends StatelessWidget {
               ),
             ),
             child: CircleAvatar(
-              radius: 32,
+              radius: 30,
               backgroundColor: Colors.white,
               child: CircleAvatar(
                 backgroundImage: dpImage,
-                radius: 30,
+                radius: 28,
               ),
             ),
           ),

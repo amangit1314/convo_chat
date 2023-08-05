@@ -13,79 +13,77 @@ class Onboard1Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff22211F),
+      backgroundColor: primaryColor,
       body: SafeArea(
         child: ConstrainedBox(
           constraints:
               BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-          child: Flexible(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                const Spacer(),
-                Stack(
-                  children: [
-                    const Spacer(),
-                    Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              const Spacer(),
+              Stack(
+                children: [
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/images/convo_logo.png'),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 130.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/convo_logo.png'),
+                      children: const [
+                        Text(
+                          'Convo',
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: primaryLightColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 130.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            'Convo',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      'Freely chat with anyone!',
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
-                  ],
-                ),
-                const Spacer(),
-                Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        'Freely chat with anyone!',
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20.0, right: 20.0, top: 15),
+                    child: Text(
+                      'A secured and beautiful app to chat with friends, family and contacts.',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withOpacity(0.6),
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20.0, right: 20.0, top: 15),
-                      child: Text(
-                        'A secured and beautiful app to chat with friends, family and contacts.',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20, top: 50),
-                      child: AnimatedShadowContainer(),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-              ],
-            ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20, top: 50),
+                    child: AnimatedShadowContainer(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+            ],
           ),
         ),
       ),

@@ -28,23 +28,30 @@ class AnimatedShadowContainer extends StatefulWidget {
 
 class _AnimatedShadowContainerState extends State<AnimatedShadowContainer> {
   late Color _shadowColor;
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     _shadowColor = widget.shadowColor ?? Colors.grey.withOpacity(0.5);
-    startShadowAnimation();
+    _startShadowAnimation();
   }
 
-  void startShadowAnimation() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer to avoid memory leaks
+    super.dispose();
+  }
+
+  void _startShadowAnimation() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        _shadowColor = getRandomColor();
+        _shadowColor = _getRandomColor();
       });
     });
   }
 
-  Color getRandomColor() {
+  Color _getRandomColor() {
     final random = Random();
     return Color.fromARGB(
       255,

@@ -22,37 +22,35 @@ class MessageTile extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 8,
         bottom: 4,
-        left: sentByMe ? 30 : 12,
-        right: sentByMe ? 12 : 30,
+        left: sentByMe ? 12 : 20,
+        right: sentByMe ? 20 : 12,
       ),
-      alignment: sentByMe ? Alignment.centerLeft : Alignment.centerRight,
+      alignment: sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
         crossAxisAlignment:
-            sentByMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+            sentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          if (!sentByMe) ...[
-            Container(
-              margin: const EdgeInsets.only(right: 30),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              alignment: Alignment.centerRight,
-              child: Text(
-                sender,
-                textAlign: TextAlign.end,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor,
-                  letterSpacing: -0.5,
-                ),
+          Padding(
+            padding: sentByMe
+                ? const EdgeInsets.only(right: 5)
+                : const EdgeInsets.only(left: 0),
+            child: Text(
+              sender,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color:
+                    sentByMe ? popColor.shade400.withOpacity(.8) : primaryColor,
               ),
             ),
-            const SizedBox(height: 4),
-          ],
+          ),
+          const SizedBox(height: 6),
           Container(
             margin: sentByMe
-                ? const EdgeInsets.only(left: 30)
-                : const EdgeInsets.only(right: 30),
-            padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+                ? const EdgeInsets.only(left: 20)
+                : const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 14),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(20),
@@ -60,28 +58,28 @@ class MessageTile extends StatelessWidget {
                 bottomLeft: sentByMe ? const Radius.circular(20) : Radius.zero,
                 bottomRight: sentByMe ? Radius.zero : const Radius.circular(20),
               ),
-              color:
-                  sentByMe ? Theme.of(context).primaryColor : primaryLightColor,
+              color: sentByMe
+                  ? popColor.shade400.withOpacity(.8)
+                  : Colors.grey.shade100.withOpacity(.5),
             ),
             child: Text(
               message,
               textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 14,
-                color: sentByMe ? Colors.white : Colors.black,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: sentByMe ? Colors.white : primaryColor,
+                    fontSize: 12,
+                  ),
             ),
           ),
-          const SizedBox(height: 4),
-          Container(
-            margin: sentByMe
-                ? const EdgeInsets.only(left: 30)
-                : const EdgeInsets.only(right: 30),
-            padding: const EdgeInsets.only(left: 20, right: 20),
+          const SizedBox(height: 6),
+          Padding(
+            padding: sentByMe
+                ? const EdgeInsets.only(right: 0)
+                : const EdgeInsets.only(left: 5),
             child: Text(
               msgTime,
               textAlign: TextAlign.start,
-              style: const TextStyle(fontSize: 12, color: Colors.black),
+              style: TextStyle(fontSize: 10, color: textColor),
             ),
           ),
         ],

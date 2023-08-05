@@ -14,22 +14,16 @@ class CallsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "Recent Calls",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
+        centerTitle: true,
+        title: const Padding(
+          padding: EdgeInsets.only(top: 15.0),
+          child: Text(
+            "Recent Calls",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        leading: IconButton(
-          icon: const FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
         ),
       ),
       backgroundColor: Colors.white,
@@ -54,7 +48,7 @@ class CallsScreen extends StatelessWidget {
                     time: 'Today, 9:40 PM',
                     callIcon: const FaIcon(
                       FontAwesomeIcons.video,
-                      size: 24,
+                      size: 20,
                     ),
                   ),
                 ),
@@ -70,7 +64,7 @@ class CallsScreen extends StatelessWidget {
                     time: 'Today, 9:40 PM',
                     callIcon: const FaIcon(
                       FontAwesomeIcons.phone,
-                      size: 24,
+                      size: 20,
                     ),
                   ),
                 ),

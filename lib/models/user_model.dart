@@ -7,12 +7,13 @@ class UserModel {
   final String? name;
   final String email;
   final String? token;
+  final String? bio;
   final String? password;
   final String? number;
   final bool? isOnline;
-  final List<GroupModel>? addedGroups;
   final String? profilePic;
-  final String? bio;
+  final List<GroupModel>? joinedGroups;
+  final List<DirectChatRoomModel>? chats;
 
   UserModel({
     required this.uid,
@@ -22,9 +23,10 @@ class UserModel {
     this.token,
     this.number,
     this.isOnline,
-    this.addedGroups,
+    this.joinedGroups,
     this.profilePic,
     this.bio,
+    this.chats,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,24 +38,26 @@ class UserModel {
       'number': number,
       'isOnline': isOnline,
       'password': password,
-      'addedGroups': addedGroups?.map((group) => group.toMap()).toList(),
+      'joinedGroups': joinedGroups?.map((group) => group.toMap()).toList(),
       'profilePic': profilePic,
       'bio': bio,
+      'chats': chats,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       uid: map['uid'],
-      name: map['name'],
-      email: map['email'] ?? '',
+      name: map['name'] ?? 'Convo User',
+      email: map['email'],
       token: map['token'],
-      number: map['number'],
-      isOnline: map['isOnline'],
-      password: map['password'],
-      addedGroups: List<GroupModel>.from(map['addedGroups'] ?? []),
+      number: map['number'] ?? '',
+      isOnline: map['isOnline'] ?? false,
+      password: map['password'] ?? '12345678',
+      joinedGroups: List<GroupModel>.from(map['joinedGroups'] ?? []),
       profilePic: map['profilePic'],
-      bio: map['bio'],
+      bio: map['bio'] ?? '',
+      chats: map['chats'] ?? [],
     );
   }
 

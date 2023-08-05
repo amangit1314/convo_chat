@@ -34,14 +34,12 @@ class AuthController {
   }
 
   Future<String> register(
-    String name,
-    String email,
-    String password,
-  ) async {
+      String name, String email, String password, String? number) async {
     return await authRepository.register(
       fullName: name,
       email: email,
       password: password,
+      phoneNumber: number,
     );
   }
 
@@ -49,8 +47,8 @@ class AuthController {
     authRepository.signInWithPhone(phoneNumber);
   }
 
-  void verifyOTP(String verificationId, String userOTP) {
-    authRepository.verifyOTP(
+  Future<bool> verifyOTP(String verificationId, String userOTP) async {
+    return await authRepository.verifyOTP(
       verificationId: verificationId,
       userOTP: userOTP,
     );
@@ -82,7 +80,7 @@ class AuthController {
     );
   }
 
-  Stream<UserModel?> userDataById(String userId) {
+  Stream<UserModel> userDataById(String userId) {
     return authRepository.userData(userId);
   }
 
