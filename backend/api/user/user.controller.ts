@@ -1,11 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import AuthenticatedRequest from "../../interfaces/AuthenticatedRequest";
-import { generateToken } from "../../middlewares";
+import { generateAccessToken, generateRefresh } from "../../middlewares";
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
+// import { v4 as uuidv4 } from 'uuid';
+const uuid = require("uuid");
+function generateUUID() {
+ // generate uuid 
+  return uuid.v4().replace(/-/g,'');
+}
+
+const uid = generateUUID();
 
 export const registerUser = async (req: Request, res: Response) => {
   const { email, password, number } = req.body;
@@ -32,9 +40,13 @@ export const registerUser = async (req: Request, res: Response) => {
     });
 
     res.status(201).json({
-      message: "Registration is successful",
-      _id: createdUser.uid,
-      email: createdUser.email,
+      status: true,
+      data: {
+        email: createdUser.email,
+        _id: createdUser.uid,
+        message: "Registration is successful",
+      }
+      
     });
   } catch (error) {
     console.error(error);
@@ -62,13 +74,22 @@ export const loginUser = async (req: Request, res: Response) => {
         .json({ message: "Authentication failed. Wrong password." });
     }
 
-    const accessToken = generateToken(email, user.password);
+    const accessToken = generateAccessToken(email, user.password);
+    // generateRefresh token also
+    const refreshToken = generateRefresh();
 
     res.cookie("token", accessToken, { httpOnly: true, maxAge: 3600000 });
 
     res.status(200).json({
+      status: true,
       message: "Authentication successful.",
-      user: { id: user.uid, email: user.email, username: user.username },
+      data: {
+        id: user.uid,
+        email: user.email,
+        username: user.username,
+        accessToken: accessToken,
+        refreshToken,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -139,4 +160,4 @@ export const updateUserProfile = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ message: "Failed to update user profile" });
   }
-};
+};   

@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import ErrorResponse from './interfaces/ErrorResponse';
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
+const dotenv = require("dotenv");
+dotenv.config();
 
 export function notFound(req: Request, res: Response, next: NextFunction): void {
     res.status(404);
@@ -19,24 +21,16 @@ export function errorHandler(err: Error, req: Request, res: Response<ErrorRespon
     });
 }
 
-export const generateToken = async (email: string, hashedPassword: string) => {
-    const token = jwt.sign(
-        { email: email, password: hashedPassword },
-        process.env.ACCESS_TOKEN_SECRET
-    );
-    return token;
-};
-
 export const generateAccessToken = (email: string, hashedPassword: string) => {
     const token = jwt.sign(
         { email: email, password: hashedPassword },
         process.env.JWT_SECRET,
-        { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION }
+        { expiresIn: "7d" }
     );
     return token;
 };
 
-export const verifyToken = (req: any, res: any, next: any) => {
+export const verifyAccessToken = (req: any, res: any, next: any) => {
     const token = req.headers.authorization?.split(" ")[1];
 
     if (typeof token !== "undefined") {
@@ -58,18 +52,16 @@ export const verifyToken = (req: any, res: any, next: any) => {
     }
 };
 
-export const generateRefreshToken = (email: string, hashedPassword: string) => {
-    const refreshToken = jwt.sign(
-        { email: email, password: hashedPassword },
-        process.env.REFRESH_SECRET,
-        { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION }
-    );
-    return refreshToken;
-};
+// method to generate refersh token
+export const generateRefresh = () => {
+    return jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: "14d",
+  });
+}
 
 export const verifyRefreshToken = async (refreshToken: string) => {
     try {
-        const payload = await jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+        const payload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
         return payload.uid;
     } catch (error: any) {
         console.log(error.message);
