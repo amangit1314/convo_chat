@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:convo_chat/features/utils/resources/services/firebase/storage_methods.dart';
+import 'storage_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -29,35 +29,78 @@ class UserModel {
     this.chats,
   });
 
+  // Map<String, dynamic> toMap() {
+  //   return {
+  //     'uid': uid,
+  //     'name': name,
+  //     'email': email,
+  //     'token': token,
+  //     'number': number,
+  //     'isOnline': isOnline,
+  //     'password': password,
+  //     'joinedGroups': joinedGroups?.map((group) => group.toMap()).toList(),
+  //     'profilePic': profilePic,
+  //     'bio': bio,
+  //     'chats': chats,
+  //   };
+  // }
+
+  // factory UserModel.fromMap(Map<String, dynamic> map) {
+  //   return UserModel(
+  //     uid: map['uid'],
+  //     name: map['name'] ?? 'Convo User',
+  //     email: map['email'],
+  //     token: map['token'],
+  //     number: map['number'] ?? '',
+  //     isOnline: map['isOnline'] ?? false,
+  //     password: map['password'] ?? '12345678',
+  //     joinedGroups: List<GroupModel>.from(map['joinedGroups'] ?? []),
+  //     profilePic: map['profilePic'],
+  //     bio: map['bio'] ?? '',
+  //     chats: map['chats'] ?? [],
+  //   );
+  // }
+
+  // String toJson() => json.encode(toMap());
+
+  // factory UserModel.fromJson(String source) =>
+  //     UserModel.fromMap(json.decode(source));
+
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
       'name': name,
       'email': email,
       'token': token,
+      'bio': bio,
+      'password': password,
       'number': number,
       'isOnline': isOnline,
-      'password': password,
-      'joinedGroups': joinedGroups?.map((group) => group.toMap()).toList(),
       'profilePic': profilePic,
-      'bio': bio,
-      'chats': chats,
+      'joinedGroups': joinedGroups?.map((x) => x.toMap()).toList(),
+      'chats': chats?.map((x) => x.toMap()).toList(),
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'],
-      name: map['name'] ?? 'Convo User',
-      email: map['email'],
+      uid: map['uid'] ?? '',
+      name: map['name'],
+      email: map['email'] ?? '',
       token: map['token'],
-      number: map['number'] ?? '',
-      isOnline: map['isOnline'] ?? false,
-      password: map['password'] ?? '12345678',
-      joinedGroups: List<GroupModel>.from(map['joinedGroups'] ?? []),
+      bio: map['bio'],
+      password: map['password'],
+      number: map['number'],
+      isOnline: map['isOnline'],
       profilePic: map['profilePic'],
-      bio: map['bio'] ?? '',
-      chats: map['chats'] ?? [],
+      joinedGroups: map['joinedGroups'] != null
+          ? List<GroupModel>.from(
+              map['joinedGroups']?.map((x) => GroupModel.fromMap(x)))
+          : null,
+      chats: map['chats'] != null
+          ? List<DirectChatRoomModel>.from(
+              map['chats']?.map((x) => DirectChatRoomModel.fromMap(x)))
+          : null,
     );
   }
 

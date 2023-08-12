@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/theme/colors.dart';
+import '../../../../core/utils/theme/colors.dart';
 
 class MessageTile extends StatelessWidget {
   final String message;

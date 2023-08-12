@@ -195,10 +195,7 @@ class AuthRepository {
 
   Future<void> resendOTP(String phoneNumber) async {
     try {
-      String verificationId = '';
-
       codeSent(String verId, [int? resendToken]) async {
-        verificationId = verId;
         // Handle the code sent to the user (e.g., display a UI for entering the code)
       }
 

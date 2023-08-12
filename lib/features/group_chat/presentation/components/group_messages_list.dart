@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../core/components/message_tile.dart';
+import '../../../direct_chat/presentation/components/message_tile.dart';
 import '../../../direct_chat/data/controller/chat_controller.dart';
 import '../../../home/data/data.dart';
 

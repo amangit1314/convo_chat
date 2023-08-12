@@ -1,4 +1,4 @@
-import 'package:convo_chat/core/components/widgets.dart';
+import 'package:convo_chat/core/utils/router/navigation_helper.dart';
 import 'package:convo_chat/features/support_chat/support_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

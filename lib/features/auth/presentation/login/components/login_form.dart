@@ -5,7 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../core/components/custom_text.dart';
 import '../../../../../core/components/text_field_input.dart';
-import '../../../../../core/components/widgets.dart';
+import '../../../../../core/utils/router/navigation_helper.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../../nav/presentation/bottom_nav.dart';
 import '../../../data/controller/auth_controller.dart';
 import '../../components/auth_button.dart';
@@ -21,6 +22,7 @@ class LoginForm extends ConsumerStatefulWidget {
 
 class _LoginFormState extends ConsumerState<LoginForm> {
   final formKey = GlobalKey<FormState>();
+  bool isPasswordValid = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _passwordVisible = false;
@@ -53,18 +55,21 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
       if (result == 'success') {
         if (!mounted) return;
-        Navigator.of(context)
-            .push(
-              MaterialPageRoute(builder: (context) => const BottomNav()),
-            )
-            .then((value) => showSnackbar(
-                  context,
-                  Colors.green,
-                  "Authentication is successfull 🎉",
-                ));
+        nextScreenRemoveUntil(context, const BottomNav());
+        showSnackbar(
+          context,
+          Colors.green,
+          'Auth Successfull',
+          "Authentication is successfull 🎉",
+        );
       } else {
         if (!mounted) return;
-        showSnackbar(context, Colors.red, result.toString());
+        showSnackbar(
+          context,
+          Colors.red,
+          'Auth Error',
+          "Authentication error occur 😣",
+        );
       }
     }
   }
@@ -122,10 +127,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 onTap: () {
                   authController.signInWithGoogle().then(
                     (value) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const BottomNav()),
-                      );
+                      nextScreenRemoveUntil(context, const BottomNav());
                     },
                   );
                 },
@@ -138,11 +140,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               SizedBox(width: size.width * .05),
               SocialCard(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const GenerateOtpScreen(),
-                    ),
-                  );
+                  nextScreen(context, const GenerateOtpScreen());
                 },
                 icon: const FaIcon(
                   FontAwesomeIcons.phone,
@@ -179,42 +177,57 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       isPass: _passwordVisible ? false : true,
       onSaved: (newValue) => _passwordController.text = newValue!,
       onChanged: (value) {
-        if (value!.isNotEmpty) {
-          removeError(error: "Please enter your password");
-        } else if (value.length >= 8) {
+        // Validate password length
+        if (value!.length < 8) {
+          addError(error: "Password is too short");
+        } else {
           removeError(error: "Password is too short");
         }
 
-        // Check for at least 1 special character
+        // Check for special character
         if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+          addError(error: "Password must contain at least 1 special character");
+        } else {
           removeError(
               error: "Password must contain at least 1 special character");
         }
 
-        // Check for at least 1 capital letter
+        // Check for capital letter
         if (!value.contains(RegExp(r'[A-Z]'))) {
+          addError(error: "Password must contain at least 1 capital letter");
+        } else {
           removeError(error: "Password must contain at least 1 capital letter");
         }
 
-        // Check for at least 1 number
+        // Check for number
         if (!value.contains(RegExp(r'[0-9]'))) {
+          addError(error: "Password must contain at least 1 number");
+        } else {
           removeError(error: "Password must contain at least 1 number");
         }
+
         return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
           addError(error: "Please enter your password");
+          isPasswordValid = false;
           return "";
         } else if (value.length < 8) {
           addError(error: "Password is too short");
+          isPasswordValid = false;
           return "";
         } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
           addError(error: "Password must contain at least 1 special character");
+          isPasswordValid = false;
           return "";
         } else if (!value.contains(RegExp(r'[A-Z]'))) {
           addError(error: "Password must contain at least 1 capital letter");
+          isPasswordValid = false;
           return "";
+        } else {
+          removeError(error: "Please enter your password");
+          isPasswordValid = true;
         }
         return null;
       },
@@ -233,7 +246,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       onChanged: (value) {
         if (value != '') {
           removeError(error: "Please enter your email");
-        } else if (emailRegex.hasMatch(value!)) {
+        } else if (!emailRegex.hasMatch(value!)) {
+          addError(error: "Please enter a valid email");
+        } else {
           removeError(error: "Please enter a valid email");
         }
         return null;

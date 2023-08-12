@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../core/components/widgets.dart';
+import '../../../core/utils/router/navigation_helper.dart';
 import '../../../core/utils/config/size_config.dart';
 import '../../../core/utils/theme/colors.dart';
 import '../../support_chat/support_chat.dart';

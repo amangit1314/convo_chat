@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../core/components/text_field_input.dart';
-import '../../../../../core/components/widgets.dart';
+import '../../../../../core/utils/router/navigation_helper.dart';
+import '../../../../../core/utils/utils.dart';
 import '../../../data/controller/auth_controller.dart';
 import '../../components/auth_button.dart';
 
@@ -67,18 +68,17 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
       if (result == 'success') {
         if (!mounted) return;
 
-        Navigator.of(context)
-            .push(
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
-            )
-            .then((value) => showSnackbar(
-                  context,
-                  Colors.green,
-                  "Registration is successful 🎉",
-                ));
+        nextScreen(context, const LoginScreen());
+        showSnackbar(
+          context,
+          Colors.green,
+          'Registration Successfull',
+          "Registration is successful 🎉",
+        );
       } else {
         if (!mounted) return;
-        showSnackbar(context, Colors.red, result.toString());
+        showSnackbar(
+            context, Colors.red, 'Registeration Error 🤬', result.toString());
       }
     }
   }

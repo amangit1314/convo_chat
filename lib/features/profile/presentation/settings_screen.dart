@@ -2,8 +2,8 @@ import 'package:convo_chat/core/utils/theme/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../../core/utils/config/size_config.dart';
+import 'components/settings_section_widget.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -66,96 +66,119 @@ class _SettingsState extends State<Settings> {
             color: primaryColor,
           ),
         ),
-        title: const Text(
+        title: Text(
           'Settings',
-          style: TextStyle(color: primaryColor),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
         ),
         // centerTitle: true,
       ),
-      body: Column(
-        children: [
-          // image with 300 height
-          // SizedBox(
-          //   height: 240,
-          //   child: Image.network(
-          //     "https://firebasestorage.googleapis.com/v0/b/tokoto-ecommerce-app.appspot.com/o/illustrationsAndSplash%2Fsettings.png?alt=media&token=79a2fd6d-7c2f-4b08-8de0-e4046d4b214c",
-          //   ),
-          // ),
-          Column(
-            children: [
-              // sized box 20
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            SettingsSectionWidget(
+              title: 'Notifications',
+              description: 'Turn on & off notifications',
+              value: _notificationPermissionEnabled,
+              onValueChanged: _toggleNotificationPermission,
+            ),
+            SettingsSectionWidget(
+              title: 'Read receipts',
+              description: 'Turn off message is seen feature',
+              value: _notificationPermissionEnabled,
+              onValueChanged: _toggleNotificationPermission,
+            ),
+            SettingsSectionWidget(
+              title: 'Media Access',
+              description: 'If not given wont able to access media from device',
+              value: _notificationPermissionEnabled,
+              onValueChanged: _toggleNotificationPermission,
+            ),
+            SettingsSectionWidget(
+              title: 'Location',
+              description: 'Permission to access live location of device',
+              value: _notificationPermissionEnabled,
+              onValueChanged: _toggleNotificationPermission,
+            ),
+            SettingsSectionWidget(
+              title: 'Camera',
+              description: 'Permission to access camera of device',
+              value: _notificationPermissionEnabled,
+              onValueChanged: _toggleNotificationPermission,
+            ),
+            SettingsSectionWidget(
+              title: 'Theme',
+              description: 'Turn on or off dark mode',
+              value: _notificationPermissionEnabled,
+              onValueChanged: _toggleNotificationPermission,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Divider(
+                thickness: 1,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Themes',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: getProportionateScreenHeight(16),
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .6,
+                    child: Text(
+                      'Choose custom themes for app',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
+                    ),
+                  ),
+                  // divider with padding all 10
+
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
                       children: [
-                        Text(
-                          'Notifications',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: getProportionateScreenHeight(16),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                        Text(
-                          'Turn on & off notifications',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    // fontSize: getProportionateScreenHeight(16),
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
+                        _buildThemeOption(Colors.red),
+                        _buildThemeOption(Colors.blue),
+                        _buildThemeOption(Colors.green),
+                        _buildThemeOption(Colors.purple),
+                        _buildThemeOption(Colors.orange),
+                        _buildThemeOption(Colors.pink),
+                        _buildThemeOption(Colors.teal),
                       ],
                     ),
-                    buildIOSSwitch(),
-                  ],
-                ),
-              )
-              // SwitchListTile(
-              //   title: const Text('Notifications'),
-              //   value: _notificationPermissionEnabled,
-              //   onChanged: (_) => _toggleNotificationPermission(),
-              // ),
-              // ListTile(
-              //   onTap: () {},
-              //   leading: const FaIcon(
-              //     FontAwesomeIcons.ticket,
-              //     color: primaryColor,
-              //   ),
-              //   title: const Text('Change Currency'),
-              //   subtitle: const Text(
-              //     'USD',
-              //     maxLines: 3,
-              //     overflow: TextOverflow.ellipsis,
-              //   ),
-              //   trailing: buildIOSSwitch(),
-              // ),
-              // ListTile(
-              //   onTap: () {},
-              //   leading: ColorFiltered(
-              //     colorFilter:
-              //         const ColorFilter.mode(primaryColor, BlendMode.srcIn),
-              //     child: SvgPicture.asset(
-              //       "assets/icons/Bell.svg",
-              //       width: 18,
-              //     ),
-              //   ),
-              //   title: const Text('Notification'),
-              //   subtitle: const Text(
-              //     'On',
-              //     maxLines: 3,
-              //     overflow: TextOverflow.ellipsis,
-              //   ),
-              //   trailing: buildIOSSwitch(),
-              // ),
-            ],
-          ),
-        ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildThemeOption(Color color) {
+    return Container(
+      height: getProportionateScreenHeight(100),
+      width: getProportionateScreenWidth(80),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: const EdgeInsets.only(right: 10, top: 10),
     );
   }
 }

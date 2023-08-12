@@ -36,7 +36,27 @@ class DialogHelper {
   }
 
   //show toast
+  static void showToast(String message) {
+    Get.snackbar(
+      'Error',
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+  }
+
   //show snack bar
+  showSnackbar() {
+    Get.snackbar(
+      'Error',
+      'Something went wrong',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+  }
+
   //show loading
   static void showLoading(String message) {
     Get.dialog(

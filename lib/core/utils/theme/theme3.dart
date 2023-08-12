@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/utils/theme/colors.dart';
+import 'colors.dart';
 
 ThemeData theme() {
   return ThemeData(

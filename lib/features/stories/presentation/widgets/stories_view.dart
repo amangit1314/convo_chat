@@ -1,8 +1,8 @@
 import 'package:convo_chat/features/stories/presentation/story_content_screen.dart';
-import 'package:convo_chat/features/stories/presentation/story_item.dart';
+import 'package:convo_chat/features/stories/presentation/widgets/story_item.dart';
 import 'package:flutter/material.dart';
 
-import '../home/data/data.dart';
+import '../../../home/data/data.dart';
 
 class StoriesView extends StatelessWidget {
 //ConsumerWidget {

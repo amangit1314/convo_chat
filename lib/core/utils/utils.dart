@@ -1,5 +1,4 @@
-// ignore_for_file: avoid_print
-
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
@@ -8,25 +7,39 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
-// for displaying snackbar for error
-showErrorSnackBar(BuildContext context, String text) {
-  return Get.snackbar(
-    "Error",
-    text,
-    snackPosition: SnackPosition.BOTTOM,
-    colorText: Colors.white,
-    backgroundColor: Colors.red,
+showSnackbar(context, color, title, message) {
+  Get.showSnackbar(
+    GetSnackBar(
+      title: title,
+      message: message,
+      duration: const Duration(seconds: 1),
+      borderRadius: 14,
+      backgroundColor: color,
+      snackPosition: SnackPosition.BOTTOM,
+    ),
   );
 }
 
-// for picking up image from gallery
+showErrorSnackBar(context, title, message) {
+  Get.showSnackbar(
+    GetSnackBar(
+      title: title,
+      message: message,
+      duration: const Duration(seconds: 1),
+      borderRadius: 14,
+      backgroundColor: Colors.red,
+      snackPosition: SnackPosition.BOTTOM,
+    ),
+  );
+}
+
 pickImage(ImageSource source) async {
   final ImagePicker imagePicker = ImagePicker();
   XFile? file = await imagePicker.pickImage(source: source);
   if (file != null) {
     return await file.readAsBytes();
   }
-  print('No Image Selected');
+  log('No Image Selected');
 }
 
 Future<File?> pickImageFromGallery(BuildContext context) async {
@@ -39,7 +52,7 @@ Future<File?> pickImageFromGallery(BuildContext context) async {
       image = File(pickedImage.path);
     }
   } catch (e) {
-    showErrorSnackBar(context, e.toString());
+    showErrorSnackBar(context, 'Image Pick Error', e.toString());
   }
   return image;
 }
@@ -54,7 +67,7 @@ Future<File?> pickVideoFromGallery(BuildContext context) async {
       video = File(pickedVideo.path);
     }
   } catch (e) {
-    showErrorSnackBar(context, e.toString());
+    showErrorSnackBar(context, 'Video Pick Error', e.toString());
   }
   return video;
 }
@@ -67,7 +80,7 @@ Future<GiphyGif?> pickGIF(BuildContext context) async {
       apiKey: 'pwXu0t7iuNVm8VO5bgND2NzwCpVH9S0F',
     );
   } catch (e) {
-    showErrorSnackBar(context, e.toString());
+    showErrorSnackBar(context, 'GIF Pick Error', e.toString());
   }
   return gif;
 }
@@ -78,7 +91,6 @@ String generateId() {
 }
 
 Color convertStringToColor(String hexColor) {
-  // String hexColor = "#567890";
   Color color =
       Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
   return color;

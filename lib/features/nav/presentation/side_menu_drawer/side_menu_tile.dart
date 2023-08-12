@@ -19,39 +19,40 @@ class SideMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        AnimatedPositioned(
-          curve: Curves.fastOutSlowIn,
-          duration: const Duration(milliseconds: 300),
-          height: 56,
-          width: isActive ? 288 : 0,
-          child: Container(
+    return GestureDetector(
+      onTap: press,
+      child: Stack(
+        children: [
+          AnimatedContainer(
+            curve: Curves.fastOutSlowIn,
+            duration: const Duration(milliseconds: 300),
+            height: 56,
+            width: isActive ? 288 : 0,
             decoration: const BoxDecoration(
               color: Colors.deepPurpleAccent,
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
           ),
-        ),
-        ListTile(
-          onTap: () {},
-          leading: SizedBox(
-            height: 34,
-            width: 34,
-            child: RiveAnimation.asset(
-              menu.src,
-              artboard: menu.artboard,
-              onInit: riveonInit,
+          ListTile(
+            onTap: () {},
+            leading: SizedBox(
+              height: 34,
+              width: 34,
+              child: RiveAnimation.asset(
+                menu.src,
+                artboard: menu.artboard,
+                onInit: riveonInit,
+              ),
+            ),
+            title: Text(
+              menu.title,
+              style: const TextStyle(
+                color: Colors.white70,
+              ),
             ),
           ),
-          title: Text(
-            menu.title,
-            style: const TextStyle(
-              color: Colors.white70,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

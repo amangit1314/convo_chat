@@ -5,7 +5,7 @@ import 'package:convo_chat/features/profile/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../core/components/widgets.dart';
+import '../../../../core/utils/router/navigation_helper.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 

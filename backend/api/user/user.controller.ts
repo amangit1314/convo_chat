@@ -9,8 +9,8 @@ const prisma = new PrismaClient();
 // import { v4 as uuidv4 } from 'uuid';
 const uuid = require("uuid");
 function generateUUID() {
- // generate uuid 
-  return uuid.v4().replace(/-/g,'');
+  // generate uuid 
+  return uuid.v4().replace(/-/g, '');
 }
 
 const uid = generateUUID();
@@ -46,7 +46,7 @@ export const registerUser = async (req: Request, res: Response) => {
         _id: createdUser.uid,
         message: "Registration is successful",
       }
-      
+
     });
   } catch (error) {
     console.error(error);

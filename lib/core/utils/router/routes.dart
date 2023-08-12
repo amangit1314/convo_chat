@@ -3,13 +3,13 @@ import 'package:convo_chat/features/nav/presentation/bottom_nav.dart';
 import 'package:convo_chat/features/onboard/presentation/onboard_1.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/auth/presentation/login/login_screen.dart';
-import '../../features/auth/presentation/register/register_screen.dart';
-import '../../features/calls/calls_screen.dart';
-import '../../features/home/presentation/home_screen.dart';
-import '../../features/onboard/presentation/onboard_2.dart';
-import '../../features/profile/presentation/profile_screen.dart';
-import '../components/components.dart';
+import '../../../features/auth/presentation/login/login_screen.dart';
+import '../../../features/auth/presentation/register/register_screen.dart';
+import '../../../features/calls/calls_screen.dart';
+import '../../../features/home/presentation/home_screen.dart';
+import '../../../features/onboard/presentation/onboard_2.dart';
+import '../../../features/profile/presentation/profile_screen.dart';
+import '../../components/components.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

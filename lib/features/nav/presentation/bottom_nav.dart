@@ -10,6 +10,7 @@ import 'side_menu_drawer/menu_drawer_button.dart';
 
 class BottomNav extends StatefulWidget {
   static const routeName = '/bottomNav';
+
   const BottomNav({super.key});
 
   @override
@@ -18,8 +19,6 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
   bool isSideMenuClosed = true;
-  // RiveAsset selectedBottomNav = bottomNavs.first;
-
   late int _selected = 0;
   late bool _isAnimating;
 
@@ -39,15 +38,19 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
         setState(() {});
       });
 
-    animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.fastOutSlowIn,
-    ));
+    animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.fastOutSlowIn,
+      ),
+    );
 
-    scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.fastOutSlowIn,
-    ));
+    scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.fastOutSlowIn,
+      ),
+    );
   }
 
   void close() => _animationController.reverse();
@@ -107,7 +110,8 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                   child: GestureDetector(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(
-                          _animationController.isCompleted ? 24 : 0),
+                        _animationController.isCompleted ? 24 : 0,
+                      ),
                       child: pages[_selected],
                     ),
                   ),
@@ -150,59 +154,31 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    GestureDetector(
-                      onTap: () => {
-                        setState(() {
-                          _selected = 0;
-                        })
-                      },
-                      child: FaIcon(
-                        FontAwesomeIcons.facebookMessenger,
-                        color: _selected == 0 ? popColor : primaryLightColor,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => {
-                        setState(() {
-                          _selected = 1;
-                        })
-                      },
-                      child: FaIcon(
-                        FontAwesomeIcons.userGroup,
-                        size: 20,
-                        color: _selected == 1 ? popColor : primaryLightColor,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => {
-                        setState(() {
-                          _selected = 2;
-                        })
-                      },
-                      child: FaIcon(
-                        FontAwesomeIcons.mobile,
-                        // size: 20,
-                        color: _selected == 2 ? popColor : primaryLightColor,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => {
-                        setState(() {
-                          _selected = 3;
-                        })
-                      },
-                      child: FaIcon(
-                        // size: 20,
-                        FontAwesomeIcons.circleUser,
-                        color: _selected == 3 ? popColor : primaryLightColor,
-                      ),
-                    ),
+                    _buildNavIcon(0, FontAwesomeIcons.facebookMessenger),
+                    _buildNavIcon(1, FontAwesomeIcons.userGroup, size: 20),
+                    _buildNavIcon(2, FontAwesomeIcons.mobile),
+                    _buildNavIcon(3, FontAwesomeIcons.circleUser),
                   ],
                 ),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildNavIcon(int index, IconData icon, {double? size}) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selected = index;
+        });
+      },
+      child: FaIcon(
+        icon,
+        size: size,
+        color: _selected == index ? popColor : primaryLightColor,
       ),
     );
   }

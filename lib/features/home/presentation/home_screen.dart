@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    // StreamChatCore.of(context).client.
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,37 +43,37 @@ class _HomeScreenState extends State<HomeScreen> {
             splashRadius: 20,
             itemBuilder: (context) => [
               PopupMenuItem(
+                value: 0,
                 child: Text(
                   'Add Story',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
-                onTap: () {},
               ),
               PopupMenuItem(
+                value: 1,
                 child: Text(
                   'Story Privacy',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
-                onTap: () {},
               ),
               PopupMenuItem(
+                value: 2,
                 child: Text(
                   'Settings',
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
-                onTap: () {},
               ),
             ],
           ),
         ],
       ),
-      body: const Body(),
+      body: const HomeBody(),
     );
   }
 }

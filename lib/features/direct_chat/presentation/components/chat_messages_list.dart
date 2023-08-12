@@ -1,4 +1,4 @@
-import 'package:convo_chat/core/components/message_tile.dart';
+import 'package:convo_chat/features/direct_chat/presentation/components/message_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
