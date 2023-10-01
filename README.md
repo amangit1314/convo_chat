@@ -1,16 +1,37 @@
 # convo_chat
 
-A new Flutter project.
+A chat application for the people to communicate by means of text, video and voice, where they can also set stories, see who viewed it, control who can view, etc
 
-## Getting Started
+## Created and Planned Screens + Components
 
-This project is a starting point for a Flutter application.
+- [x] Onboard Screen
+- [x] Login Screen
+- [x] Register Screen
+- [] Forgot Password Screen
+- [] Google SignIn Screen
+- [] Apple SignIn Screen
+- [] Mobile Number SignIn Screen
+- [] OTP Screen
+- [x] Chat Screen
+- [x] Drawer
+- [x] Bottom Nav Bar
+- [x] Settings Screen
+- [x] Profile Screen
+- [x] One to one char Screen
+- [x] Status list view
+- [x] Add status screen
+- [x] Status View screen
+- [x] Group chat Screen
+- [x] Group chat list Screen
+- [x] Calls list Screen
+- [] Video Call Screen
+- [] Group Video Call Screen
+- [] Voice Call Screen
 
-A few resources to get you started if this is your first Flutter project:
+## Current progress of convo app
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [x] Create a chat application ui.
+- [x] Login Flow
+- [ ] Integrate Chat Server
+- [ ] Integrate Video and Voice Calls
+- [ ] Integrate Status functionality
