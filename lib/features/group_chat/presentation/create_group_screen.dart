@@ -7,8 +7,7 @@ class CreateGroupScreen extends StatefulWidget {
   static const routeName = '/createGroup';
   final String imageAssetUrl;
 
-  const CreateGroupScreen({Key? key, required this.imageAssetUrl})
-      : super(key: key);
+  const CreateGroupScreen({Key? key, required this.imageAssetUrl}) : super(key: key);
 
   @override
   State<CreateGroupScreen> createState() => _CreateGroupScreenState();
@@ -60,13 +59,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon:
-                          const Icon(Icons.arrow_back_ios, color: Colors.black),
+                      icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.cancel_outlined,
-                          color: Colors.black),
+                      icon: const Icon(Icons.cancel_outlined, color: Colors.black),
                       onPressed: () {},
                     ),
                   ],
@@ -115,17 +112,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: primaryColor),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
                       controller: _groupNameController,
                       decoration: InputDecoration(
                         hintText: 'Group name',
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: primaryColor.withOpacity(.7)),
+                        hintStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor.withOpacity(.7)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -150,8 +142,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     const SizedBox(height: 10),
                     Container(
                       // all 2
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, bottom: 10),
+                      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       decoration: BoxDecoration(
                         // border 1 width
                         border: Border.all(
@@ -162,19 +153,14 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       ),
                       child: TextFormField(
                         maxLength: 100,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: primaryColor),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
                         controller: _groupNameController,
                         decoration: InputDecoration(
                           hintText: 'Group description',
                           // no border
                           border: InputBorder.none,
-                          hintStyle: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: primaryColor.withOpacity(.7)),
+                          hintStyle:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor.withOpacity(.7)),
                         ),
                       ),
                     ),
@@ -182,13 +168,13 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
+              const Padding(
+                padding: EdgeInsets.all(15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           'Participants:',
                           style: TextStyle(
@@ -211,8 +197,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 15),
-                    const ParticipantWidget(),
+                    SizedBox(height: 15),
+                    ParticipantWidget(),
                   ],
                 ),
               ),

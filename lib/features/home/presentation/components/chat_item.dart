@@ -36,7 +36,9 @@ class _ChatItemState extends State<ChatItem> {
         padding: const EdgeInsets.only(right: 8),
         height: 85,
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(color: Colors.white),
+        decoration: BoxDecoration(
+          color: Theme.of(context).canvasColor,
+        ),
         child: Row(
           children: [
             ProfilePicSect(dpImage: widget.personDpImg, messageCount: 0),

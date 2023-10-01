@@ -6,9 +6,7 @@ import '../../../home/data/data.dart';
 
 class StoriesView extends StatelessWidget {
 //ConsumerWidget {
-  const StoriesView({
-    Key? key,
-  }) : super(key: key);
+  const StoriesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

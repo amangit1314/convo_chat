@@ -69,9 +69,7 @@ class HelpCenter extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           const ListTile(
             leading: CircleAvatar(
               backgroundColor: primaryColor,
@@ -95,12 +93,7 @@ class HelpCenter extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(
-              top: 2.0,
-              bottom: 2.0,
-              left: 15,
-              right: 15,
-            ),
+            padding: EdgeInsets.only(top: 2.0, bottom: 2.0, left: 15, right: 15),
             child: Divider(
               thickness: 1,
             ),

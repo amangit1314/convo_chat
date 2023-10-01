@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../direct_chat/presentation/direct_chat_screen.dart';
@@ -16,7 +15,7 @@ class LocalChatItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => OneToOneChatScreen(
+            builder: (context) => DirectChatScreen(
               imgAssetUrl: conversationsDummyData[index][0],
               username: conversationsDummyData[index][1],
               receiverId: conversationsDummyData[index][5],

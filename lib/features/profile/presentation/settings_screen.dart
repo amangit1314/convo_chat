@@ -1,6 +1,8 @@
 import 'package:convo_chat/core/utils/theme/colors.dart';
+import 'package:convo_chat/core/utils/theme/cubit/theme_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/utils/config/size_config.dart';
 import 'components/settings_section_widget.dart';
@@ -14,6 +16,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   bool _notificationPermissionEnabled = false;
+  bool _isDarkMode = false;
 
   @override
   void initState() {
@@ -37,6 +40,13 @@ class _SettingsState extends State<Settings> {
     } else {
       openAppSettings();
     }
+  }
+
+  void toggleTheme() async {
+    context.read<ThemeCubit>().toggleTheme();
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
   }
 
   Widget buildIOSSwitch() => Transform.scale(
@@ -113,8 +123,8 @@ class _SettingsState extends State<Settings> {
             SettingsSectionWidget(
               title: 'Theme',
               description: 'Turn on or off dark mode',
-              value: _notificationPermissionEnabled,
-              onValueChanged: _toggleNotificationPermission,
+              value: _isDarkMode,
+              onValueChanged: toggleTheme,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),

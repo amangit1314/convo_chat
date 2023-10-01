@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../data/static_data.dart';
+import '../../core/data/static_data.dart';
 import 'call_notification_tile.dart';
 
 class CallsScreen extends StatelessWidget {

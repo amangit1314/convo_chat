@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/theme/colors.dart';
-import 'components/chat_messages_list.dart';
+import '../../group_chat/presentation/components/group_messages_list.dart';
 import 'components/custom_chat_app_bar.dart';
 import 'components/message_input_bottom_bar.dart';
 
-class OneToOneChatScreen extends StatefulWidget {
+class DirectChatScreen extends StatefulWidget {
   final String receiverId;
   final String imgAssetUrl;
   final String username;
   final String time;
-  const OneToOneChatScreen({
+  const DirectChatScreen({
     super.key,
     required this.receiverId,
     required this.imgAssetUrl,
@@ -19,10 +19,10 @@ class OneToOneChatScreen extends StatefulWidget {
   });
 
   @override
-  State<OneToOneChatScreen> createState() => _OneToOneChatScreenState();
+  State<DirectChatScreen> createState() => _DirectChatScreenState();
 }
 
-class _OneToOneChatScreenState extends State<OneToOneChatScreen> {
+class _DirectChatScreenState extends State<DirectChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,8 @@ class _OneToOneChatScreenState extends State<OneToOneChatScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            ChatMessagesList(receiverId: widget.receiverId),
+            // ChatMessagesList(receiverId: widget.receiverId),
+            GroupMessagesList(groupId: widget.receiverId),
             MessageInputBottomBar(receiverId: widget.receiverId),
           ],
         ),

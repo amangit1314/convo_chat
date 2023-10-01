@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../core/utils/theme/colors.dart';
-import '../../data/static_data.dart';
+import '../../core/data/static_data.dart';
 
 class CallInfoScreen extends StatelessWidget {
   const CallInfoScreen({super.key});
